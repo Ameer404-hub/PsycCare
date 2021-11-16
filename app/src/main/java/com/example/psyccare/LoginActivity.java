@@ -32,4 +32,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         } ,3000);
     }
+
+    public void gotoSignUp(View view) {
+        Intent Move = new Intent(getApplicationContext(), SignupActivity.class);
+        startActivity(Move);
+        finish();
+    }
 }
