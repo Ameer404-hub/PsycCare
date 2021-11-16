@@ -7,4 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="TextColorPrimary">#000000</color>
+    <color name="TextColorSecondary">#FFFFFF</color>
+
+    <color name="ProgressbarPrimary">#65DBEC</color>
+    <color name="ProgressbarInsidePrimary">#FFFFFF</color>
+
+    <color name="ButtonColorPrimary">#FFEB3B</color>
+    <color name="ButtonTextColorPrimary">#FFFFFF</color>
+    <color name="ToolbarColorPrimary">#FFEB3B</color>
+    <color name="ToolbarTextColorPrimary">#000000</color>
 </resources>

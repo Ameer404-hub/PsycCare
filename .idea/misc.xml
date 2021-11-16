@@ -3,8 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/color_cursor.xml" value="0.2203125" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/ic_outline_email_24.xml" value="0.2203125" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/loading_button.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/splash.xml" value="0.2203125" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-800x480/activity_login.xml" value="0.49" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-land/activity_login.xml" value="0.2203125" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-large/activity_login.xml" value="0.16" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-large/activity_splash.xml" value="0.18" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-ldpi/activity_login.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-normal/activity_login.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-normal/activity_splash.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-small/activity_login.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-small/activity_splash.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_signup.xml" value="0.19947916666666668" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_splash.xml" value="0.22" />
       </map>
     </option>
   </component>
