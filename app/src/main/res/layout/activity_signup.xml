@@ -131,6 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_centerVertical="true"
+            android:layout_gravity="left"
             android:fontFamily="@font/metrophobic"
             android:text="I agree with the Terms and Conditions and the Privacy Policy"
             android:textColor="#858484" />
