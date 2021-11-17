@@ -13,6 +13,7 @@ public class SignupActivity extends AppCompatActivity {
 
     CircularProgressButton signupBtn;
     Handler handler;
+    String TestingPushGithub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
