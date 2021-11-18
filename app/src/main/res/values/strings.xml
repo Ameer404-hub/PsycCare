@@ -1,3 +1,17 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">PsycCare</string>
+
+<!--  activity_login_strings  -->
+    <string name="app_logo_str">App Logo</string>
+    <string name="login_str">Please fill in your login credentials</string>
+    <string name="email_str">Email</string>
+    <string name="pass_str">Password</string>
+    <string name="rem_me_str">Remember me</string>
+    <string name="forget_pass_str">Forget Password?</string>
+    <string name="login_btn_str">Log In</string>
+    <string name="other_opt_str">or connect using</string>
+    <string name="google_str">Google</string>
+    <string name="facebook_str">Facebook</string>
+    <string name="no_acc_str">Dont have an account? </string>
+    <string name="signup_str">Sign up</string>
 </resources>

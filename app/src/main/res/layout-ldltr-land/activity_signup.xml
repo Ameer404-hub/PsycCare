@@ -30,13 +30,14 @@
                 android:layout_height="75dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:contentDescription="@string/app_logo_str"
                 android:src="@drawable/logo" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/alfa_slab_one"
-                android:text="PsycCare"
+                android:text="@string/app_name"
                 android:textColor="@color/black"
                 android:textSize="28dp" />
 
