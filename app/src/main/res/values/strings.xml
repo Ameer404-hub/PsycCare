@@ -12,6 +12,15 @@
     <string name="other_opt_str">or connect using</string>
     <string name="google_str">Google</string>
     <string name="facebook_str">Facebook</string>
-    <string name="no_acc_str">Dont have an account? </string>
+    <string name="no_acc_str">Don\'t have an account?</string>
     <string name="signup_str">Sign up</string>
+
+    <!--  activity_signup_strings  -->
+    <string name="signup_acc_str">Enter following details to create an account</string>
+    <string name="name_acc_str">Name</string>
+    <string name="con_pass_str">Confirm Password</string>
+    <string name="TC_str">I agree with the Terms and Conditions and the Privacy Policy</string>
+    <string name="other_opt_signup_str">or continue with</string>
+    <string name="Hv_acc_str">Already have an account? </string>
+    <string name="login_here_str">Log In</string>
 </resources>

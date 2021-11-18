@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.TextView;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 
 public class LoginActivity extends AppCompatActivity {
 
     CircularProgressButton loginBtn;
+    TextView gotoSignUp;
     Handler handler;
 
     @Override
@@ -20,22 +22,30 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginBtn = findViewById(R.id.login_btn);
-    }
+        gotoSignUp = findViewById(R.id.signUp_str);
 
-    public void validateUser(View view) {
-        loginBtn.startAnimation();
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                loginBtn.revertAnimation();
+            public void onClick(View v) {
+                loginBtn.startAnimation();
+                handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loginBtn.revertAnimation();
+                    }
+                } ,3000);
             }
-        } ,3000);
-    }
+        });
 
-    public void gotoSignUp(View view) {
-        Intent Move = new Intent(getApplicationContext(), SignupActivity.class);
-        startActivity(Move);
-        finish();
+        gotoSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Move = new Intent(getApplicationContext(), SignupActivity.class);
+                startActivity(Move);
+                finish();
+            }
+        });
+
     }
 }

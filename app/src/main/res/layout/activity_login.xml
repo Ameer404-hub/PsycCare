@@ -149,7 +149,7 @@
                 android:id="@+id/opt_left_line"
                 android:layout_width="100dp"
                 android:layout_height="0.1dp"
-                android:background="#858484" />
+                android:background="#757575" />
 
             <TextView
                 android:id="@+id/other_opts_str"
@@ -166,7 +166,7 @@
                 android:id="@+id/opt_right_line"
                 android:layout_width="100dp"
                 android:layout_height="0.1dp"
-                android:background="#858484" />
+                android:background="#757575" />
 
         </LinearLayout>
 
@@ -174,7 +174,7 @@
             android:id="@+id/opts_icon_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
+            android:layout_marginTop="5sp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -253,8 +253,7 @@
                 android:text="@string/signup_str"
                 android:textColor="#65DBEC"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
