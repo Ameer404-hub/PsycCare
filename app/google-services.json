@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "334385992299",
+    "project_id": "psyccare",
+    "storage_bucket": "psyccare.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334385992299:android:b46b5466cca6d7e03ad72e",
+        "android_client_info": {
+          "package_name": "com.example.psyccare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334385992299-o5a3gjleqqm3bp81pekb6mepmgtvlri3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCulMevVxPWZy2HqV_rIOnKoVmoixPZNhw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334385992299-o5a3gjleqqm3bp81pekb6mepmgtvlri3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
