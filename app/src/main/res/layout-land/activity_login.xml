@@ -189,7 +189,8 @@
                     android:layout_gravity="center"
                     android:contentDescription="@string/google_str"
                     android:padding="5dp"
-                    android:src="@drawable/googlelogo" />
+                    android:src="@drawable/googlelogo"
+                    android:onClick="signInWithGmail"/>
 
                 <TextView
                     android:id="@+id/googleLogoName"
@@ -198,7 +199,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:text="@string/google_str"
                     android:textColor="#757575"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:onClick="signInWithGmail"/>
 
                 <TextView
                     android:id="@+id/logo_space"
@@ -217,7 +219,8 @@
                     android:layout_height="45dp"
                     android:contentDescription="@string/facebook_str"
                     android:padding="5dp"
-                    android:src="@drawable/facebooklogo" />
+                    android:src="@drawable/facebooklogo"
+                    android:onClick="signInWithFB"/>
 
                 <TextView
                     android:id="@+id/fbLogoName"
@@ -226,7 +229,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:text="@string/facebook_str"
                     android:textColor="#757575"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:onClick="signInWithFB"/>
 
             </LinearLayout>
 

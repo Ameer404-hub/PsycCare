@@ -234,7 +234,8 @@
                 android:layout_height="45dp"
                 android:contentDescription="@string/facebook_str"
                 android:padding="5dp"
-                android:src="@drawable/facebooklogo" />
+                android:src="@drawable/facebooklogo"
+                android:onClick="signInWithFB"/>
 
             <TextView
                 android:id="@+id/fbLogoName"
@@ -243,7 +244,8 @@
                 android:fontFamily="@font/metrophobic"
                 android:text="@string/facebook_str"
                 android:textColor="#757575"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:onClick="signInWithFB"/>
 
         </LinearLayout>
 
