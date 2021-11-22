@@ -11,6 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -21,9 +27,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.util.Arrays;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 
@@ -38,6 +47,7 @@ public class SignupActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
+    CallbackManager callbackManager;
 
     @Override
     public void onStart() {
@@ -132,6 +142,7 @@ public class SignupActivity extends AppCompatActivity {
                 // Google Sign In failed, update UI appropriately
             }
         }
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
@@ -157,14 +168,50 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void signInWithFB(View view) {
-        Snackbar snackbar = Snackbar.make(opts_icon_layout, "Sign in with Facebook?", Snackbar.LENGTH_LONG)
-                .setAction("YES", new View.OnClickListener() {
+
+        callbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
                     @Override
-                    public void onClick(View view) {
-                        Snackbar snackbarAction = Snackbar.make(opts_icon_layout, "Sign in Option Working :)", Snackbar.LENGTH_SHORT);
-                        snackbarAction.show();
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
+                        handleFacebookAccessToken(loginResult.getAccessToken());
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // App code
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
                     }
                 });
-        snackbar.show();
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Snackbar snackbar = Snackbar.make(opts_icon_layout, "Authentication failed!", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                        }
+                    }
+                });
     }
 }

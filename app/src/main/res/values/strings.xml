@@ -23,4 +23,8 @@
     <string name="other_opt_signup_str">or continue with</string>
     <string name="Hv_acc_str">Already have an account? </string>
     <string name="login_here_str">Log In</string>
+
+
+    <string name="facebook_app_id">965347674053686</string>
+    <string name="fb_login_protocol_scheme">fb965347674053686</string>
 </resources>
