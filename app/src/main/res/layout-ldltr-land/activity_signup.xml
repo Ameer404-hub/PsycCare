@@ -214,7 +214,8 @@
                     android:layout_gravity="center"
                     android:contentDescription="@string/google_str"
                     android:padding="5dp"
-                    android:src="@drawable/googlelogo" />
+                    android:src="@drawable/googlelogo"
+                    android:onClick="signInWithGoogle"/>
 
                 <TextView
                     android:id="@+id/googleLogoName"
@@ -223,7 +224,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:text="@string/google_str"
                     android:textColor="#757575"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:onClick="signInWithGoogle"/>
 
                 <TextView
                     android:id="@+id/logo_space"

@@ -190,7 +190,7 @@
                     android:contentDescription="@string/google_str"
                     android:padding="5dp"
                     android:src="@drawable/googlelogo"
-                    android:onClick="signInWithGmail"/>
+                    android:onClick="signInWithGoogle"/>
 
                 <TextView
                     android:id="@+id/googleLogoName"
@@ -200,7 +200,7 @@
                     android:text="@string/google_str"
                     android:textColor="#757575"
                     android:textSize="16sp"
-                    android:onClick="signInWithGmail"/>
+                    android:onClick="signInWithGoogle"/>
 
                 <TextView
                     android:id="@+id/logo_space"

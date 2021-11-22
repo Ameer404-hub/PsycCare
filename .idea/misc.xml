@@ -18,7 +18,9 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-normal/activity_splash.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-small/activity_login.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-small/activity_splash.xml" value="0.22" />
-        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_facebookauth.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_google_auth.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_signup.xml" value="0.25" />
