@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
 
-    TextView name, mail;
     Button logout;
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -31,13 +30,10 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         logout = findViewById(R.id.logout);
-        name = findViewById(R.id.name);
-        mail = findViewById(R.id.mail);
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
-        if(signInAccount != null){
-            name.setText(signInAccount.getDisplayName());
-            mail.setText(signInAccount.getEmail());
+        if (signInAccount != null) {
+
         }
 
         mGoogleSignInClient = GoogleSignIn.getClient(HomeActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
@@ -48,9 +44,9 @@ public class HomeActivity extends AppCompatActivity {
                 mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             FirebaseAuth.getInstance().signOut();
-                            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                             startActivity(intent);
                             finish();
                         }

@@ -14,9 +14,11 @@
         android:theme="@style/Theme.PsycCare">
         <activity
             android:name=".Authentications.GoogleAuthActivity"
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".Authentications.FacebookAuthActivity"
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"

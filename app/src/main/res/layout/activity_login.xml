@@ -249,6 +249,15 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/metrophobic"
+                android:text=" "
+                android:textColor="#757575"
+                android:textSize="16sp" />
+
+            <TextView
                 android:id="@+id/signUp_str"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

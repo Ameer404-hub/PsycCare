@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.psyccare.HomeActivity;
+import com.example.psyccare.LoginActivity;
 import com.example.psyccare.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -31,8 +32,8 @@ import java.util.Arrays;
 public class FacebookAuthActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     CallbackManager callbackManager;
-    LinearLayout opts_icon_layout;
     ProgressDialog message;
 
     @Override
@@ -40,8 +41,7 @@ public class FacebookAuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
-
-        opts_icon_layout = findViewById(R.id.opts_icon_layout);
+        mUser = mAuth.getCurrentUser();
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -56,6 +56,7 @@ public class FacebookAuthActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         message.show();
+                        message.setCanceledOnTouchOutside(false);
                         // App code
                         handleFacebookAccessToken(loginResult.getAccessToken());
                     }
@@ -90,15 +91,15 @@ public class FacebookAuthActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             message.dismiss();
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            mUser = mAuth.getCurrentUser();
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            finish();
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Snackbar snackbar = Snackbar.make(opts_icon_layout, "Authentication failed!", Snackbar.LENGTH_LONG);
-                            snackbar.show();
+                            Toast.makeText(FacebookAuthActivity.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });

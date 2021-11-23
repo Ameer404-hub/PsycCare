@@ -7,8 +7,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.psyccare.HomeActivity;
+import com.example.psyccare.LoginActivity;
 import com.example.psyccare.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,26 +31,15 @@ public class GoogleAuthActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
-    LinearLayout opts_icon_layout;
+    private FirebaseUser mUser;
     ProgressDialog message;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser!=null){
-            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
         createRequest();
         signIn();
 
@@ -92,6 +83,7 @@ public class GoogleAuthActivity extends AppCompatActivity {
 
     private void firebaseAuthWithGoogle(String idToken) {
         message.show();
+        message.setCanceledOnTouchOutside(false);
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -100,15 +92,12 @@ public class GoogleAuthActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             message.dismiss();
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            finish();
-
                         } else {
                             // If sign in fails, display a message to the user.
-                            Snackbar snackbar = Snackbar.make(opts_icon_layout, "Authentication failed!", Snackbar.LENGTH_LONG);
-                            snackbar.show();
+                            Toast.makeText(GoogleAuthActivity.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
