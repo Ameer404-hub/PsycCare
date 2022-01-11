@@ -29,23 +29,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onStart();
 
         if (currentUser != null) {
-            handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                    finish();
-                }
-            }, 1000);
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            finish();
         } else {
-            handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                    finish();
-                }
-            }, 1000);
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            finish();
         }
     }
 }

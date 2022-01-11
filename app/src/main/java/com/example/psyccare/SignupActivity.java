@@ -12,12 +12,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.psyccare.Authentications.FacebookAuthActivity;
 import com.example.psyccare.Authentications.GoogleAuthActivity;
+import com.example.psyccare.Models.UserSignupData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,6 +28,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 
@@ -34,6 +38,7 @@ public class SignupActivity extends AppCompatActivity {
     TextInputLayout nameInput, emailInput, passInput, conPassInput;
     String Name, Email, Pass, ConPass;
     CircularProgressButton signupBtn;
+    CheckBox TnCbox;
     TextView gotoLogin;
     Handler handler;
     FirebaseAuth mAuth;
@@ -51,6 +56,7 @@ public class SignupActivity extends AppCompatActivity {
         conPassInput = findViewById(R.id.confirmPass);
         signupBtn = findViewById(R.id.signup_btn);
         gotoLogin = findViewById(R.id.login_here_str);
+        TnCbox = findViewById(R.id.TCBox);
         Snackbar_layout = findViewById(R.id.login_layout);
 
         mAuth = FirebaseAuth.getInstance();
@@ -63,7 +69,7 @@ public class SignupActivity extends AppCompatActivity {
                 Email = emailInput.getEditText().getText().toString().trim();
                 Pass = passInput.getEditText().getText().toString().trim();
                 ConPass = conPassInput.getEditText().getText().toString().trim();
-                if (!validateName() || !validateEmail() || !validatePass() || !validateConPass())
+                if (!validateName() || !validateEmail() || !validatePass() || !validateConPass() || !validatetermsCons())
                     return;
                 else if (!isConnected(SignupActivity.this)) {
                     Snackbar snackbar = Snackbar.make(Snackbar_layout, "No internet connection!", Snackbar.LENGTH_LONG);
@@ -156,6 +162,15 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
+    private boolean validatetermsCons() {
+        if(!TnCbox.isChecked()){
+            Toast.makeText(SignupActivity.this, "Please check Terms and Conditions", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else
+            return true;
+    }
+
     private void performSignup() {
         mAuth.createUserWithEmailAndPassword(Email, Pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -163,6 +178,7 @@ public class SignupActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     signupBtn.revertAnimation();
                     mUser = mAuth.getCurrentUser();
+                    recordUserData();
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intent);
                     finish();
@@ -173,6 +189,12 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void recordUserData() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
+        UserSignupData NewUser = new UserSignupData(Name, Email, Pass);
+        reference.child(FirebaseAuth.getInstance().getUid()).child("ProfileInfo").setValue(NewUser);
     }
 
     private boolean isConnected(SignupActivity CheckInternet) {

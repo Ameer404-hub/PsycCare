@@ -18,16 +18,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class HomeActivity extends AppCompatActivity {
 
     Button logout;
     private GoogleSignInClient mGoogleSignInClient;
+    ChipNavigationBar chipNavigationBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        chipNavigationBar = findViewById(R.id.bottom_nav_menu);
+        chipNavigationBar.setItemSelected(R.id.bottom_nav_home,true);
 
         logout = findViewById(R.id.logout);
 

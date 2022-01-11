@@ -28,11 +28,11 @@
 
             <ImageView
                 android:id="@+id/app_logo"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/app_logo_str"
-                android:src="@drawable/logo" />
+                android:src="@drawable/applogo"/>
 
             <TextView
                 android:id="@+id/app_name"
