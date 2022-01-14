@@ -4,27 +4,27 @@
     <item
         android:id="@+id/bottom_nav_home"
         android:title="Home"
-        android:icon="@drawable/ic_outline_lock_24"
-        app:cnb_backgroundColor="@color/colorPrimary"/>
+        app:cnb_backgroundColor="@color/ButtonColorPrimary"
+        android:icon="@drawable/ic_baseline_home"/>
     <item
         android:id="@+id/bottom_nav_myThoughts"
         android:title="My Thoughts"
-        android:icon="@drawable/ic_baseline_name_24"
-        app:cnb_backgroundColor="@color/colorPrimary"/>
+        app:cnb_backgroundColor="@color/ButtonColorPrimary"
+        android:icon="@drawable/ic_baseline_thoughts" />
     <item
         android:id="@+id/bottom_nav_moodTracker"
         android:title="Mood Tracker"
-        android:icon="@drawable/ic_outline_pass_key_24"
-        app:cnb_backgroundColor="@color/colorPrimary"/>
+        app:cnb_backgroundColor="@color/ButtonColorPrimary"
+        android:icon="@drawable/ic_baseline_mood" />
     <item
         android:id="@+id/bottom_nav_assistance"
         android:title="Assistance"
-        android:icon="@drawable/ic_outline_email_24"
-        app:cnb_backgroundColor="@color/colorPrimary"/>
+        app:cnb_backgroundColor="@color/ButtonColorPrimary"
+        android:icon="@drawable/ic_baseline_assistance" />
     <item
         android:id="@+id/bottom_nav_more"
         android:title="More"
-        android:icon="@drawable/googlelogo"
-        app:cnb_backgroundColor="@color/colorPrimary"/>
+        app:cnb_backgroundColor="@color/ButtonColorPrimary"
+        android:icon="@drawable/ic_baseline_more" />
 
 </menu>

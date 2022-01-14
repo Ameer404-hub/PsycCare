@@ -11,11 +11,20 @@
     <color name="TextColorPrimary">#000000</color>
     <color name="TextColorSecondary">#FFFFFF</color>
 
-    <color name="ProgressbarPrimary">#65DBEC</color>
-    <color name="ProgressbarInsidePrimary">#FFFFFF</color>
+    <color name="ProgressbarPrimary">#FFEB3B</color>
+    <color name="ProgressbarInsidePrimary">#000000</color>
+    <color name="ProgressbarSecondary">#03A9F4</color>
+    <color name="ProgressbarInsideSecondary">#FFFFFF</color>
 
     <color name="ButtonColorPrimary">#FFEB3B</color>
-    <color name="ButtonTextColorPrimary">#FFFFFF</color>
+    <color name="ButtonTextColorPrimary">#000000</color>
+    <color name="ButtonColorSecondary">#03A9F4</color>
+    <color name="ButtonTextColorSecondary">#FFFFFF</color>
+
     <color name="ToolbarColorPrimary">#FFEB3B</color>
     <color name="ToolbarTextColorPrimary">#000000</color>
+
+    <color name="statusBarColorPrimary"></color>
+    <color name="statusBarSecondary"></color>
+
 </resources>

@@ -14,12 +14,12 @@
         android:theme="@style/Theme.PsycCare">
         <activity
             android:name=".Authentications.GoogleAuthActivity"
-            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" />
         <activity
             android:name=".Authentications.FacebookAuthActivity"
-            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" />
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
@@ -31,8 +31,8 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

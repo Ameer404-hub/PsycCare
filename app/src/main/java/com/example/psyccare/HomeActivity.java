@@ -1,29 +1,30 @@
 package com.example.psyccare;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.os.Handler;
+import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FacebookAuthProvider;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.psyccare.Fragments.AssistanceFragment;
+import com.example.psyccare.Fragments.HomeFragment;
+import com.example.psyccare.Fragments.MoodTrackerFragment;
+import com.example.psyccare.Fragments.MoreFragment;
+import com.example.psyccare.Fragments.MyThoughtsFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class HomeActivity extends AppCompatActivity {
 
-    Button logout;
-    private GoogleSignInClient mGoogleSignInClient;
     ChipNavigationBar chipNavigationBar;
 
     @Override
@@ -33,30 +34,34 @@ public class HomeActivity extends AppCompatActivity {
 
         chipNavigationBar = findViewById(R.id.bottom_nav_menu);
         chipNavigationBar.setItemSelected(R.id.bottom_nav_home,true);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        bottomMenu();
 
-        logout = findViewById(R.id.logout);
+    }
 
-        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
-        if (signInAccount != null) {
-
-        }
-
-        mGoogleSignInClient = GoogleSignIn.getClient(HomeActivity.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
-
-        logout.setOnClickListener(new View.OnClickListener() {
+    private void bottomMenu() {
+        chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseAuth.getInstance().signOut();
-                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-                });
+            public void onItemSelected(int i) {
+                Fragment fragment = null;
+                switch (i) {
+                    case R.id.bottom_nav_home:
+                        fragment = new HomeFragment();
+                        break;
+                    case R.id.bottom_nav_myThoughts:
+                        fragment = new MyThoughtsFragment();
+                        break;
+                    case R.id.bottom_nav_moodTracker:
+                        fragment = new MoodTrackerFragment();
+                        break;
+                    case R.id.bottom_nav_assistance:
+                        fragment = new AssistanceFragment();
+                        break;
+                    case R.id.bottom_nav_more:
+                        fragment = new MoreFragment();
+                        break;
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
             }
         });
     }
