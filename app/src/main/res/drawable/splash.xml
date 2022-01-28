@@ -9,5 +9,5 @@
         android:height="150dp"
         android:width="180dp"
         android:gravity="center_horizontal"
-        android:top="317dp"/>
+        android:top="300dp"/>
 </layer-list>

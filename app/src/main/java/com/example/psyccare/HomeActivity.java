@@ -19,8 +19,6 @@ import com.example.psyccare.Fragments.HomeFragment;
 import com.example.psyccare.Fragments.MoodTrackerFragment;
 import com.example.psyccare.Fragments.MoreFragment;
 import com.example.psyccare.Fragments.MyThoughtsFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class HomeActivity extends AppCompatActivity {

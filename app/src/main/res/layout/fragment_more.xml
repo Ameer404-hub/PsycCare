@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="665dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/MoreFragment"
     tools:context=".Fragments.MoreFragment">
@@ -32,7 +32,32 @@
                 android:textColor="@color/ToolbarTextColorPrimary"
                 android:textSize="@dimen/TextsizeToolbar" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_notification_24"
+                android:layout_gravity="end"/>
+
         </androidx.appcompat.widget.Toolbar>
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="168dp"
+            android:layout_height="58dp"
+            android:fontFamily="@font/metrophobic"
+            android:text="Logout"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:backgroundTint="@color/ButtonColorPrimary"
+            android:textColor="@color/TextColorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

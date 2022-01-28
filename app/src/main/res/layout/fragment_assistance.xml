@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="665dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/AssistanceFragment"
     tools:context=".Fragments.AssistanceFragment">
@@ -32,7 +32,102 @@
                 android:textColor="@color/ToolbarTextColorPrimary"
                 android:textSize="@dimen/TextsizeToolbar" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_notification_24"
+                android:layout_gravity="end"/>
+
         </androidx.appcompat.widget.Toolbar>
+
+        <ImageView
+            android:id="@+id/assistance_BG"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/assistance_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+        <TextView
+            android:id="@+id/assistance_title"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/metrophobic"
+            android:gravity="center"
+            android:text="You can set reminder for daily check-in,
+                          set alarm for medication intake or
+                          schedule important events"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorPrimary"
+            android:textSize="@dimen/TextsizePrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assistance_BG" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/alarmBtn"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:drawableLeft="@drawable/ic_baseline_set_alarm_24"
+            app:iconPadding="-10dp"
+            app:cornerRadius="20dp"
+            android:backgroundTint="@color/ButtonColorPrimary"
+            android:fontFamily="@font/metrophobic"
+            android:text="Set Alarm"
+            android:letterSpacing="0"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorPrimary"
+            android:textSize="16sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assistance_title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reminderbtn"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            app:cornerRadius="20dp"
+            android:drawableLeft="@drawable/ic_baseline_reminder_24"
+            app:iconPadding="-10dp"
+            android:backgroundTint="@color/ButtonColorPrimary"
+            android:fontFamily="@font/metrophobic"
+            android:text="Add Reminder"
+            android:letterSpacing="0"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alarmBtn" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/scheduleBtn"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            app:cornerRadius="20dp"
+            app:iconPadding="-10dp"
+            android:drawableLeft="@drawable/ic_baseline_schedule_24"
+            android:backgroundTint="@color/ButtonColorPrimary"
+            android:fontFamily="@font/metrophobic"
+            android:text="Create Schedule"
+            android:letterSpacing="0"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reminderbtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

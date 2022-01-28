@@ -13,7 +13,6 @@ public class SplashActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
-    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

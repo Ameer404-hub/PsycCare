@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="665dp"
     android:id="@+id/HomeScreenFragment"
     tools:context=".Fragments.HomeFragment">
 
@@ -42,15 +42,6 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:src="@drawable/ic_baseline_notification_24"
-                android:layout_gravity="end"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:src="@drawable/ic_baseline_search_24"
                 android:layout_gravity="end"/>
 
         </androidx.appcompat.widget.Toolbar>
@@ -154,8 +145,8 @@
                 android:clickable="true">
 
                 <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     app:srcCompat="@drawable/moods_happy" />
 
                 <TextView
@@ -179,8 +170,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     app:srcCompat="@drawable/moods_sad" />
 
                 <TextView
@@ -204,8 +195,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     app:srcCompat="@drawable/moods_angry" />
 
                 <TextView
@@ -229,8 +220,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     app:srcCompat="@drawable/moods_stressed" />
 
                 <TextView
@@ -254,8 +245,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     app:srcCompat="@drawable/moods_joyful" />
 
                 <TextView

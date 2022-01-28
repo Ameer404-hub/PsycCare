@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="665dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/MyThoughtsFragment"
     tools:context=".Fragments.MyThoughtsFragment">
@@ -32,23 +32,221 @@
                 android:textColor="@color/ToolbarTextColorPrimary"
                 android:textSize="@dimen/TextsizeToolbar" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_notification_24"
+                android:layout_gravity="end"/>
+
         </androidx.appcompat.widget.Toolbar>
 
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="168dp"
-            android:layout_height="58dp"
+        <ImageView
+            android:id="@+id/myThoughts_BG"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/mythoughts_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+        <TextView
+            android:id="@+id/myThoughts_title"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/metrophobic"
-            android:text="Logout"
+            android:gravity="start"
+            android:text="What emotions are you experiencing?"
             android:textAllCaps="false"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:backgroundTint="@color/ButtonColorPrimary"
             android:textColor="@color/TextColorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="@dimen/TextsizePrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/myThoughts_BG" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/thought_A"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/ButtonColorSecondary"
+            android:fontFamily="@font/metrophobic"
+            android:letterSpacing="0"
+            android:text="Sadness"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorSecondary"
+            android:textSize="16sp"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.28"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myThoughts_title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/thought_B"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/ButtonColorSecondary"
+            android:fontFamily="@font/metrophobic"
+            android:letterSpacing="0"
+            android:text="Disgust"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorSecondary"
+            android:textSize="16sp"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myThoughts_title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/thought_C"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/ButtonColorSecondary"
+            android:fontFamily="@font/metrophobic"
+            android:letterSpacing="0"
+            android:text="Fear"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorSecondary"
+            android:textSize="16sp"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thought_A" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/thought_D"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/ButtonColorSecondary"
+            android:fontFamily="@font/metrophobic"
+            android:letterSpacing="0"
+            android:text="Anger"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorSecondary"
+            android:textSize="16sp"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.48"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thought_A" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/thought_E"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/ButtonColorSecondary"
+            android:fontFamily="@font/metrophobic"
+            android:letterSpacing="0"
+            android:text="Hate"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorSecondary"
+            android:textSize="16sp"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.92"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thought_A" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/thought_F"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/ButtonColorSecondary"
+            android:fontFamily="@font/metrophobic"
+            android:letterSpacing="0"
+            android:text="Guilt"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorSecondary"
+            android:textSize="16sp"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.28"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thought_E" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/thought_G"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/ButtonColorSecondary"
+            android:fontFamily="@font/metrophobic"
+            android:letterSpacing="0"
+            android:text="Other"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorSecondary"
+            android:textSize="16sp"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thought_E" />
+
+        <TextView
+            android:id="@+id/myThoughts_summary"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/metrophobic"
+            android:gravity="start"
+            android:text="Summarize a situation that bothered or upset you:"
+            android:textAllCaps="false"
+            android:textColor="@color/TextColorPrimary"
+            android:textSize="@dimen/TextsizePrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thought_F" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/thought_TextArea"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_for_textarea"
+            android:elevation="2dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myThoughts_summary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/metrophobic"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:maxLines="10"
+                android:minLines="3"/>
+
+            <ImageView
+                android:id="@+id/sendThoughtNote"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_margin="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:background="@drawable/bg_for_sendbutton"
+                app:srcCompat="@drawable/ic_baseline_send_24"
+                android:elevation="2dp"
+                android:padding="10dp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
