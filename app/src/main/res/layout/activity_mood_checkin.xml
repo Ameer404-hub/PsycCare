@@ -39,173 +39,564 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <ImageView
-        android:id="@+id/myThoughts_BG"
-        android:layout_width="340dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/mood_graph"
+    <TextView
+        android:id="@+id/heading1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="DESCRIBE"
+        android:letterSpacing="0.1"
+        android:textColor="@color/TextColorPrimary"
+        android:textSize="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
-        android:id="@+id/mood_title"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/metrophobic"
-        android:gravity="start"
-        android:text="How do you feel today?"
-        android:textAllCaps="false"
-        android:textColor="@color/TextColorPrimary"
-        android:textSize="@dimen/TextsizePrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myThoughts_BG" />
-
-    <LinearLayout
-        android:id="@+id/moodIconsLayout"
+        android:id="@+id/heading2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/metrophobic"
         android:gravity="center"
-        android:orientation="horizontal"
+        android:text="your mood &amp; emotions\nYou can choose more than one moods"
+        android:textColor="@color/TextColorPrimary"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mood_title">
+        app:layout_constraintTop_toBottomOf="@+id/heading1" />
+
+    <ScrollView
+        android:id="@+id/moodScroll"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading2">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_margin="12.5dp"
-            android:orientation="vertical"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:srcCompat="@drawable/moods_happy" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/metrophobic"
-                android:text="Happy"
-                android:textAllCaps="false"
-                android:textColor="@color/TextColorPrimary"
-                android:textSize="10dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:layout_margin="12.5dp"
+            android:id="@+id/moodIconsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:srcCompat="@drawable/moods_sad" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/moodIconsLayout1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/metrophobic"
-                android:text="Sad"
-                android:textAllCaps="false"
-                android:textColor="@color/TextColorPrimary"
-                android:textSize="10dp"/>
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_happy" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Happy"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        app:srcCompat="@drawable/moods_sad" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Sad"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_angry" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Angry"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/moodIconsLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_anxious" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Anxious"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_excited" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Excited"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_stressed" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Stressed"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/moodIconsLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_awesome" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Awesome"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_terrible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Terrible"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/mood_tired" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Tired"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/moodIconsLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_hopeful" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Hopeful"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_okay" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Okay"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_calm" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Calm"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/moodIconsLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_satisified" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Satisfied"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_frustrated" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Frustated"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="5dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/moods_notsure" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Not Sure"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:layout_margin="12.5dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:srcCompat="@drawable/moods_angry" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/metrophobic"
-                android:text="Angry"
-                android:textAllCaps="false"
-                android:textColor="@color/TextColorPrimary"
-                android:textSize="10dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:layout_margin="12.5dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:srcCompat="@drawable/moods_stressed" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/metrophobic"
-                android:text="Stressed"
-                android:textAllCaps="false"
-                android:textColor="@color/TextColorPrimary"
-                android:textSize="10dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:layout_margin="12.5dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:srcCompat="@drawable/moods_joyful" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/metrophobic"
-                android:text="Excited"
-                android:textAllCaps="false"
-                android:textColor="@color/TextColorPrimary"
-                android:textSize="10dp"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/mood_summary"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/metrophobic"
         android:gravity="start"
         android:text="What makes you feel this way? Tell us more about it:"
@@ -214,7 +605,7 @@
         android:textSize="@dimen/TextsizePrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moodIconsLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/moodScroll" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/mood_TextArea"
