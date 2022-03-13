@@ -7,20 +7,15 @@
         app:cnb_backgroundColor="@color/ButtonColorPrimary"
         android:icon="@drawable/ic_baseline_home"/>
     <item
-        android:id="@+id/bottom_nav_myThoughts"
-        android:title="My Thoughts"
+        android:id="@+id/bottom_nav_discover"
+        android:title="Discover"
         app:cnb_backgroundColor="@color/ButtonColorPrimary"
-        android:icon="@drawable/ic_baseline_thoughts" />
+        android:icon="@drawable/ic_baseline_discover" />
     <item
-        android:id="@+id/bottom_nav_moodTracker"
-        android:title="Mood Tracker"
+        android:id="@+id/bottom_nav_progress"
+        android:title="Progress"
         app:cnb_backgroundColor="@color/ButtonColorPrimary"
-        android:icon="@drawable/ic_baseline_mood" />
-    <item
-        android:id="@+id/bottom_nav_assistance"
-        android:title="Assistance"
-        app:cnb_backgroundColor="@color/ButtonColorPrimary"
-        android:icon="@drawable/ic_baseline_assistance" />
+        android:icon="@drawable/ic_base_line_progress" />
     <item
         android:id="@+id/bottom_nav_more"
         android:title="More"

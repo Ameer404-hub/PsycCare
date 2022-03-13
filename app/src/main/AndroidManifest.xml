@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PsycCare">
         <activity
+            android:name=".MoodCheckin"
+            android:exported="false" />
+        <activity
+            android:name=".ThoughtCheckin"
+            android:exported="false" />
+        <activity
             android:name=".Authentications.GoogleAuthActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" />

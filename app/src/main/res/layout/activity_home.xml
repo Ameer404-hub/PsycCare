@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_container"
+    android:background="@color/ScreenBGcolorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,6 +14,7 @@
         android:layout_height="wrap_content"
         app:cnb_menuResource="@menu/bottom_nav_menu"
         app:cnb_orientationMode="horizontal"
+        android:background="@color/white"
         app:cnb_radius="8dp"
         app:cnb_unselectedColor="@color/black"
         app:cnb_iconSize="30dp"

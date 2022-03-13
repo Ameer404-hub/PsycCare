@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="665dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/DiscoverFragment"
+    android:background="@color/ScreenBGcolorPrimary"
+    tools:context=".Fragments.DiscoverFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="2dp"
+            android:background="@color/ToolbarColorSecondary"
+            android:theme="@style/Theme.PsycCare"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="#FFFFFF"
+            tools:layout_editor_absoluteX="47dp">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:fontFamily="@font/corben_bold"
+                android:text="Discover"
+                android:textColor="@color/ToolbarTextColorPrimary"
+                android:textSize="@dimen/TextsizeToolbar" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_notification_24"
+                android:layout_gravity="end"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

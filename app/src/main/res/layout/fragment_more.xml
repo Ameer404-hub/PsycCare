@@ -5,6 +5,7 @@
     android:layout_height="665dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/MoreFragment"
+    android:background="@color/ScreenBGcolorPrimary"
     tools:context=".Fragments.MoreFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -16,7 +17,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/ToolbarColorPrimary"
+            android:elevation="2dp"
+            android:background="@color/ToolbarColorSecondary"
             android:theme="@style/Theme.PsycCare"
             app:layout_constraintTop_toTopOf="parent"
             app:titleTextColor="#FFFFFF"
@@ -43,21 +45,208 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="168dp"
-            android:layout_height="58dp"
-            android:fontFamily="@font/metrophobic"
-            android:text="Logout"
-            android:textAllCaps="false"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:backgroundTint="@color/ButtonColorPrimary"
-            android:textColor="@color/TextColorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <LinearLayout
+            android:id="@+id/myStats"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/cardview_more_activity"
+            android:clickable="true"
+            android:elevation="1dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/ic_baseline_mystats" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/metrophobic"
+                android:text="My Stats"
+                android:textAllCaps="false"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="@dimen/TextsizeButton" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/support"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:clickable="true"
+            android:elevation="1dp"
+            android:padding="10dp"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal"
+            android:background="@drawable/cardview_more_activity"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myStats">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/icon_support" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/metrophobic"
+                android:text="Crisis &amp; Support Services"
+                android:textAllCaps="false"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="@dimen/TextsizeButton" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/recommend"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:clickable="true"
+            android:elevation="1dp"
+            android:padding="10dp"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal"
+            android:background="@drawable/cardview_more_activity"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/support">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/icon_recommend" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/metrophobic"
+                android:text="Recommendations"
+                android:textAllCaps="false"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="@dimen/TextsizeButton" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/settings"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:clickable="true"
+            android:elevation="1dp"
+            android:padding="10dp"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal"
+            android:background="@drawable/cardview_more_activity"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recommend">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/ic_baseline_settings" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/metrophobic"
+                android:text="Settings"
+                android:textAllCaps="false"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="@dimen/TextsizeButton" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/aboutUs"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:clickable="true"
+            android:elevation="1dp"
+            android:padding="10dp"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal"
+            android:background="@drawable/cardview_more_activity"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settings">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/ic_baseline_about" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/metrophobic"
+                android:text="About us"
+                android:textAllCaps="false"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="@dimen/TextsizeButton" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/logOut"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:clickable="true"
+            android:elevation="1dp"
+            android:padding="10dp"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal"
+            android:background="@drawable/cardview_more_activity"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutUs">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/ic_baseline_logout" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/metrophobic"
+                android:text="Log out"
+                android:textAllCaps="false"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="@dimen/TextsizeButton" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="ScreenBGcolorPrimary">#F3F3FC</color>
+    <color name="ScreenBGcolorSecondary">#F9F9FF</color>
+
     <color name="TextColorPrimary">#000000</color>
     <color name="TextColorSecondary">#FFFFFF</color>
 
@@ -22,6 +25,7 @@
     <color name="ButtonTextColorSecondary">#FFFFFF</color>
 
     <color name="ToolbarColorPrimary">#FFEB3B</color>
+    <color name="ToolbarColorSecondary">#F9F9FF</color>
     <color name="ToolbarTextColorPrimary">#000000</color>
 
     <color name="statusBarColorPrimary"></color>
