@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alfa_slab_one"
-        android:text="DESCRIBE"
+        android:text="TRACK"
+        android:letterSpacing="0.1"
         android:textColor="@color/TextColorPrimary"
         android:textSize="28dp" />
 
@@ -22,7 +23,5 @@
         android:text="your thoughts &amp; emotions"
         android:textColor="@color/TextColorPrimary"
         android:textSize="18dp" />
-
-
 
 </LinearLayout>

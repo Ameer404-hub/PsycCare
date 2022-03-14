@@ -23,6 +23,7 @@
     <color name="ButtonTextColorPrimary">#000000</color>
     <color name="ButtonColorSecondary">#03A9F4</color>
     <color name="ButtonTextColorSecondary">#FFFFFF</color>
+    <color name="ButtonColorThird">#00BCD4</color>
 
     <color name="ToolbarColorPrimary">#FFEB3B</color>
     <color name="ToolbarColorSecondary">#F9F9FF</color>

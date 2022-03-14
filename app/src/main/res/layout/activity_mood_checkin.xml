@@ -89,6 +89,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/moodHappy"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -120,6 +121,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/moodSad"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -151,6 +153,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/moodAngry"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -191,6 +194,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/moodAnxious"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -222,6 +226,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/moodExcited"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -253,6 +258,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/moodStressed"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -293,6 +299,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/moodAwesome"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -323,6 +330,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/moodTerrible"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -354,6 +362,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/moodTired"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -394,6 +403,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/moodHopeful"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -424,6 +434,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/moodOkay"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -455,6 +466,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/moodCalm"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -495,6 +507,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/moodSatisfied"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -525,6 +538,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/moodFrustated"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
@@ -556,6 +570,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/moodNotSure"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:gravity="center"
