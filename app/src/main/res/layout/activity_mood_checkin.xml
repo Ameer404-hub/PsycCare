@@ -98,10 +98,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Happy">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -130,10 +131,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Sad">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -162,10 +164,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Angry">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -203,10 +206,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Anxious">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -235,10 +239,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Excited">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -267,10 +272,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Stressed">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -308,10 +314,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Awesome">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -339,10 +346,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Terrible">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -371,10 +379,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Tired">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -412,10 +421,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Hopeful">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -443,10 +453,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Okay">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -475,10 +486,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Calm">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -516,10 +528,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Satisfied">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -547,10 +560,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:onClick="Frustated">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -573,16 +587,17 @@
                     android:id="@+id/moodNotSure"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
-                    android:background="@drawable/bg_for_cardview"
+                    android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true">
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:onClick="notSure">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -593,11 +608,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Not Sure"
                         android:gravity="center"
+                        android:text="Not Sure"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 

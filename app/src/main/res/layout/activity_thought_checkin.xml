@@ -8,36 +8,36 @@
     tools:context=".ThoughtCheckin">
 
     <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:background="@color/ToolbarColorSecondary"
+        android:theme="@style/Theme.PsycCare"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#FFFFFF"
+        tools:layout_editor_absoluteX="47dp">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="2dp"
-            android:background="@color/ToolbarColorSecondary"
-            android:theme="@style/Theme.PsycCare"
-            app:layout_constraintTop_toTopOf="parent"
-            app:titleTextColor="#FFFFFF"
-            tools:layout_editor_absoluteX="47dp">
+            android:layout_gravity="start"
+            android:fontFamily="@font/corben_bold"
+            android:text="Thoughts Check-in"
+            android:textColor="@color/ToolbarTextColorPrimary"
+            android:textSize="@dimen/TextsizeToolbar" />
 
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:fontFamily="@font/corben_bold"
-                android:text="Thoughts Check-in"
-                android:textColor="@color/ToolbarTextColorPrimary"
-                android:textSize="@dimen/TextsizeToolbar" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_notification_24"
+            android:layout_gravity="end"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:src="@drawable/ic_baseline_notification_24"
-                android:layout_gravity="end"/>
-
-        </androidx.appcompat.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:id="@+id/myThoughts_BG"
@@ -99,7 +99,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Positive"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtNegative"
@@ -114,7 +115,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Negative"/>
 
             </LinearLayout>
 
@@ -138,7 +140,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Emotional"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtBlaming"
@@ -153,7 +156,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Blaming"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtFear"
@@ -168,7 +172,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Fear"/>
 
             </LinearLayout>
 
@@ -192,7 +197,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Catastrophic"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtCalamitous"
@@ -207,7 +213,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Calamitous"/>
 
             </LinearLayout>
 
@@ -231,7 +238,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Assertive"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtAffirmative"
@@ -246,7 +254,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Affirmative"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtOptimistic"
@@ -261,7 +270,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Optimistic"/>
 
             </LinearLayout>
 
@@ -285,7 +295,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Pessimistic"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtInferring"
@@ -300,7 +311,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Inferring"/>
 
             </LinearLayout>
 
@@ -324,7 +336,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Disgust"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtOther"
@@ -339,7 +352,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="Other"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtNotSure"
@@ -354,7 +368,8 @@
                     android:fontFamily="@font/metrophobic"
                     android:textSize="@dimen/TextsizePrimary"
                     android:textColor="@color/TextColorSecondary"
-                    android:backgroundTint="@color/ButtonColorThird" />
+                    android:backgroundTint="@color/ButtonColorThird"
+                    android:onClick="NotSure"/>
 
             </LinearLayout>
 
@@ -362,63 +377,63 @@
 
     </ScrollView>
 
-        <TextView
-            android:id="@+id/myThoughts_summary"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+    <TextView
+        android:id="@+id/myThoughts_summary"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/metrophobic"
+        android:gravity="start"
+        android:text="Summarize a situation that bothered or upset you:"
+        android:textAllCaps="false"
+        android:textColor="@color/TextColorPrimary"
+        android:textSize="@dimen/TextsizePrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moodScroll" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/thought_TextArea"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_for_textarea"
+        android:elevation="2dp"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myThoughts_summary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:fontFamily="@font/metrophobic"
-            android:gravity="start"
-            android:text="Summarize a situation that bothered or upset you:"
-            android:textAllCaps="false"
-            android:textColor="@color/TextColorPrimary"
-            android:textSize="@dimen/TextsizePrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/moodScroll" />
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:maxLines="10"
+            android:minLines="3"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/thought_TextArea"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_for_textarea"
+        <ImageView
+            android:id="@+id/sendThoughtNote"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_margin="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:background="@drawable/bg_for_sendbutton"
+            app:srcCompat="@drawable/ic_baseline_send_24"
             android:elevation="2dp"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:hintTextColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/myThoughts_summary">
+            android:padding="10dp"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/metrophobic"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:maxLines="10"
-                android:minLines="3"/>
-
-            <ImageView
-                android:id="@+id/sendThoughtNote"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end"
-                android:layout_margin="5dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:background="@drawable/bg_for_sendbutton"
-                app:srcCompat="@drawable/ic_baseline_send_24"
-                android:elevation="2dp"
-                android:padding="10dp"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:id="@+id/snackBarAction"

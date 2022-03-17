@@ -6,7 +6,9 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_cardview.xml" value="0.2169230769230769" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_sendbutton.xml" value="0.2203125" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_tapped.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_textarea.xml" value="0.2203125" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_untapped.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bottom_nav_bgcolor.xml" value="0.236328125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bottom_nav_corners.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bottom_nav_icon_color.xml" value="0.2169230769230769" />

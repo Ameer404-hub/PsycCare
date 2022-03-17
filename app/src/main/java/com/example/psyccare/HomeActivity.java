@@ -2,6 +2,7 @@ package com.example.psyccare;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
@@ -46,7 +47,8 @@ public class HomeActivity extends AppCompatActivity {
                         fragment = new MoreFragment();
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container,fragment).commit();
             }
         });
     }

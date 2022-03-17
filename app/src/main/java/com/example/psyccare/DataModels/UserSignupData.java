@@ -1,4 +1,4 @@
-package com.example.psyccare.Models;
+package com.example.psyccare.DataModels;
 
 public class UserSignupData {
     String Name, Email, Pass;
