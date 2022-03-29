@@ -54,36 +54,54 @@
                 android:layout_height="match_parent"
                 android:id="@+id/constraint_outerlayout">
 
-                <ImageView
-                    android:id="@+id/profilePicture"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/home_bg" />
-
                 <LinearLayout
                     android:id="@+id/reportMoodLayout"
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_for_cardview"
+                    android:elevation="3.5dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical"
+                    android:padding="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/profilePicture">
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/homePicture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="5dp"
+                        app:srcCompat="@drawable/home_bg" />
 
                     <TextView
                         android:id="@+id/dateTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
+                        android:layout_marginBottom="5dp"
                         android:fontFamily="@font/metrophobic"
                         android:text="Jan 25, 2022"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizeToolbar" />
+                        android:textSize="@dimen/TextsizePrimary" />
 
                     <TextView
+                        android:id="@+id/checkInHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Check In"
+                        android:textAllCaps="false"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/checkInStatement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
@@ -106,6 +124,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/reportMoodLayout">
 
                     <LinearLayout
+                        android:id="@+id/Happy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -131,6 +150,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/Sad"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -156,6 +176,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/Angry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -181,6 +202,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/Stressed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -206,6 +228,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/Excited"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -240,10 +263,10 @@
                     android:backgroundTint="@color/ButtonColorPrimary"
                     android:fontFamily="@font/metrophobic"
                     android:letterSpacing="0"
-                    android:text="Let's do Afternoon Check-in"
+                    android:text="Let's Start"
                     android:textAllCaps="false"
                     android:textColor="@color/ButtonTextColorPrimary"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/TextsizePrimary"
                     app:cornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -257,7 +280,7 @@
                     android:background="@drawable/bg_for_cardview"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    android:elevation="10dp"
+                    android:elevation="3.5dp"
                     android:orientation="vertical"
                     android:padding="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -300,7 +323,7 @@
                     android:layout_height="150dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_for_cardview"
-                    android:elevation="10dp"
+                    android:elevation="3.5dp"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:orientation="vertical"
@@ -344,7 +367,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:background="@drawable/bg_for_cardview"
-                    android:elevation="10dp"
+                    android:elevation="3.5dp"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:layout_marginTop="20dp"
@@ -389,7 +412,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:background="@drawable/bg_for_cardview"
-                    android:elevation="10dp"
+                    android:elevation="3.5dp"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:layout_marginTop="20dp"
@@ -435,8 +458,5 @@
 
 
     </LinearLayout>
-
-
-
 
 </FrameLayout>
