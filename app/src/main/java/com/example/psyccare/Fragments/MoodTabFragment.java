@@ -34,7 +34,7 @@ public class MoodTabFragment extends Fragment {
 
     private TextView M_DateView, M_MoodView, M_DescriptionView;
     String checkInDate, checkInTime, Type, Desc;
-    DatabaseReference referenceToMoodCheckin, referenceToThoughtCheckin;
+    DatabaseReference referenceToMoodCheckin;
     ProgressDialog messageBox;
 
     @Override

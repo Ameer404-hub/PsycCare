@@ -20,9 +20,10 @@
             android:background="@color/ToolbarColorSecondary"
             android:elevation="2dp"
             android:theme="@style/Theme.PsycCare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:titleTextColor="#FFFFFF"
-            tools:layout_editor_absoluteX="47dp">
+            app:titleTextColor="#FFFFFF">
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -48,7 +49,17 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            app:tabTextColor="@color/black"
+            app:tabIndicatorGravity="stretch"
+            app:tabSelectedTextColor="@color/white"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabMode="fixed"
+            app:tabIndicator="@drawable/bg_for_tabs"
+            app:tabRippleColor="@null"
+            app:tabIndicatorColor="@color/ButtonColorThird"
+            android:background="@color/ScreenBGcolorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -65,13 +76,23 @@
 
         </com.google.android.material.tabs.TabLayout>
 
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_margin="5dp"
+            android:background="@color/teal_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabView"/>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/tabViewPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="570dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabView">
+            app:layout_constraintTop_toBottomOf="@+id/line">
 
         </androidx.viewpager.widget.ViewPager>
 

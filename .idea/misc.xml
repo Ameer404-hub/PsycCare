@@ -6,6 +6,8 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_cardview.xml" value="0.2169230769230769" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_sendbutton.xml" value="0.2203125" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_tab_selected.xml" value="0.2203125" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_tabs.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_tapped.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_textarea.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_untapped.xml" value="0.2203125" />
@@ -34,6 +36,8 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/ic_outline_pass_key_24.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/loading_button.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/splash.xml" value="0.2203125" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/font/.xml" value="0.234375" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/font/advent_pro.xml" value="0.234375" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-800x480/activity_login.xml" value="0.49" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-land/activity_login.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-large/activity_login.xml" value="0.16" />
@@ -57,7 +61,7 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_thought_checkin.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/design_test.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_assistance.xml" value="0.2" />
-        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_discover.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_discover.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_home_ii.xml" value="0.20437956204379562" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_home_new.xml" value="0.20416666666666666" />
@@ -65,7 +69,7 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_mood_tracker.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_more.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_my_thoughts.xml" value="0.22" />
-        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_progress.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_progress.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_thought_tab.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/home_fragment.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/nav_header_main.xml" value="0.20416666666666666" />

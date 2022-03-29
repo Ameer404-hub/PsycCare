@@ -25,11 +25,11 @@ public class ProgressFragment extends Fragment {
         Tabs = rootView.findViewById(R.id.tabView);
         viewPager = rootView.findViewById(R.id.tabViewPager);
 
-        Tabs.setupWithViewPager(viewPager);
-        TabsAdapter adapter = new TabsAdapter(getActivity().getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        TabsAdapter adapter = new TabsAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         adapter.addFragment(new MoodTabFragment(), "Mood Tracker");
         adapter.addFragment(new ThoughtTabFragment(), "My Thoughts");
         viewPager.setAdapter(adapter);
+        Tabs.setupWithViewPager(viewPager);
 
         return rootView;
     }
