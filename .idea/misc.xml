@@ -21,6 +21,7 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/button_corners.xml" value="0.2169230769230769" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/cardview_more_activity.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/color_cursor.xml" value="0.2203125" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/discover_card_view.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/ic_baseline_alarm_24.xml" value="0.2169230769230769" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/ic_baseline_name_24.xml" value="0.2203125" />
@@ -60,6 +61,10 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_splash.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_thought_checkin.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/design_test.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/discover_allcard_design.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/discover_card_alldesign.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/discover_card_design.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/discover_onecard_design.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_assistance.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_discover.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_home.xml" value="0.22" />
@@ -69,7 +74,7 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_mood_tracker.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_more.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_my_thoughts.xml" value="0.22" />
-        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_progress.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_progress.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_thought_tab.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/home_fragment.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/nav_header_main.xml" value="0.20416666666666666" />

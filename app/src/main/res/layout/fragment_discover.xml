@@ -46,6 +46,122 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <ScrollView
+            android:id="@+id/checkinsScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/heading1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Today's Featured"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary" />
+
+                    <LinearLayout
+                        android:layout_width="335dp"
+                        android:layout_height="180dp"
+                        android:layout_below="@id/heading1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_for_cardview"
+                        android:elevation="2dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:id="@+id/cardImageTop"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:src="@drawable/evening_checkin2"/>
+
+                        <TextView
+                            android:id="@+id/cardTextTop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/metrophobic"
+                            android:gravity="center"
+                            android:text="Gratitude For A Memory"
+                            android:textColor="@color/TextColorPrimary"
+                            android:textSize="@dimen/TextsizeSmall" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/heading2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Introduction"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/discoverView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/heading2"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/heading3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Thoughts &amp; Feelings"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/discoverView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/heading3"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
