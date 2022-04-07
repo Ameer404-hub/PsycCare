@@ -27,10 +27,10 @@ import java.util.ArrayList;
 
 public class DiscoverFragment extends Fragment {
 
-    RecyclerView viewIntroduction, viewFeatured;
-    DatabaseReference referenceToDiscover;
-    DiscoverAdapter adapter;
-    ArrayList<DiscoverDataModel> discoverData;
+    RecyclerView recyclerView1, recyclerView2, recyclerView3, recyclerView4;
+    DatabaseReference referenceDiscover;
+    DiscoverAdapter adapter1, adapter2;
+    ArrayList<DiscoverDataModel> discoverData1, discoverData2;
     ProgressDialog messageBox;
 
     @Override
@@ -39,44 +39,81 @@ public class DiscoverFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
 
-        viewIntroduction = rootView.findViewById(R.id.discoverView);
-        viewFeatured = rootView.findViewById(R.id.discoverView2);
-        referenceToDiscover = FirebaseDatabase.getInstance().getReference("DiscoverData");
+        recyclerView1 = rootView.findViewById(R.id.discoverView1);
+        recyclerView2 = rootView.findViewById(R.id.discoverView2);
+        recyclerView3 = rootView.findViewById(R.id.discoverView3);
+        recyclerView4 = rootView.findViewById(R.id.discoverView4);
+
+        referenceDiscover = FirebaseDatabase.getInstance().getReference("DiscoverData");
 
         messageBox = new ProgressDialog(getActivity());
         messageBox.setTitle("");
         messageBox.setMessage("Loading...");
 
-        discoverData = new ArrayList<>();
-        adapter = new DiscoverAdapter(getActivity(), discoverData);
+        discoverData1 = new ArrayList<>();
+        discoverData2 = new ArrayList<>();
 
-        viewIntroduction.setHasFixedSize(true);
-        viewFeatured.setHasFixedSize(true);
-        viewIntroduction.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        viewFeatured.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        viewIntroduction.setAdapter(adapter);
-        viewFeatured.setAdapter(adapter);
+        adapter1 = new DiscoverAdapter(getActivity(), discoverData1);
+        adapter2 = new DiscoverAdapter(getActivity(), discoverData2);
+
+        recyclerView1.setHasFixedSize(true);
+        recyclerView2.setHasFixedSize(true);
+        recyclerView3.setHasFixedSize(true);
+        recyclerView4.setHasFixedSize(true);
+
+        recyclerView1.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView3.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView4.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+
+        recyclerView1.setAdapter(adapter1);
+        recyclerView2.setAdapter(adapter2);
+        recyclerView3.setAdapter(adapter1);
+        recyclerView4.setAdapter(adapter2);
 
         messageBox.show();
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        referenceToDiscover.child("Introduction").addListenerForSingleValueEvent(new ValueEventListener() {
+
+        referenceDiscover.child("Introduction").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot ds : snapshot.getChildren()){
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
                         DiscoverDataModel newModel = ds.getValue(DiscoverDataModel.class);
-                        discoverData.add(newModel);
+                        discoverData1.add(newModel);
                     }
-                }
-                else{
+                } else {
                     messageBox.dismiss();
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     Toast.makeText(getActivity(), "Snapshot does not exist", Toast.LENGTH_SHORT).show();
                 }
                 messageBox.dismiss();
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                adapter.notifyDataSetChanged();
+                adapter1.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        referenceDiscover.child("Thoughts & Feelings").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        DiscoverDataModel newModel = ds.getValue(DiscoverDataModel.class);
+                        discoverData2.add(newModel);
+                    }
+                } else {
+                    messageBox.dismiss();
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Toast.makeText(getActivity(), "Snapshot does not exist", Toast.LENGTH_SHORT).show();
+                }
+                messageBox.dismiss();
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                adapter2.notifyDataSetChanged();
             }
 
             @Override
@@ -85,6 +122,6 @@ public class DiscoverFragment extends Fragment {
             }
         });
 
-        return  rootView;
+        return rootView;
     }
 }
