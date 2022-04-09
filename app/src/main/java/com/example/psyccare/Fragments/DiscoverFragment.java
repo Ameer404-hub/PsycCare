@@ -12,6 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.psyccare.DataAdapters.DiscoverAdapter;
@@ -32,6 +37,7 @@ public class DiscoverFragment extends Fragment {
     DiscoverAdapter adapter1, adapter2;
     ArrayList<DiscoverDataModel> discoverData1, discoverData2;
     ProgressDialog messageBox;
+    RelativeLayout Layout1, Layout2, Layout3, Layout4, Layout5;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +49,17 @@ public class DiscoverFragment extends Fragment {
         recyclerView2 = rootView.findViewById(R.id.discoverView2);
         recyclerView3 = rootView.findViewById(R.id.discoverView3);
         recyclerView4 = rootView.findViewById(R.id.discoverView4);
+        Layout1 = rootView.findViewById(R.id.Layout1);
+        Layout2 = rootView.findViewById(R.id.Layout2);
+        Layout3 = rootView.findViewById(R.id.Layout3);
+        Layout4 = rootView.findViewById(R.id.Layout4);
+        Layout5 = rootView.findViewById(R.id.Layout5);
+
+        Layout1.setVisibility(View.GONE);
+        Layout2.setVisibility(View.GONE);
+        Layout3.setVisibility(View.GONE);
+        Layout4.setVisibility(View.GONE);
+        Layout5.setVisibility(View.GONE);
 
         referenceDiscover = FirebaseDatabase.getInstance().getReference("DiscoverData");
 
@@ -82,6 +99,21 @@ public class DiscoverFragment extends Fragment {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         DiscoverDataModel newModel = ds.getValue(DiscoverDataModel.class);
                         discoverData1.add(newModel);
+
+                        Layout1.setVisibility(View.VISIBLE);
+                        Layout2.setVisibility(View.VISIBLE);
+                        Layout3.setVisibility(View.VISIBLE);
+                        Layout4.setVisibility(View.VISIBLE);
+                        Layout5.setVisibility(View.VISIBLE);
+
+                        LayoutAnimationController layoutAnimationController =
+                                AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_falldown);
+
+                        Layout1.setLayoutAnimation(layoutAnimationController);
+                        Layout2.setLayoutAnimation(layoutAnimationController);
+                        Layout3.setLayoutAnimation(layoutAnimationController);
+                        Layout4.setLayoutAnimation(layoutAnimationController);
+                        Layout5.setLayoutAnimation(layoutAnimationController);
                     }
                 } else {
                     messageBox.dismiss();

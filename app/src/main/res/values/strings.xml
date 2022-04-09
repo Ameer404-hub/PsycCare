@@ -27,6 +27,18 @@
     <string name="Hv_acc_str">Already have an account?</string>
     <string name="login_here_str">Log In</string>
 
+    <!--  on_boarding_titles_strings  -->
+    <string name="title1_str">Screen 1</string>
+    <string name="title2_str">Screen 2</string>
+    <string name="title3_str">Screen 3</string>
+    <string name="title4_str">Screen 4</string>
+
+    <!--  on_boarding_description_strings  -->
+    <string name="desc1_str">Description 1</string>
+    <string name="desc2_str">Description 2</string>
+    <string name="desc3_str">Description 3</string>
+    <string name="desc4_str">Description 4</string>
+
 
     <string name="facebook_app_id">965347674053686</string>
     <string name="fb_login_protocol_scheme">fb965347674053686</string>
