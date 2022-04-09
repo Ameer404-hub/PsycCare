@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PsycCare">
         <activity
+            android:name=".OngoingPsycProb"
+            android:exported="false" />
+        <activity
             android:name=".OnBoarding"
             android:exported="false" />
         <activity

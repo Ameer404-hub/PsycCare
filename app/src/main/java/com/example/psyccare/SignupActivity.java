@@ -1,14 +1,17 @@
 package com.example.psyccare;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -16,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.psyccare.DataModels.UserSignupData;
+import com.facebook.login.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -174,9 +178,20 @@ public class SignupActivity extends AppCompatActivity {
                     signupBtn.revertAnimation();
                     mUser = mAuth.getCurrentUser();
                     recordUserData();
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                    AlertDialog.Builder showMessage = new AlertDialog.Builder(SignupActivity.this);
+                    showMessage.setMessage("").setTitle("Account Created Successfully");
+                    showMessage.setMessage("Please log in to your account").setCancelable(false).
+                            setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+                    AlertDialog alert = showMessage.create();
+                    alert.show();
                 } else {
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     signupBtn.revertAnimation();

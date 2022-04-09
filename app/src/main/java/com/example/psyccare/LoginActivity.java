@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     LinearLayout Snackbar_layout;
+    SharedPreferences psycProbActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,9 +128,23 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     loginBtn.revertAnimation();
                     mUser = mAuth.getCurrentUser();
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+
+                    psycProbActivity = getSharedPreferences("psycProbScreen", MODE_PRIVATE);
+                    boolean isFirstTime = psycProbActivity.getBoolean("firstTime", true);
+
+                    if (isFirstTime) {
+                        SharedPreferences.Editor editor = psycProbActivity.edit();
+                        editor.putBoolean("firstTime", false);
+                        editor.commit();
+
+                        Intent intent = new Intent(getApplicationContext(), OngoingPsycProb.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     loginBtn.revertAnimation();

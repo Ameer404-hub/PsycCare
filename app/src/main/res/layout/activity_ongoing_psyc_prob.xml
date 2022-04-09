@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ScreenBGcolorPrimary"
+    tools:context=".OngoingPsycProb">
+
+    <Button
+        android:id="@+id/skipSlides"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:textColor="@color/TextColorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:drawableEnd="@drawable/ic_baseline_skip_24"
+        android:text="SKIP"
+        android:onClick="skipScreen"
+        />
+
+    <ScrollView
+        android:id="@+id/psycProbScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/psycProbLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/mythoughts_bg"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:gravity="center"
+                    android:text="ON-GOING PSYCHOLOGICAL PROBLEMS"
+                    android:textColor="@color/TextColorPrimary"
+                    android:letterSpacing="0.1"
+                    android:textSize="@dimen/TextsizeButton" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/metrophobic"
+                    android:gravity="center"
+                    android:text="Tell us about symptoms and characteristics of problems that you're experiencing"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizePrimary" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/probDepression"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_for_cardview"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:onClick="Depression">
+
+                <ImageView
+                    android:id="@+id/probImage1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/prob_depression" />
+
+                <TextView
+                    android:id="@+id/probName1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage1"
+                    android:text="Depression"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeToolbar" />
+
+                <TextView
+                    android:id="@+id/probDesc1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/probName1"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage1"
+                    android:text="Lowering of mood, loss of interest and enjoyment, and reduced energy  for long periods of time"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/probStress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_for_cardview"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:onClick="PTSD">
+
+                <ImageView
+                    android:id="@+id/probImage2"
+                    android:layout_width="100dp"
+                    android:layout_height="130dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/prob_stress" />
+
+                <TextView
+                    android:id="@+id/probName2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage2"
+                    android:text="Post Traumatic Stress Disorder"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeToolbar" />
+
+                <TextView
+                    android:id="@+id/probDesc2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/probName2"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage2"
+                    android:text="Unwanted and recurring memories, flashbacks or vivid nightmares, sleeping difficulties, irritability, lack of concentration"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/probAnxiety"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_for_cardview"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:onClick="Anxiety">
+
+                <ImageView
+                    android:id="@+id/probImage3"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/prob_anxiety" />
+
+                <TextView
+                    android:id="@+id/probName3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage3"
+                    android:text="Anxiety Disorder"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeToolbar" />
+
+                <TextView
+                    android:id="@+id/probDesc3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/probName3"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage3"
+                    android:text="Panic, trembling, sweating, faintness, rapid heartbeat, difficulties breathing or nausea"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/probMood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_for_cardview"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:onClick="moodDisorder">
+
+                <ImageView
+                    android:id="@+id/probImage4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/prob_mood" />
+
+                <TextView
+                    android:id="@+id/probName4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage4"
+                    android:text="Mood Disorder"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeToolbar" />
+
+                <TextView
+                    android:id="@+id/probDesc4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/probName4"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage4"
+                    android:text="Persistent feelings of sadness or periods of feeling overly happy, or fluctuations from extreme happiness to extreme sadness"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/probPsychotic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_for_cardview"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:onClick="Psychotic">
+
+                <ImageView
+                    android:id="@+id/probImage5"
+                    android:layout_width="100dp"
+                    android:layout_height="90dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/prob_psychotic" />
+
+                <TextView
+                    android:id="@+id/probName5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage5"
+                    android:text="Psychotic Disorder"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeToolbar" />
+
+                <TextView
+                    android:id="@+id/probDesc5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/probName5"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage5"
+                    android:text="Distorted awareness and thinking, experience of unreal images or sounds, false fixed beliefs"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/probOCD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_for_cardview"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:onClick="OCD">
+
+                <ImageView
+                    android:id="@+id/probImage6"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/prob_ocd" />
+
+                <TextView
+                    android:id="@+id/probName6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage6"
+                    android:text="Obsessive Compulsive Disorder"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeToolbar" />
+
+                <TextView
+                    android:id="@+id/probDesc6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/probName6"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage6"
+                    android:text="Constant thoughts or fears that cause people to perform certain rituals or routines"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/probIED"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_for_cardview"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:onClick="IED">
+
+                <ImageView
+                    android:id="@+id/probImage7"
+                    android:layout_width="100dp"
+                    android:layout_height="130dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/prob_ied" />
+
+                <TextView
+                    android:id="@+id/probName7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage7"
+                    android:text="Intermittent Explosive Disorder"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeToolbar" />
+
+                <TextView
+                    android:id="@+id/probDesc7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/probName7"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage7"
+                    android:text="Aggressive and violent behavior without any specific reason. It involves a series of verbal outbursts, physical fights, and sudden anger."
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/probPersonality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_for_cardview"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:onClick="Personality">
+
+                <ImageView
+                    android:id="@+id/probImage8"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/prob_personality_disorder" />
+
+                <TextView
+                    android:id="@+id/probName8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage8"
+                    android:text="Personality Disorder"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeToolbar" />
+
+                <TextView
+                    android:id="@+id/probDesc8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/probName8"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage8"
+                    android:text="Enduring pattern of maladaptive thoughts, feelings, and behaviors that can cause serious detriments to relationships and other life areas."
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/probPhobia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_for_cardview"
+                android:clickable="true"
+                android:elevation="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="5dp"
+                android:onClick="Phobia">
+
+                <ImageView
+                    android:id="@+id/probImage10"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/prob_phobia" />
+
+                <TextView
+                    android:id="@+id/probName10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage10"
+                    android:text="Social Phobia"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeToolbar" />
+
+                <TextView
+                    android:id="@+id/probDesc10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/probName10"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/probImage10"
+                    android:text="Afraid of being negatively judged, extreme fear in social settings, trouble talking to people, meeting new people, and attending social gatherings"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
+            </RelativeLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/goBtn"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/ButtonColorPrimary"
+                android:fontFamily="@font/metrophobic"
+                android:letterSpacing="0"
+                android:text="Next"
+                android:textAllCaps="false"
+                android:textColor="@color/ButtonTextColorPrimary"
+                android:textSize="@dimen/TextsizePrimary"
+                app:cornerRadius="20dp"
+                android:layout_margin="15dp"
+                android:onClick="nextScreen"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
