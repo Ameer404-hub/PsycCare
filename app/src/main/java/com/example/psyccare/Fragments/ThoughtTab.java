@@ -38,10 +38,9 @@ import org.tensorflow.lite.examples.textclassification.client.Result;
 import org.tensorflow.lite.examples.textclassification.client.TextClassificationClient;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class ThoughtTabFragment extends Fragment {
+public class ThoughtTab extends Fragment {
 
     private static final String TAG = "TextClassificationDemo";
     private TextClassificationClient client;
@@ -76,27 +75,28 @@ public class ThoughtTabFragment extends Fragment {
 
         if (isConnected(this)) {
             messageBox.show();
-            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             referenceToThoughtCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        checkInDate = snapshot.child("checkInDate").getValue().toString().trim();
-                        checkInTime = snapshot.child("checkInTime").getValue().toString().trim();
-                        Type = snapshot.child("type").getValue().toString().trim();
-                        Desc = snapshot.child("description").getValue().toString().trim();
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            checkInDate = ds.child("checkInDate").getValue().toString().trim();
+                            checkInTime = ds.child("checkInTime").getValue().toString().trim();
+                            Type = ds.child("type").getValue().toString().trim();
+                            Desc = ds.child("description").getValue().toString().trim();
 
+                            T_DateView.setText(checkInDate + " " + checkInTime);
+                            T_ThoughtView.setText(Type);
+                            T_DescriptionView.setText(Desc);
+                        }
                         classify(Desc);
-
-                        T_DateView.setText(checkInDate + " " + checkInTime);
-                        T_ThoughtView.setText(Type);
-                        T_DescriptionView.setText(Desc);
                         messageBox.dismiss();
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     } else {
                         messageBox.dismiss();
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         Toast.makeText(getActivity(), "Error while fetching Data!", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -104,7 +104,7 @@ public class ThoughtTabFragment extends Fragment {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     messageBox.dismiss();
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -117,7 +117,7 @@ public class ThoughtTabFragment extends Fragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         handler.post(
                 () -> {
@@ -127,7 +127,7 @@ public class ThoughtTabFragment extends Fragment {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         handler.post(
                 () -> {
@@ -211,10 +211,6 @@ public class ThoughtTabFragment extends Fragment {
                     barEntries.add(new BarEntry(0, HighValue));
                     BarLabel.add(Math.round(HighValue * 1000) / 10.0 + "% " + HighValueLable);
                     barchart(mBarChart, barEntries, BarLabel);
-
-                    HashMap<String, Object> Update = new HashMap<>();
-                    Update.put("classifiedAs", HighValueLable + " " + HighValue * 1000 / 10.0 + "%");
-                    referenceToThoughtCheckin.updateChildren(Update);
                 });
     }
 
@@ -260,11 +256,7 @@ public class ThoughtTabFragment extends Fragment {
 
     }
 
-    public void onBackPressed() {
-        client.unload();
-    }
-
-    private boolean isConnected(ThoughtTabFragment CheckInternet) {
+    private boolean isConnected(ThoughtTab CheckInternet) {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);

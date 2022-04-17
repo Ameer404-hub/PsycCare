@@ -18,10 +18,10 @@
         android:id="@+id/sliderTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="title"
         android:textColor="@color/TextColorPrimary"
         android:textSize="@dimen/TextsizeToolbar"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sliderImage" />
@@ -30,10 +30,10 @@
         android:id="@+id/sliderDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Description"
         android:textColor="@color/TextColorPrimary"
         android:textSize="@dimen/TextsizePrimary"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sliderTitle" />

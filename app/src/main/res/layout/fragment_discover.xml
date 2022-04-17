@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/DiscoverFragment"
     android:layout_width="match_parent"
     android:layout_height="665dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/DiscoverFragment"
     android:background="@color/ScreenBGcolorPrimary"
-    tools:context=".Fragments.DiscoverFragment">
+    tools:context=".Fragments.Discover">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,17 +86,17 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/bg_for_cardview"
+                        android:clickable="true"
                         android:elevation="2dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
                         android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/cardImageTop"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:src="@drawable/evening_checkin2"/>
+                            android:src="@drawable/evening_checkin2" />
 
                         <TextView
                             android:id="@+id/cardTextTop"
@@ -117,8 +117,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:paddingTop="10dp"
                     android:paddingStart="10dp"
+                    android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
                     <TextView
@@ -145,8 +145,8 @@
                     android:id="@+id/Layout3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
                     android:paddingStart="10dp"
+                    android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
                     <TextView
@@ -173,8 +173,8 @@
                     android:id="@+id/Layout4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
                     android:paddingStart="10dp"
+                    android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
                     <TextView
@@ -201,8 +201,8 @@
                     android:id="@+id/Layout5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
                     android:paddingStart="10dp"
+                    android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
                     <TextView
@@ -220,8 +220,8 @@
                         android:id="@+id/discoverView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_below="@+id/heading5"/>
+                        android:layout_below="@+id/heading5"
+                        android:layout_alignParentStart="true" />
 
                 </RelativeLayout>
 

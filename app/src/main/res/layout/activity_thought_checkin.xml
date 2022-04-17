@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/heading1"
@@ -84,15 +84,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Positive"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Positive"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Positive"
+                    android:text="Positive"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtNegative"
@@ -100,15 +100,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Negative"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Negative"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Negative"
+                    android:text="Negative"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
             </LinearLayout>
 
@@ -125,15 +125,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Emotional"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Emotional"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Emotional"
+                    android:text="Emotional"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtBlaming"
@@ -141,15 +141,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Blaming"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Blaming"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Blaming"
+                    android:text="Blaming"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtFear"
@@ -157,15 +157,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Fear"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Fear"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Fear"
+                    android:text="Fear"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
             </LinearLayout>
 
@@ -182,15 +182,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Catastrophic"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Catastrophic"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Catastrophic"
+                    android:text="Catastrophic"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtCalamitous"
@@ -198,15 +198,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Calamitous"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Calamitous"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Calamitous"
+                    android:text="Calamitous"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
             </LinearLayout>
 
@@ -223,15 +223,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Assertive"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Assertive"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Assertive"
+                    android:text="Assertive"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtAffirmative"
@@ -239,15 +239,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Affirmative"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Affirmative"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Affirmative"
+                    android:text="Affirmative"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtOptimistic"
@@ -255,15 +255,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Optimistic"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Optimistic"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Optimistic"
+                    android:text="Optimistic"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
             </LinearLayout>
 
@@ -280,15 +280,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:text="Pessimistic"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Pessimistic"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Pessimistic"
+                    android:text="Pessimistic"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtInferring"
@@ -296,15 +296,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:text="Inferring"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Inferring"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Inferring"
+                    android:text="Inferring"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
             </LinearLayout>
 
@@ -321,15 +321,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Disgust"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Disgust"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Disgust"
+                    android:text="Disgust"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtOther"
@@ -337,15 +337,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Other"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="Other"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="Other"
+                    android:text="Other"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/thoughtNotSure"
@@ -353,15 +353,15 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    android:text="Not Sure"
-                    app:cornerRadius="20dp"
-                    android:letterSpacing="0"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/metrophobic"
-                    android:textSize="@dimen/TextsizePrimary"
-                    android:textColor="@color/TextColorSecondary"
                     android:backgroundTint="@color/ButtonColorThird"
-                    android:onClick="NotSure"/>
+                    android:fontFamily="@font/metrophobic"
+                    android:letterSpacing="0"
+                    android:onClick="NotSure"
+                    android:text="Not Sure"
+                    android:textAllCaps="false"
+                    android:textColor="@color/TextColorSecondary"
+                    android:textSize="@dimen/TextsizePrimary"
+                    app:cornerRadius="20dp" />
 
             </LinearLayout>
 
@@ -410,7 +410,7 @@
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:maxLines="10"
-            android:minLines="3"/>
+            android:minLines="3" />
 
         <ImageView
             android:id="@+id/sendThoughtNote"
@@ -418,12 +418,12 @@
             android:layout_height="40dp"
             android:layout_gravity="end"
             android:layout_margin="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
             android:background="@drawable/bg_for_sendbutton"
-            app:srcCompat="@drawable/ic_baseline_send_24"
+            android:clickable="true"
             android:elevation="2dp"
-            android:padding="10dp"/>
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_baseline_send_24" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -435,7 +435,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thought_TextArea">
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/thought_TextArea"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable-v24/ic_baseline_up_24.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2203125" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_cardview.xml" value="0.2169230769230769" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/drawable/bg_for_sendbutton.xml" value="0.2203125" />
@@ -48,6 +49,7 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-large/activity_splash.xml" value="0.18" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-ldltr-land/activity_signup.xml" value="0.215625" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-ldltr-land/onboarding_slides.xml" value="0.215625" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-ldltr-land/stats_cardview.xml" value="0.21354166666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-ldpi/activity_login.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-normal/activity_login.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout-normal/activity_splash.xml" value="0.22" />
@@ -60,6 +62,7 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_mood_checkin.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_my_stats.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_navigation_drawer.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_on_boarding.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/activity_ongoing_psyc_prob.xml" value="0.20416666666666666" />
@@ -76,15 +79,18 @@
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_home_ii.xml" value="0.20437956204379562" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_home_new.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_mood_stats.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_mood_tab.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_mood_tracker.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_more.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_my_thoughts.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_progress.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_thought_stats.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/fragment_thought_tab.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/home_fragment.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/nav_header_main.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/onboarding_slides.xml" value="0.20416666666666666" />
+        <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/layout/stats_cardview.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidProjects/PsycCare/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/FYP/PsycCare/app/src/main/res/layout-ldltr-land/activity_signup.xml" value="0.4720720720720721" />

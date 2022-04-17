@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +41,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MoodTabFragment extends Fragment {
+public class MoodTab extends Fragment {
 
     private static final String TAG = "TextClassificationDemo";
     private TextClassificationClient client;
@@ -50,7 +49,7 @@ public class MoodTabFragment extends Fragment {
     private Handler handler;
     private HorizontalBarChart mBarChart;
     String checkInDate, checkInTime, Type, Desc;
-    DatabaseReference referenceToMoodCheckin, referenceToThoughtCheckin;
+    DatabaseReference referenceToMoodCheckin;
     ProgressDialog messageBox;
 
     @Override
@@ -72,54 +71,54 @@ public class MoodTabFragment extends Fragment {
         referenceToMoodCheckin = FirebaseDatabase.getInstance().getReference("User")
                 .child(FirebaseAuth.getInstance().getUid()).child("MoodCheckIns");
 
-        referenceToThoughtCheckin = FirebaseDatabase.getInstance().getReference("User")
-                .child(FirebaseAuth.getInstance().getUid()).child("ThoughtCheckIns");
-
         client = new TextClassificationClient(getActivity());
         handler = new Handler();
 
         if (isConnected(this)) {
             messageBox.show();
-            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             referenceToMoodCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        checkInDate = snapshot.child("checkInDate").getValue().toString().trim();
-                        checkInTime = snapshot.child("checkInTime").getValue().toString().trim();
-                        Type = snapshot.child("type").getValue().toString().trim();
-                        Desc = snapshot.child("description").getValue().toString().trim();
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            checkInDate = ds.child("checkInDate").getValue().toString().trim();
+                            checkInTime = ds.child("checkInTime").getValue().toString().trim();
+                            Type = ds.child("type").getValue().toString().trim();
+                            Desc = ds.child("description").getValue().toString().trim();
 
+                            M_DateView.setText(checkInDate + " " + checkInTime);
+                            M_MoodView.setText(Type);
+                            M_DescriptionView.setText(Desc);
+                        }
                         classify(Desc);
-
-                        M_DateView.setText(checkInDate + " " + checkInTime);
-                        M_MoodView.setText(Type);
-                        M_DescriptionView.setText(Desc);
                         messageBox.dismiss();
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
                     } else {
                         messageBox.dismiss();
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Toast.makeText(getActivity(), "Error while fetching Data!", Toast.LENGTH_SHORT).show();
+                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        Toast.makeText(getActivity(), "Error while fetching data", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     messageBox.dismiss();
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
             Toast.makeText(getActivity(), "You're device is not connected to internet", Toast.LENGTH_LONG).show();
         }
+
         return rootView;
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         handler.post(
                 () -> {
@@ -129,7 +128,7 @@ public class MoodTabFragment extends Fragment {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         handler.post(
                 () -> {
@@ -258,11 +257,11 @@ public class MoodTabFragment extends Fragment {
 
                     HashMap<String, Object> Update = new HashMap<>();
                     Update.put("classifiedAs", HighValueLable + " " + HighValue * 1000 / 10.0 + "%");
-                    referenceToMoodCheckin.updateChildren(Update);
+                    referenceToMoodCheckin.child(checkInDate + " " + checkInTime).updateChildren(Update);
                 });
     }
 
-    private boolean isConnected(MoodTabFragment CheckInternet) {
+    private boolean isConnected(MoodTab CheckInternet) {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);

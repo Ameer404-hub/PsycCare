@@ -12,13 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00000000"
+        android:drawableEnd="@drawable/ic_baseline_skip_24"
+        android:onClick="skipScreen"
+        android:text="SKIP"
         android:textColor="@color/TextColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:drawableEnd="@drawable/ic_baseline_skip_24"
-        android:text="SKIP"
-        android:onClick="skipScreen"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/psycProbScroll"
@@ -39,24 +38,24 @@
                 android:id="@+id/heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:padding="10dp">
 
                 <ImageView
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/mythoughts_bg"/>
+                    android:src="@drawable/mythoughts_bg" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alfa_slab_one"
                     android:gravity="center"
+                    android:letterSpacing="0.1"
                     android:text="ON-GOING PSYCHOLOGICAL PROBLEMS"
                     android:textColor="@color/TextColorPrimary"
-                    android:letterSpacing="0.1"
                     android:textSize="@dimen/TextsizeButton" />
 
                 <TextView
@@ -82,8 +81,8 @@
                 android:clickable="true"
                 android:elevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:padding="5dp"
-                android:onClick="Depression">
+                android:onClick="Depression"
+                android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/probImage1"
@@ -129,8 +128,8 @@
                 android:clickable="true"
                 android:elevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:padding="5dp"
-                android:onClick="PTSD">
+                android:onClick="PTSD"
+                android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/probImage2"
@@ -176,8 +175,8 @@
                 android:clickable="true"
                 android:elevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:padding="5dp"
-                android:onClick="Anxiety">
+                android:onClick="Anxiety"
+                android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/probImage3"
@@ -223,8 +222,8 @@
                 android:clickable="true"
                 android:elevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:padding="5dp"
-                android:onClick="moodDisorder">
+                android:onClick="moodDisorder"
+                android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/probImage4"
@@ -270,8 +269,8 @@
                 android:clickable="true"
                 android:elevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:padding="5dp"
-                android:onClick="Psychotic">
+                android:onClick="Psychotic"
+                android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/probImage5"
@@ -317,8 +316,8 @@
                 android:clickable="true"
                 android:elevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:padding="5dp"
-                android:onClick="OCD">
+                android:onClick="OCD"
+                android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/probImage6"
@@ -364,8 +363,8 @@
                 android:clickable="true"
                 android:elevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:padding="5dp"
-                android:onClick="IED">
+                android:onClick="IED"
+                android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/probImage7"
@@ -411,8 +410,8 @@
                 android:clickable="true"
                 android:elevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:padding="5dp"
-                android:onClick="Personality">
+                android:onClick="Personality"
+                android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/probImage8"
@@ -458,8 +457,8 @@
                 android:clickable="true"
                 android:elevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:padding="5dp"
-                android:onClick="Phobia">
+                android:onClick="Phobia"
+                android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/probImage10"
@@ -497,18 +496,18 @@
                 android:id="@+id/goBtn"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_gravity="center"
+                android:layout_margin="15dp"
                 android:backgroundTint="@color/ButtonColorPrimary"
                 android:fontFamily="@font/metrophobic"
+                android:gravity="center"
                 android:letterSpacing="0"
+                android:onClick="nextScreen"
                 android:text="Next"
                 android:textAllCaps="false"
                 android:textColor="@color/ButtonTextColorPrimary"
                 android:textSize="@dimen/TextsizePrimary"
-                app:cornerRadius="20dp"
-                android:layout_margin="15dp"
-                android:onClick="nextScreen"/>
+                app:cornerRadius="20dp" />
 
         </LinearLayout>
 

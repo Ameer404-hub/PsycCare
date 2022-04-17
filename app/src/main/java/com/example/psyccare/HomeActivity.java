@@ -3,14 +3,13 @@ package com.example.psyccare;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-import com.example.psyccare.Fragments.HomeFragment;
-import com.example.psyccare.Fragments.DiscoverFragment;
-import com.example.psyccare.Fragments.MoreFragment;
-import com.example.psyccare.Fragments.ProgressFragment;
+import com.example.psyccare.Fragments.Home;
+import com.example.psyccare.Fragments.Discover;
+import com.example.psyccare.Fragments.More;
+import com.example.psyccare.Fragments.Progress;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class HomeActivity extends AppCompatActivity {
@@ -23,8 +22,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         chipNavigationBar = findViewById(R.id.bottom_nav_menu);
-        chipNavigationBar.setItemSelected(R.id.bottom_nav_home,true);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        chipNavigationBar.setItemSelected(R.id.bottom_nav_home, true);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Home()).commit();
         bottomMenu();
 
     }
@@ -36,20 +35,20 @@ public class HomeActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (i) {
                     case R.id.bottom_nav_home:
-                        fragment = new HomeFragment();
+                        fragment = new Home();
                         break;
                     case R.id.bottom_nav_discover:
-                        fragment = new DiscoverFragment();
+                        fragment = new Discover();
                         break;
                     case R.id.bottom_nav_progress:
-                        fragment = new ProgressFragment();
+                        fragment = new Progress();
                         break;
                     case R.id.bottom_nav_more:
-                        fragment = new MoreFragment();
+                        fragment = new More();
                         break;
                 }
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container,fragment).commit();
+                fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
             }
         });
     }

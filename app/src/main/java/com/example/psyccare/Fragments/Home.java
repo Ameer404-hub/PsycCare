@@ -8,25 +8,28 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.psyccare.MoodCheckin;
+import com.example.psyccare.MyStats;
+import com.example.psyccare.OngoingPsycProb;
 import com.example.psyccare.R;
+import com.google.android.material.button.MaterialButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class HomeFragment extends Fragment {
+public class Home extends Fragment {
 
     Calendar calendar;
     SimpleDateFormat dateFormat, Time;
-    TextView Greetings, dateTimeDisplay, checkInHeading, checkInStat;
+    TextView dateTimeDisplay, checkInHeading, checkInStat;
     String date;
+    MaterialButton checkInBtn;
     ImageView homeView;
-    Button checkInBtn;
+    LinearLayout Symptoms, Explore, Support, Recommended;
     LinearLayout Happy, Sad, Angry, Stressed, Excited;
 
     @Override
@@ -35,12 +38,15 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        Greetings = rootView.findViewById(R.id.welcome);
         checkInBtn = rootView.findViewById(R.id.checkInBtn);
         dateTimeDisplay = rootView.findViewById(R.id.dateTime);
         checkInHeading = rootView.findViewById(R.id.checkInHeading);
         checkInStat = rootView.findViewById(R.id.checkInStatement);
         homeView = rootView.findViewById(R.id.homePicture);
+        Symptoms = rootView.findViewById(R.id.symptomsLayout);
+        Explore = rootView.findViewById(R.id.exploreLayout);
+        Recommended = rootView.findViewById(R.id.recommendLayout);
+        Support = rootView.findViewById(R.id.supportLayout);
 
         Happy = rootView.findViewById(R.id.Happy);
         Sad = rootView.findViewById(R.id.Sad);
@@ -55,6 +61,21 @@ public class HomeFragment extends Fragment {
         dateTimeDisplay.setText(date);
         Greet();
         setPicture();
+
+        Symptoms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveTo = new Intent(getActivity(), OngoingPsycProb.class);
+                startActivity(moveTo);
+            }
+        });
+        Explore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveTo = new Intent(getActivity(), MyStats.class);
+                startActivity(moveTo);
+            }
+        });
 
         Happy.setOnClickListener(new View.OnClickListener() {
             @Override

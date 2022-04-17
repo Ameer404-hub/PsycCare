@@ -37,8 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/alfa_slab_one"
-        android:text="DESCRIBE"
         android:letterSpacing="0.1"
+        android:text="DESCRIBE"
         android:textColor="@color/TextColorPrimary"
         android:textSize="28dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,25 +76,25 @@
                 android:id="@+id/moodIconsLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="15dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/moodHappy"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Happy">
+                    android:gravity="center"
+                    android:onClick="Happy"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -105,11 +105,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Happy"
                         android:gravity="center"
+                        android:text="Happy"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -117,17 +117,17 @@
                     android:id="@+id/moodSad"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Sad">
+                    android:gravity="center"
+                    android:onClick="Sad"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -138,11 +138,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Sad"
                         android:gravity="center"
+                        android:text="Sad"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -150,17 +150,17 @@
                     android:id="@+id/moodAngry"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Angry">
+                    android:gravity="center"
+                    android:onClick="Angry"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -171,11 +171,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Angry"
                         android:gravity="center"
+                        android:text="Angry"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -192,17 +192,17 @@
                     android:id="@+id/moodAnxious"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Anxious">
+                    android:gravity="center"
+                    android:onClick="Anxious"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -213,11 +213,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Anxious"
                         android:gravity="center"
+                        android:text="Anxious"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -225,17 +225,17 @@
                     android:id="@+id/moodExcited"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Excited">
+                    android:gravity="center"
+                    android:onClick="Excited"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -246,11 +246,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Excited"
                         android:gravity="center"
+                        android:text="Excited"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -258,17 +258,17 @@
                     android:id="@+id/moodStressed"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Stressed">
+                    android:gravity="center"
+                    android:onClick="Stressed"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -279,11 +279,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Stressed"
                         android:gravity="center"
+                        android:text="Stressed"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -300,17 +300,17 @@
                     android:id="@+id/moodAwesome"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Awesome">
+                    android:gravity="center"
+                    android:onClick="Awesome"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -324,7 +324,7 @@
                         android:text="Awesome"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -332,17 +332,17 @@
                     android:id="@+id/moodTerrible"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Terrible">
+                    android:gravity="center"
+                    android:onClick="Terrible"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -353,11 +353,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Terrible"
                         android:gravity="center"
+                        android:text="Terrible"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -365,17 +365,17 @@
                     android:id="@+id/moodTired"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Tired">
+                    android:gravity="center"
+                    android:onClick="Tired"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -386,11 +386,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Tired"
                         android:gravity="center"
+                        android:text="Tired"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -407,17 +407,17 @@
                     android:id="@+id/moodHopeful"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Hopeful">
+                    android:gravity="center"
+                    android:onClick="Hopeful"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -431,7 +431,7 @@
                         android:text="Hopeful"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -439,17 +439,17 @@
                     android:id="@+id/moodOkay"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Okay">
+                    android:gravity="center"
+                    android:onClick="Okay"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -460,11 +460,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Okay"
                         android:gravity="center"
+                        android:text="Okay"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -472,17 +472,17 @@
                     android:id="@+id/moodCalm"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Calm">
+                    android:gravity="center"
+                    android:onClick="Calm"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -493,11 +493,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Calm"
                         android:gravity="center"
+                        android:text="Calm"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -514,17 +514,17 @@
                     android:id="@+id/moodSatisfied"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Satisfied">
+                    android:gravity="center"
+                    android:onClick="Satisfied"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -538,7 +538,7 @@
                         android:text="Satisfied"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -546,17 +546,17 @@
                     android:id="@+id/moodFrustated"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
                     android:background="@drawable/bg_for_untapped"
+                    android:clickable="true"
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:onClick="Frustated">
+                    android:gravity="center"
+                    android:onClick="Frustrated"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -567,11 +567,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Frustated"
                         android:gravity="center"
+                        android:text="Frustrated"
                         android:textAllCaps="false"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"/>
+                        android:textSize="@dimen/TextsizePrimary" />
 
                 </LinearLayout>
 
@@ -588,8 +588,8 @@
                     android:elevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:onClick="notSure">
+                    android:onClick="notSure"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -655,7 +655,7 @@
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:maxLines="10"
-            android:minLines="3"/>
+            android:minLines="3" />
 
         <ImageView
             android:id="@+id/sendMoodNote"
@@ -663,12 +663,12 @@
             android:layout_height="40dp"
             android:layout_gravity="end"
             android:layout_margin="5dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
             android:background="@drawable/bg_for_sendbutton"
-            app:srcCompat="@drawable/ic_baseline_send_24"
+            android:clickable="true"
             android:elevation="2dp"
-            android:padding="10dp"/>
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_baseline_send_24" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

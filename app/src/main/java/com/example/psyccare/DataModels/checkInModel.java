@@ -2,8 +2,18 @@ package com.example.psyccare.DataModels;
 
 public class checkInModel {
     String checkInDate, checkInTime, Type, Description, ClassifiedAs;
+    public boolean visibility;
 
     public checkInModel() {
+    }
+
+    public checkInModel(String checkInDate, String checkInTime, String type, String description, String classifiedAs, boolean visibility) {
+        this.checkInDate = checkInDate;
+        this.checkInTime = checkInTime;
+        Type = type;
+        Description = description;
+        ClassifiedAs = classifiedAs;
+        this.visibility = visibility;
     }
 
     public checkInModel(String checkInDate, String checkInTime, String type, String description, String classifiedAs) {
@@ -12,6 +22,13 @@ public class checkInModel {
         Type = type;
         Description = description;
         ClassifiedAs = classifiedAs;
+    }
+
+    public checkInModel(String checkInDate, String checkInTime, String type, String description) {
+        this.checkInDate = checkInDate;
+        this.checkInTime = checkInTime;
+        Type = type;
+        Description = description;
     }
 
     public String getCheckInDate() {
@@ -52,5 +69,13 @@ public class checkInModel {
 
     public void setClassifiedAs(String classifiedAs) {
         ClassifiedAs = classifiedAs;
+    }
+
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
+    }
+
+    public boolean isVisibility() {
+        return visibility;
     }
 }

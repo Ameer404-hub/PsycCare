@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.psyccare.DataModels.UserSignupData;
 import com.facebook.login.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -162,11 +163,10 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private boolean validatetermsCons() {
-        if(!TnCbox.isChecked()){
+        if (!TnCbox.isChecked()) {
             Toast.makeText(SignupActivity.this, "Please check Terms and Conditions", Toast.LENGTH_SHORT).show();
             return false;
-        }
-        else
+        } else
             return true;
     }
 

@@ -1,11 +1,10 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/ScreenBGcolorPrimary"
+    android:orientation="vertical"
     android:padding="20dp"
     tools:context=".LoginActivity">
 
@@ -185,19 +184,19 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/google_str"
+                android:onClick="signInWithGoogle"
                 android:padding="5dp"
-                android:src="@drawable/googlelogo"
-                android:onClick="signInWithGoogle"/>
+                android:src="@drawable/googlelogo" />
 
             <TextView
                 android:id="@+id/googleLogoName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/metrophobic"
+                android:onClick="signInWithGoogle"
                 android:text="@string/google_str"
                 android:textColor="#757575"
-                android:textSize="16sp"
-                android:onClick="signInWithGoogle"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/logo_space"
@@ -215,19 +214,19 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:contentDescription="@string/facebook_str"
+                android:onClick="signInWithFB"
                 android:padding="5dp"
-                android:src="@drawable/facebooklogo"
-                android:onClick="signInWithFB"/>
+                android:src="@drawable/facebooklogo" />
 
             <TextView
                 android:id="@+id/fbLogoName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/metrophobic"
+                android:onClick="signInWithFB"
                 android:text="@string/facebook_str"
                 android:textColor="#757575"
-                android:textSize="16sp"
-                android:onClick="signInWithFB"/>
+                android:textSize="16sp" />
 
         </LinearLayout>
 

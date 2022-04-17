@@ -69,7 +69,7 @@ public class ThoughtCheckin extends AppCompatActivity {
                     Toast.makeText(ThoughtCheckin.this, "You're device is not connected to internet", Toast.LENGTH_LONG).show();
                 else {
                     messageBox.show();
-                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     Desc = thoughtMessageBox.getEditText().getText().toString();
                     classifiedAs = "";
@@ -343,9 +343,9 @@ public class ThoughtCheckin extends AppCompatActivity {
         }
     }
 
-    public void insertCheckin(){
+    public void insertCheckin() {
         checkInModel thoughtCheckIn = new checkInModel(Date, Time, Type, Desc, classifiedAs);
-        referenceToCheckin.setValue(thoughtCheckIn);
+        referenceToCheckin.child(Date + " " + Time).setValue(thoughtCheckIn);
     }
 
     public void onBackPressed() {

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,9 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.psyccare.DataModels.DiscoverDataModel;
-import com.example.psyccare.Fragments.MoreFragment;
 import com.example.psyccare.HomeActivity;
-import com.example.psyccare.MoodCheckin;
 import com.example.psyccare.R;
 
 import java.util.ArrayList;

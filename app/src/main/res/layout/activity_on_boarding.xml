@@ -23,12 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00000000"
+        android:drawableEnd="@drawable/ic_baseline_skip_24"
+        android:onClick="skipSlide"
+        android:text="SKIP"
         android:textColor="@color/TextColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:drawableEnd="@drawable/ic_baseline_skip_24"
-        android:text="SKIP"
-        android:onClick="skipSlide"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -53,8 +53,8 @@
             android:layout_alignParentEnd="true"
             android:background="#00000000"
             android:drawableEnd="@drawable/ic_baseline_next_24"
-            android:text="NEXT"
             android:onClick="nextSlide"
+            android:text="NEXT"
             android:textColor="@color/black" />
 
         <com.google.android.material.button.MaterialButton

@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/bottom_nav_home"
+        android:icon="@drawable/ic_baseline_home"
         android:title="Home"
-        app:cnb_backgroundColor="@color/ButtonColorPrimary"
-        android:icon="@drawable/ic_baseline_home"/>
+        app:cnb_backgroundColor="@color/ButtonColorPrimary" />
     <item
         android:id="@+id/bottom_nav_discover"
+        android:icon="@drawable/ic_baseline_discover"
         android:title="Discover"
-        app:cnb_backgroundColor="@color/ButtonColorPrimary"
-        android:icon="@drawable/ic_baseline_discover" />
+        app:cnb_backgroundColor="@color/ButtonColorPrimary" />
     <item
         android:id="@+id/bottom_nav_progress"
+        android:icon="@drawable/ic_base_line_progress"
         android:title="Progress"
-        app:cnb_backgroundColor="@color/ButtonColorPrimary"
-        android:icon="@drawable/ic_base_line_progress" />
+        app:cnb_backgroundColor="@color/ButtonColorPrimary" />
     <item
         android:id="@+id/bottom_nav_more"
+        android:icon="@drawable/ic_baseline_more"
         android:title="More"
-        app:cnb_backgroundColor="@color/ButtonColorPrimary"
-        android:icon="@drawable/ic_baseline_more" />
+        app:cnb_backgroundColor="@color/ButtonColorPrimary" />
 
 </menu>

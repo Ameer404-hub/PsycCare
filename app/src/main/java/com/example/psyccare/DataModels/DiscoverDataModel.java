@@ -3,7 +3,7 @@ package com.example.psyccare.DataModels;
 public class DiscoverDataModel {
     String title, imageUri;
 
-    public DiscoverDataModel(){
+    public DiscoverDataModel() {
 
     }
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MoreFragment"
     android:layout_width="match_parent"
     android:layout_height="665dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/MoreFragment"
     android:background="@color/ScreenBGcolorPrimary"
-    tools:context=".Fragments.MoreFragment">
+    tools:context=".Fragments.More">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,15 +34,6 @@
                 android:text="More"
                 android:textColor="@color/ToolbarTextColorPrimary"
                 android:textSize="@dimen/TextsizeToolbar" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="10dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:src="@drawable/ic_baseline_notification_24" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -83,13 +74,13 @@
             android:id="@+id/support"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/cardview_more_activity"
             android:clickable="true"
             android:elevation="1dp"
-            android:padding="10dp"
-            android:layout_marginTop="1dp"
-            android:orientation="horizontal"
-            android:background="@drawable/cardview_more_activity"
             android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/myStats">
@@ -114,19 +105,53 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/recommend"
+            android:id="@+id/onGoingProbs"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/cardview_more_activity"
             android:clickable="true"
             android:elevation="1dp"
-            android:padding="10dp"
-            android:layout_marginTop="1dp"
-            android:orientation="horizontal"
-            android:background="@drawable/cardview_more_activity"
             android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/support">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/icon_symptoms" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/metrophobic"
+                android:text="Ongoing Psychological\nProblems"
+                android:textAllCaps="false"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="@dimen/TextsizeButton" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/recommend"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/cardview_more_activity"
+            android:clickable="true"
+            android:elevation="1dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/onGoingProbs">
 
             <ImageView
                 android:layout_width="35dp"
@@ -151,13 +176,13 @@
             android:id="@+id/settings"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/cardview_more_activity"
             android:clickable="true"
             android:elevation="1dp"
-            android:padding="10dp"
-            android:layout_marginTop="1dp"
-            android:orientation="horizontal"
-            android:background="@drawable/cardview_more_activity"
             android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recommend">
@@ -185,13 +210,13 @@
             android:id="@+id/aboutUs"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/cardview_more_activity"
             android:clickable="true"
             android:elevation="1dp"
-            android:padding="10dp"
-            android:layout_marginTop="1dp"
-            android:orientation="horizontal"
-            android:background="@drawable/cardview_more_activity"
             android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/settings">
@@ -219,13 +244,13 @@
             android:id="@+id/logOut"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/cardview_more_activity"
             android:clickable="true"
             android:elevation="1dp"
-            android:padding="10dp"
-            android:layout_marginTop="1dp"
-            android:orientation="horizontal"
-            android:background="@drawable/cardview_more_activity"
             android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/aboutUs">

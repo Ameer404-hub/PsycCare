@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/HomeScreenFragment"
     android:layout_width="match_parent"
     android:layout_height="665dp"
     android:background="@color/ScreenBGcolorPrimary"
-    android:id="@+id/HomeScreenFragment"
-    tools:context=".Fragments.HomeFragment">
+    tools:context=".Fragments.Home">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="2dp"
             android:background="@color/ToolbarColorSecondary"
-            android:theme="@style/Theme.PsycCare">
+            android:elevation="2dp"
+            android:theme="@style/Theme.PsycCare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -37,35 +38,39 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:layout_marginEnd="10dp"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                android:src="@drawable/ic_baseline_notification_24"
-                android:layout_gravity="end"/>
+                android:foreground="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_baseline_notification_24" />
 
         </androidx.appcompat.widget.Toolbar>
 
         <ScrollView
+            android:id="@+id/homeScroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="610dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
+                android:id="@+id/Outerlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/constraint_outerlayout">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/reportMoodLayout"
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_for_cardview"
                     android:elevation="3.5dp"
-                    android:layout_marginTop="10dp"
                     android:orientation="vertical"
-                    android:padding="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:padding="15dp">
 
                     <ImageView
                         android:id="@+id/homePicture"
@@ -118,20 +123,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/reportMoodLayout">
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/Happy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:layout_margin="12.5dp"
-                        android:orientation="vertical"
+                        android:clickable="true"
                         android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="40dp"
@@ -145,7 +147,7 @@
                             android:text="Happy"
                             android:textAllCaps="false"
                             android:textColor="@color/TextColorPrimary"
-                            android:textSize="10dp"/>
+                            android:textSize="10dp" />
 
                     </LinearLayout>
 
@@ -153,10 +155,10 @@
                         android:id="@+id/Sad"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true"
                         android:layout_margin="12.5dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
@@ -171,7 +173,7 @@
                             android:text="Sad"
                             android:textAllCaps="false"
                             android:textColor="@color/TextColorPrimary"
-                            android:textSize="10dp"/>
+                            android:textSize="10dp" />
 
                     </LinearLayout>
 
@@ -179,10 +181,10 @@
                         android:id="@+id/Angry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true"
                         android:layout_margin="12.5dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
@@ -197,7 +199,7 @@
                             android:text="Angry"
                             android:textAllCaps="false"
                             android:textColor="@color/TextColorPrimary"
-                            android:textSize="10dp"/>
+                            android:textSize="10dp" />
 
                     </LinearLayout>
 
@@ -205,10 +207,10 @@
                         android:id="@+id/Stressed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true"
                         android:layout_margin="12.5dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
@@ -223,7 +225,7 @@
                             android:text="Stressed"
                             android:textAllCaps="false"
                             android:textColor="@color/TextColorPrimary"
-                            android:textSize="10dp"/>
+                            android:textSize="10dp" />
 
                     </LinearLayout>
 
@@ -231,10 +233,10 @@
                         android:id="@+id/Excited"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true"
                         android:layout_margin="12.5dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
@@ -249,7 +251,7 @@
                             android:text="Excited"
                             android:textAllCaps="false"
                             android:textColor="@color/TextColorPrimary"
-                            android:textSize="10dp"/>
+                            android:textSize="10dp" />
 
                     </LinearLayout>
 
@@ -267,196 +269,200 @@
                     android:textAllCaps="false"
                     android:textColor="@color/ButtonTextColorPrimary"
                     android:textSize="@dimen/TextsizePrimary"
-                    app:cornerRadius="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/moodIconsLayout" />
+                    app:cornerRadius="20dp" />
 
-                <LinearLayout
-                    android:id="@+id/symptomsLayout"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_for_cardview"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:elevation="3.5dp"
-                    android:orientation="vertical"
-                    android:padding="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintHorizontal_bias="0.1"
-                    app:layout_constraintTop_toBottomOf="@+id/checkInBtn">
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:rowCount="2">
 
-                    <ImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_gravity="start"
-                        app:srcCompat="@drawable/icon_symptoms" />
+                    <LinearLayout
+                        android:id="@+id/symptomsLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/bg_for_cardview"
+                        android:clickable="true"
+                        android:elevation="3.5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/checkInBtn">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="Symptoms"
-                        android:textAllCaps="false"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizeButton" />
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:layout_gravity="start"
+                            app:srcCompat="@drawable/icon_symptoms" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="Tell us more about\nyour condition"
-                        android:textAllCaps="false"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="12dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:fontFamily="@font/metrophobic"
+                            android:text="Symptoms"
+                            android:textAllCaps="false"
+                            android:textColor="@color/TextColorPrimary"
+                            android:textSize="@dimen/TextsizeButton" />
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/metrophobic"
+                            android:text="Tell us more about\nyour condition"
+                            android:textAllCaps="false"
+                            android:textColor="@color/TextColorPrimary"
+                            android:textSize="12dp" />
 
-                <LinearLayout
-                    android:id="@+id/exploreLayout"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_for_cardview"
-                    android:elevation="3.5dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:orientation="vertical"
-                    android:padding="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/symptomsLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/checkInBtn">
+                    </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_gravity="start"
-                        android:layout_marginBottom="10dp"
-                        app:srcCompat="@drawable/icon_explore" />
+                    <LinearLayout
+                        android:id="@+id/exploreLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/bg_for_cardview"
+                        android:clickable="true"
+                        android:elevation="3.5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/symptomsLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/checkInBtn">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="Explore"
-                        android:textAllCaps="false"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizeButton" />
+                        <ImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="start"
+                            android:layout_marginBottom="10dp"
+                            app:srcCompat="@drawable/icon_explore" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="Explore your thoughts\nand emotions"
-                        android:textAllCaps="false"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="12dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:fontFamily="@font/metrophobic"
+                            android:text="Explore"
+                            android:textAllCaps="false"
+                            android:textColor="@color/TextColorPrimary"
+                            android:textSize="@dimen/TextsizeButton" />
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/metrophobic"
+                            android:text="Explore your thoughts\nand emotions"
+                            android:textAllCaps="false"
+                            android:textColor="@color/TextColorPrimary"
+                            android:textSize="12dp" />
 
-                <LinearLayout
-                    android:id="@+id/supportLayout"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:background="@drawable/bg_for_cardview"
-                    android:elevation="3.5dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical"
-                    android:padding="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintHorizontal_bias="0.1"
-                    app:layout_constraintTop_toBottomOf="@+id/symptomsLayout">
+                    </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_gravity="start"
-                        app:srcCompat="@drawable/icon_support" />
+                    <LinearLayout
+                        android:id="@+id/supportLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/bg_for_cardview"
+                        android:clickable="true"
+                        android:elevation="3.5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/symptomsLayout">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="Support"
-                        android:textAllCaps="false"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizeButton" />
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:layout_gravity="start"
+                            app:srcCompat="@drawable/icon_support" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="Find near by crisis\nand support services"
-                        android:textAllCaps="false"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="12dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:fontFamily="@font/metrophobic"
+                            android:text="Support"
+                            android:textAllCaps="false"
+                            android:textColor="@color/TextColorPrimary"
+                            android:textSize="@dimen/TextsizeButton" />
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/metrophobic"
+                            android:text="Find near by crisis\nand support services"
+                            android:textAllCaps="false"
+                            android:textColor="@color/TextColorPrimary"
+                            android:textSize="12dp" />
 
-                <LinearLayout
-                    android:id="@+id/recommendLayout"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:background="@drawable/bg_for_cardview"
-                    android:elevation="3.5dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical"
-                    android:padding="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/symptomsLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/exploreLayout">
+                    </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_gravity="start"
-                        android:layout_marginBottom="10dp"
-                        app:srcCompat="@drawable/icon_recommend" />
+                    <LinearLayout
+                        android:id="@+id/recommendLayout"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/bg_for_cardview"
+                        android:clickable="true"
+                        android:elevation="3.5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/symptomsLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/exploreLayout">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="Recommended"
-                        android:textAllCaps="false"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizeButton" />
+                        <ImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="start"
+                            android:layout_marginBottom="10dp"
+                            app:srcCompat="@drawable/icon_recommend" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="See recommendations\nbased on your progress"
-                        android:textAllCaps="false"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="12dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:fontFamily="@font/metrophobic"
+                            android:text="Recommended"
+                            android:textAllCaps="false"
+                            android:textColor="@color/TextColorPrimary"
+                            android:textSize="@dimen/TextsizeButton" />
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/metrophobic"
+                            android:text="See recommendations\nbased on your progress"
+                            android:textAllCaps="false"
+                            android:textColor="@color/TextColorPrimary"
+                            android:textSize="12dp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+
+                </GridLayout>
+
+            </LinearLayout>
 
         </ScrollView>
 
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

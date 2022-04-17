@@ -50,27 +50,27 @@ public class OnBoarding extends AppCompatActivity {
         });
     }
 
-    public void skipSlide(View view){
+    public void skipSlide(View view) {
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
     }
 
-    public void nextSlide(View view){
+    public void nextSlide(View view) {
         viewPager.setCurrentItem(currPos + 1);
     }
 
-    private void addIndicator(int position){
+    private void addIndicator(int position) {
         dots = new TextView[4];
         dotsLayout.removeAllViews();
 
-        for(int i=0; i<dots.length; i++){
+        for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(35);
 
             dotsLayout.addView(dots[i]);
         }
-        if(dots.length>0){
+        if (dots.length > 0) {
             dots[position].setTextColor(getResources().getColor(R.color.ButtonColorPrimary));
         }
     }
@@ -86,16 +86,13 @@ public class OnBoarding extends AppCompatActivity {
             addIndicator(position);
             currPos = position;
 
-            if(position == 0){
+            if (position == 0) {
                 letsGo.setVisibility(View.INVISIBLE);
-            }
-            else if(position == 1){
+            } else if (position == 1) {
                 letsGo.setVisibility(View.INVISIBLE);
-            }
-            else if(position == 2){
+            } else if (position == 2) {
                 letsGo.setVisibility(View.INVISIBLE);
-            }
-            else if(position == 3){
+            } else if (position == 3) {
                 Animation animation = AnimationUtils.loadAnimation(OnBoarding.this, R.anim.slide_anim);
                 letsGo.setAnimation(animation);
                 letsGo.setVisibility(View.VISIBLE);

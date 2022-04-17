@@ -16,58 +16,64 @@
 
 package org.tensorflow.lite.examples.textclassification.client;
 
-/** An immutable result returned by a TextClassifier describing what was classified. */
+/**
+ * An immutable result returned by a TextClassifier describing what was classified.
+ */
 public class Result implements Comparable<Result> {
-  /**
-   * A unique identifier for what has been classified. Specific to the class, not the instance of
-   * the object.
-   */
-  private final String id;
+    /**
+     * A unique identifier for what has been classified. Specific to the class, not the instance of
+     * the object.
+     */
+    private final String id;
 
-  /** Display name for the result. */
-  private final String title;
+    /**
+     * Display name for the result.
+     */
+    private final String title;
 
-  /** A sortable score for how good the result is relative to others. Higher should be better. */
-  private final Float confidence;
+    /**
+     * A sortable score for how good the result is relative to others. Higher should be better.
+     */
+    private final Float confidence;
 
-  public Result(final String id, final String title, final Float confidence) {
-    this.id = id;
-    this.title = title;
-    this.confidence = confidence;
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public Float getConfidence() {
-    return confidence;
-  }
-
-  @Override
-  public String toString() {
-    String resultString = "";
-    if (id != null) {
-      resultString += "[" + id + "] ";
+    public Result(final String id, final String title, final Float confidence) {
+        this.id = id;
+        this.title = title;
+        this.confidence = confidence;
     }
 
-    if (title != null) {
-      resultString += title + " ";
+    public String getId() {
+        return id;
     }
 
-    if (confidence != null) {
-      resultString += String.format("(%.1f%%) ", confidence * 100.0f);
+    public String getTitle() {
+        return title;
     }
 
-    return resultString.trim();
-  }
+    public Float getConfidence() {
+        return confidence;
+    }
 
-  @Override
-  public int compareTo(Result o) {
-    return o.confidence.compareTo(confidence);
-  }
+    @Override
+    public String toString() {
+        String resultString = "";
+        if (id != null) {
+            resultString += "[" + id + "] ";
+        }
+
+        if (title != null) {
+            resultString += title + " ";
+        }
+
+        if (confidence != null) {
+            resultString += String.format("(%.1f%%) ", confidence * 100.0f);
+        }
+
+        return resultString.trim();
+    }
+
+    @Override
+    public int compareTo(Result o) {
+        return o.confidence.compareTo(confidence);
+    }
 }

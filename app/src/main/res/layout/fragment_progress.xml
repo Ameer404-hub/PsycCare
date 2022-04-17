@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ProgressFragment"
     android:layout_width="match_parent"
     android:layout_height="665dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ProgressFragment"
     android:background="@color/ScreenBGcolorPrimary"
-    tools:context=".Fragments.ProgressFragment">
+    tools:context=".Fragments.Progress">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,18 +51,18 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_margin="5dp"
-            app:tabTextColor="@color/black"
-            app:tabIndicatorGravity="stretch"
-            app:tabSelectedTextColor="@color/white"
-            app:tabIndicatorAnimationMode="elastic"
-            app:tabMode="fixed"
-            app:tabIndicator="@drawable/bg_for_tabs"
-            app:tabRippleColor="@null"
-            app:tabIndicatorColor="@color/ButtonColorThird"
             android:background="@color/ScreenBGcolorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:tabIndicator="@drawable/bg_for_tabs"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabIndicatorColor="@color/ButtonColorThird"
+            app:tabIndicatorGravity="stretch"
+            app:tabMode="fixed"
+            app:tabRippleColor="@null"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/black">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
             android:background="@color/teal_700"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabView"/>
+            app:layout_constraintTop_toBottomOf="@+id/tabView" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/tabViewPager"
