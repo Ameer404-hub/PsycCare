@@ -31,10 +31,6 @@ android {
     }
 }
 
-// Download the pre-trained model from the internet
-project.ext.ASSET_DIR = projectDir.toString() + '/src/main/assets'
-apply from:'download_model.gradle'
-
 dependencies {
     implementation 'org.tensorflow:tensorflow-lite-task-text:0.1.0'
     implementation 'org.jetbrains:annotations:15.0'
