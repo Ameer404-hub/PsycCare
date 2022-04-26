@@ -19,8 +19,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.psyccare.HomeActivity;
-import com.example.psyccare.LoginActivity;
+import com.example.psyccare.HomeContainer;
+import com.example.psyccare.Login;
 import com.example.psyccare.MyStats;
 import com.example.psyccare.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -77,26 +77,7 @@ public class More extends Fragment {
                     messageBox.show();
                     messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseAuth.getInstance().signOut();
-                                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        messageBox.dismiss();
-                                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                        startActivity(intent);
-                                        getActivity().finish();
-                                    }
-                                }, 750);
-
-                            }
-                        }
-                    });
+                    userLogOut();
                 } else {
                     Toast.makeText(getActivity(), "You're device is not connected to internet", Toast.LENGTH_LONG).show();
                 }
@@ -106,7 +87,7 @@ public class More extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                Intent moveTo = new Intent(getActivity(), HomeActivity.class);
+                Intent moveTo = new Intent(getActivity(), HomeContainer.class);
                 startActivity(moveTo);
                 getActivity().finish();
             }
@@ -114,6 +95,29 @@ public class More extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
         return rootView;
+    }
+
+    private void userLogOut() {
+        mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getActivity(), Login.class);
+                    handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            messageBox.dismiss();
+                            messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            startActivity(intent);
+                            getActivity().finish();
+                        }
+                    }, 750);
+
+                }
+            }
+        });
     }
 
     private boolean isConnected(More CheckInternet) {

@@ -110,7 +110,7 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
                     else if (modelThought.visibility == false)
                         DownArrowThought.setImageResource(R.drawable.ic_baseline_down_24);
 
-                    notifyDataSetChanged();
+                    notifyItemChanged(getAdapterPosition());
                 }
             });
 

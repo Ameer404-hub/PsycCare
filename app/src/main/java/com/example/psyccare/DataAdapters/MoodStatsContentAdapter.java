@@ -112,7 +112,7 @@ public class MoodStatsContentAdapter extends RecyclerView.Adapter<MoodStatsConte
                     else if (modelMood.visibility == false)
                         DownArrowMood.setImageResource(R.drawable.ic_baseline_down_24);
 
-                    notifyDataSetChanged();
+                    notifyItemChanged(getAdapterPosition());
                 }
             });
 

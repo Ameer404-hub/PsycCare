@@ -80,7 +80,7 @@ public class ThoughtCheckin extends AppCompatActivity {
                         public void run() {
                             messageBox.dismiss();
                             messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            Intent moveTo = new Intent(getApplicationContext(), HomeActivity.class);
+                            Intent moveTo = new Intent(getApplicationContext(), HomeContainer.class);
                             startActivity(moveTo);
                             finish();
                             Toast.makeText(getApplicationContext(), "Check-in completed. You can check your stats in 'Progress Tab'", Toast.LENGTH_LONG).show();
@@ -353,7 +353,7 @@ public class ThoughtCheckin extends AppCompatActivity {
                 .setAction("Exit", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent goBack = new Intent(getApplicationContext(), HomeActivity.class);
+                        Intent goBack = new Intent(getApplicationContext(), HomeContainer.class);
                         startActivity(goBack);
                         finish();
                     }

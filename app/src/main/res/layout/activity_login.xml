@@ -6,7 +6,7 @@
     android:background="@color/ScreenBGcolorPrimary"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".LoginActivity">
+    tools:context=".Login">
 
     <LinearLayout
         android:id="@+id/login_layout"

@@ -11,7 +11,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.psyccare.DataModels.UserSignupData;
-import com.facebook.login.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -33,7 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 
-public class SignupActivity extends AppCompatActivity {
+public class Signup extends AppCompatActivity {
 
     TextInputLayout nameInput, emailInput, passInput, conPassInput;
     String Name, Email, Pass, ConPass;
@@ -71,7 +69,7 @@ public class SignupActivity extends AppCompatActivity {
                 ConPass = conPassInput.getEditText().getText().toString().trim();
                 if (!validateName() || !validateEmail() || !validatePass() || !validateConPass() || !validatetermsCons())
                     return;
-                else if (!isConnected(SignupActivity.this)) {
+                else if (!isConnected(Signup.this)) {
                     Snackbar snackbar = Snackbar.make(Snackbar_layout, "No internet connection!", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 } else {
@@ -91,7 +89,7 @@ public class SignupActivity extends AppCompatActivity {
         gotoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Move = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent Move = new Intent(getApplicationContext(), Login.class);
                 startActivity(Move);
                 finish();
             }
@@ -164,7 +162,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private boolean validatetermsCons() {
         if (!TnCbox.isChecked()) {
-            Toast.makeText(SignupActivity.this, "Please check Terms and Conditions", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Signup.this, "Please check Terms and Conditions", Toast.LENGTH_SHORT).show();
             return false;
         } else
             return true;
@@ -178,14 +176,14 @@ public class SignupActivity extends AppCompatActivity {
                     signupBtn.revertAnimation();
                     mUser = mAuth.getCurrentUser();
                     recordUserData();
-                    AlertDialog.Builder showMessage = new AlertDialog.Builder(SignupActivity.this);
+                    AlertDialog.Builder showMessage = new AlertDialog.Builder(Signup.this);
                     showMessage.setMessage("").setTitle("Account Created Successfully");
                     showMessage.setMessage("Please log in to your account").setCancelable(false).
                             setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), Login.class);
                                     startActivity(intent);
                                     finish();
                                 }
@@ -195,7 +193,7 @@ public class SignupActivity extends AppCompatActivity {
                 } else {
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     signupBtn.revertAnimation();
-                    Toast.makeText(SignupActivity.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Signup.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -207,7 +205,7 @@ public class SignupActivity extends AppCompatActivity {
         reference.child(FirebaseAuth.getInstance().getUid()).child("ProfileInfo").setValue(NewUser);
     }
 
-    private boolean isConnected(SignupActivity CheckInternet) {
+    private boolean isConnected(Signup CheckInternet) {
         ConnectivityManager connectivityManager = (ConnectivityManager) CheckInternet.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);

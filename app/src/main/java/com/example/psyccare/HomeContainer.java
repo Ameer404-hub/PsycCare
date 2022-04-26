@@ -12,7 +12,7 @@ import com.example.psyccare.Fragments.More;
 import com.example.psyccare.Fragments.Progress;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeContainer extends AppCompatActivity {
 
     ChipNavigationBar chipNavigationBar;
 

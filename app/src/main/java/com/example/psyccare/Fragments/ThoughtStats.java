@@ -67,39 +67,43 @@ public class ThoughtStats extends Fragment {
             messageBox.show();
             messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            referenceToThoughtCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-                            checkInModel thoughtModel = ds.getValue(checkInModel.class);
-                            tCheckIn.add(thoughtModel);
-                            LayoutAnimationController layoutAnimationController =
-                                    AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_falldown);
-                            tStatsLayout.setLayoutAnimation(layoutAnimationController);
-                        }
-                        messageBox.dismiss();
-                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    } else {
-                        messageBox.dismiss();
-                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Toast.makeText(getActivity(), "You don't have any Thought Check Ins yet", Toast.LENGTH_SHORT).show();
-                    }
-                    adapterThoughtStats.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    messageBox.dismiss();
-                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Toast.makeText(getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            getThoughtCheckins();
         } else {
             Toast.makeText(getActivity(), "You're device is not connected to internet", Toast.LENGTH_LONG).show();
         }
 
         return rootView;
+    }
+
+    private void getThoughtCheckins() {
+        referenceToThoughtCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        checkInModel thoughtModel = ds.getValue(checkInModel.class);
+                        tCheckIn.add(thoughtModel);
+                        LayoutAnimationController layoutAnimationController =
+                                AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_falldown);
+                        tStatsLayout.setLayoutAnimation(layoutAnimationController);
+                    }
+                    messageBox.dismiss();
+                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                } else {
+                    messageBox.dismiss();
+                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Toast.makeText(getActivity(), "You don't have any Thought Check Ins yet", Toast.LENGTH_SHORT).show();
+                }
+                adapterThoughtStats.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                messageBox.dismiss();
+                messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                Toast.makeText(getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private boolean isConnected(ThoughtStats CheckInternet) {

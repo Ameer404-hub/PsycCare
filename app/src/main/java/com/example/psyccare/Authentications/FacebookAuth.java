@@ -6,12 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.psyccare.HomeActivity;
-import com.example.psyccare.LoginActivity;
-import com.example.psyccare.R;
+import com.example.psyccare.HomeContainer;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -20,7 +17,6 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -29,7 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
-public class FacebookAuthActivity extends AppCompatActivity {
+public class FacebookAuth extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -45,7 +41,7 @@ public class FacebookAuthActivity extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
 
-        message = new ProgressDialog(FacebookAuthActivity.this);
+        message = new ProgressDialog(FacebookAuth.this);
         message.setTitle("");
         message.setMessage("Loading...");
 
@@ -70,7 +66,7 @@ public class FacebookAuthActivity extends AppCompatActivity {
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
-                        Toast.makeText(FacebookAuthActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FacebookAuth.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -92,13 +88,13 @@ public class FacebookAuthActivity extends AppCompatActivity {
                             message.dismiss();
                             // Sign in success, update UI with the signed-in user's information
                             mUser = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), HomeContainer.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(FacebookAuthActivity.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FacebookAuth.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
 
                         }
                     }

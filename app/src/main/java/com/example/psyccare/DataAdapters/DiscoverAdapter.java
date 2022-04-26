@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.psyccare.DataModels.DiscoverDataModel;
-import com.example.psyccare.HomeActivity;
+import com.example.psyccare.HomeContainer;
 import com.example.psyccare.R;
 
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
                     DiscoverDataModel openItem = discoverData.get(getAdapterPosition());
                     String title = openItem.getTitle();
                     if (title.equals("Getting Started")) {
-                        Intent moveTo = new Intent(context.getApplicationContext(), HomeActivity.class);
+                        Intent moveTo = new Intent(context.getApplicationContext(), HomeContainer.class);
                         context.startActivity(moveTo);
                     }
                 }

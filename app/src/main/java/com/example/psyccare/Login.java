@@ -16,8 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.psyccare.Authentications.FacebookAuthActivity;
-import com.example.psyccare.Authentications.GoogleAuthActivity;
+import com.example.psyccare.Authentications.FacebookAuth;
+import com.example.psyccare.Authentications.GoogleAuth;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -28,7 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 
-public class LoginActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     TextInputLayout emailInput, passInput;
     String Email, Pass;
@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                 Pass = passInput.getEditText().getText().toString().trim();
                 if (!validateEmail() || !validatePass())
                     return;
-                else if (!isConnected(LoginActivity.this)) {
+                else if (!isConnected(Login.this)) {
                     Snackbar snackbar = Snackbar.make(Snackbar_layout, "No internet connection!", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 } else {
@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         gotoSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Move = new Intent(getApplicationContext(), SignupActivity.class);
+                Intent Move = new Intent(getApplicationContext(), Signup.class);
                 startActivity(Move);
                 finish();
             }
@@ -141,32 +141,32 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), HomeContainer.class);
                         startActivity(intent);
                         finish();
                     }
                 } else {
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     loginBtn.revertAnimation();
-                    Toast.makeText(LoginActivity.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     public void signInWithGoogle(View view) {
-        Intent intent = new Intent(getApplicationContext(), GoogleAuthActivity.class);
+        Intent intent = new Intent(getApplicationContext(), GoogleAuth.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
 
     public void signInWithFB(View view) {
-        Intent intent = new Intent(getApplicationContext(), FacebookAuthActivity.class);
+        Intent intent = new Intent(getApplicationContext(), FacebookAuth.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
 
-    private boolean isConnected(LoginActivity CheckInternet) {
+    private boolean isConnected(Login CheckInternet) {
         ConnectivityManager connectivityManager = (ConnectivityManager) CheckInternet.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);

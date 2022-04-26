@@ -195,7 +195,7 @@ public class OngoingPsycProb extends AppCompatActivity {
                     referenceUser.child("ReportedProblems").child("PsycProblems").setValue("NA");
                     messageBox.dismiss();
                     messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    startActivity(new Intent(getApplicationContext(), HomeContainer.class));
                     finish();
                 }
             }, 1000);
@@ -218,7 +218,7 @@ public class OngoingPsycProb extends AppCompatActivity {
                         referenceUser.child("ReportedProblems").child("PsycProblems").setValue(psycProbs);
                         messageBox.dismiss();
                         messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        startActivity(new Intent(getApplicationContext(), HomeContainer.class));
                         finish();
                     }
                 }, 2500);

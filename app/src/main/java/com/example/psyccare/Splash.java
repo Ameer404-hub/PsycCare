@@ -9,7 +9,7 @@ import android.os.Bundle;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SplashActivity extends AppCompatActivity {
+public class    Splash extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onStart();
         currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            startActivity(new Intent(getApplicationContext(), HomeContainer.class));
             finish();
         } else {
             onBoardingScreen = getSharedPreferences("onBoardingActivity", MODE_PRIVATE);
@@ -41,7 +41,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), OnBoarding.class));
                 finish();
             } else {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), Login.class));
                 finish();
             }
         }

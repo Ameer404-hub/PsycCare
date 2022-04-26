@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.psyccare.DataAdapters.TabsAdapter;
-import com.example.psyccare.HomeActivity;
+import com.example.psyccare.HomeContainer;
 import com.example.psyccare.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -40,7 +40,7 @@ public class Progress extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                Intent moveTo = new Intent(getActivity(), HomeActivity.class);
+                Intent moveTo = new Intent(getActivity(), HomeContainer.class);
                 startActivity(moveTo);
                 getActivity().finish();
             }

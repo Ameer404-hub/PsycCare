@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.example.psyccare.DataAdapters.DiscoverAdapter;
 import com.example.psyccare.DataModels.DiscoverDataModel;
-import com.example.psyccare.HomeActivity;
+import com.example.psyccare.HomeContainer;
 import com.example.psyccare.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -96,73 +96,7 @@ public class Discover extends Fragment {
             messageBox.show();
             messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-            referenceDiscover.child("Introduction").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-                            DiscoverDataModel newModel = ds.getValue(DiscoverDataModel.class);
-                            discoverData1.add(newModel);
-
-                            Layout1.setVisibility(View.VISIBLE);
-                            Layout2.setVisibility(View.VISIBLE);
-                            Layout3.setVisibility(View.VISIBLE);
-                            Layout4.setVisibility(View.VISIBLE);
-                            Layout5.setVisibility(View.VISIBLE);
-
-                            LayoutAnimationController layoutAnimationController =
-                                    AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_falldown);
-
-                            Layout1.setLayoutAnimation(layoutAnimationController);
-                            Layout2.setLayoutAnimation(layoutAnimationController);
-                            Layout3.setLayoutAnimation(layoutAnimationController);
-                            Layout4.setLayoutAnimation(layoutAnimationController);
-                            Layout5.setLayoutAnimation(layoutAnimationController);
-                        }
-                        messageBox.dismiss();
-                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    } else {
-                        messageBox.dismiss();
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Toast.makeText(getActivity(), "Error while fetcing data", Toast.LENGTH_SHORT).show();
-                    }
-                    adapter1.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    messageBox.dismiss();
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            referenceDiscover.child("Thoughts & Feelings").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-                            DiscoverDataModel newModel = ds.getValue(DiscoverDataModel.class);
-                            discoverData2.add(newModel);
-                        }
-                        messageBox.dismiss();
-                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    } else {
-                        messageBox.dismiss();
-                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Toast.makeText(getActivity(), "Error while fetcing data", Toast.LENGTH_SHORT).show();
-                    }
-                    adapter2.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    messageBox.dismiss();
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
+            getDiscoverData();
         } else {
             Toast.makeText(getActivity(), "You're device is not connected to internet", Toast.LENGTH_LONG).show();
         }
@@ -170,7 +104,7 @@ public class Discover extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                Intent moveTo = new Intent(getActivity(), HomeActivity.class);
+                Intent moveTo = new Intent(getActivity(), HomeContainer.class);
                 startActivity(moveTo);
                 getActivity().finish();
             }
@@ -178,6 +112,74 @@ public class Discover extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
         return rootView;
+    }
+
+    private void getDiscoverData() {
+        referenceDiscover.child("Introduction").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        DiscoverDataModel newModel = ds.getValue(DiscoverDataModel.class);
+                        discoverData1.add(newModel);
+
+                        Layout1.setVisibility(View.VISIBLE);
+                        Layout2.setVisibility(View.VISIBLE);
+                        Layout3.setVisibility(View.VISIBLE);
+                        Layout4.setVisibility(View.VISIBLE);
+                        Layout5.setVisibility(View.VISIBLE);
+
+                        LayoutAnimationController layoutAnimationController =
+                                AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_falldown);
+
+                        Layout1.setLayoutAnimation(layoutAnimationController);
+                        Layout2.setLayoutAnimation(layoutAnimationController);
+                        Layout3.setLayoutAnimation(layoutAnimationController);
+                        Layout4.setLayoutAnimation(layoutAnimationController);
+                        Layout5.setLayoutAnimation(layoutAnimationController);
+                    }
+                    messageBox.dismiss();
+                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                } else {
+                    messageBox.dismiss();
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Toast.makeText(getActivity(), "Error while fetcing data", Toast.LENGTH_SHORT).show();
+                }
+                adapter1.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                messageBox.dismiss();
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        referenceDiscover.child("Thoughts & Feelings").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        DiscoverDataModel newModel = ds.getValue(DiscoverDataModel.class);
+                        discoverData2.add(newModel);
+                    }
+                    messageBox.dismiss();
+                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                } else {
+                    messageBox.dismiss();
+                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Toast.makeText(getActivity(), "Error while fetcing data", Toast.LENGTH_SHORT).show();
+                }
+                adapter2.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                messageBox.dismiss();
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private boolean isConnected(Discover CheckInternet) {

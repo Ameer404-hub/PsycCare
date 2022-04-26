@@ -305,7 +305,7 @@ public class MoodCheckin extends AppCompatActivity {
                 .setAction("Exit", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent goBack = new Intent(getApplicationContext(), HomeActivity.class);
+                        Intent goBack = new Intent(getApplicationContext(), HomeContainer.class);
                         startActivity(goBack);
                         finish();
                     }
