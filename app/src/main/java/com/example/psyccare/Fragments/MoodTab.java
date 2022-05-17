@@ -10,7 +10,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +18,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.psyccare.R;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,23 +41,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.tensorflow.lite.examples.textclassification.client.Result;
-import org.tensorflow.lite.examples.textclassification.client.TextClassificationClient;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class MoodTab extends Fragment {
 
-    private static final String TAG = "TextClassificationDemo";
-    private TextClassificationClient client;
     private TextView M_DateView, M_MoodView, M_DescriptionView;
-    private Handler handler;
     private HorizontalBarChart mBarChart;
-    String checkInDate, checkInTime, Type, Desc;
+    String checkInDate, checkInTime, Type, Desc, classifiedAs;
     DatabaseReference referenceToMoodCheckin;
     ProgressDialog messageBox;
+
+    PieChart pieChart;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,9 +72,6 @@ public class MoodTab extends Fragment {
         referenceToMoodCheckin = FirebaseDatabase.getInstance().getReference("User")
                 .child(FirebaseAuth.getInstance().getUid()).child("MoodCheckIns");
 
-        client = new TextClassificationClient(getActivity());
-        handler = new Handler();
-
         if (isConnected(this)) {
             messageBox.show();
             messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -87,12 +85,12 @@ public class MoodTab extends Fragment {
                             checkInTime = ds.child("checkInTime").getValue().toString().trim();
                             Type = ds.child("type").getValue().toString().trim();
                             Desc = ds.child("description").getValue().toString().trim();
-
+                            classifiedAs = ds.child("classifiedAs").getValue().toString().trim();
                             M_DateView.setText(checkInDate + " " + checkInTime);
                             M_MoodView.setText(Type);
                             M_DescriptionView.setText(Desc);
                         }
-                        classify(Desc);
+                        drawChart(classifiedAs);
                         messageBox.dismiss();
                         messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
@@ -117,34 +115,46 @@ public class MoodTab extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        handler.post(
-                () -> {
-                    client.load();
-                }
-        );
-    }
+    private void drawChart(String mood) {
+        String HighValueLable, HighValue;
+        HighValue = mood.replaceAll(" ", "");
+        HighValue = HighValue.replaceAll("[^\\d.]", "");
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        handler.post(
-                () -> {
-                    client.load();
-                }
-        );
-    }
+        HighValueLable = mood.replaceAll(" ", "");
+        HighValueLable = HighValueLable.replaceAll("%", "");
+        HighValueLable = HighValueLable.replaceAll("\\.", "");
+        HighValueLable = HighValueLable.replaceAll("\\d.","");
 
-    private void classify(final String text) {
-        handler.post(
-                () -> {
-                    // Run text classification with TF Lite.
-                    List<Result> results = client.classify(text);
-                    // Show classification result on screen
-                    showResult(text, results);
-                });
+        ArrayList<String> BarLabel = new ArrayList<>();
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+
+        mBarChart.setDrawBarShadow(false);
+        mBarChart.setDrawValueAboveBar(true);
+        mBarChart.getDescription().setEnabled(false);
+        mBarChart.setPinchZoom(false);
+        mBarChart.setDrawGridBackground(false);
+
+        XAxis xl = mBarChart.getXAxis();
+        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xl.setDrawAxisLine(true);
+        xl.setDrawGridLines(false);
+        xl.setGranularity(1);
+
+        YAxis yl = mBarChart.getAxisLeft();
+        yl.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        yl.setDrawGridLines(false);
+        yl.setEnabled(false);
+        yl.setAxisMinimum(0f);
+
+        YAxis yr = mBarChart.getAxisRight();
+        yr.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        yr.setDrawGridLines(false);
+        yr.setAxisMinimum(0f);
+
+        // PREPARING THE ARRAY LIST OF BAR ENTRIES
+        barEntries.add(new BarEntry(0, Float.parseFloat(HighValue)));
+        BarLabel.add(HighValue + "% " + HighValueLable);
+        barchart(mBarChart, barEntries, BarLabel);
     }
 
     public static void barchart(BarChart barChart, ArrayList<BarEntry> arrayList, final ArrayList<String> xAxisValues) {
@@ -155,7 +165,7 @@ public class MoodTab extends Fragment {
         barChart.setPinchZoom(true);
 
         barChart.setDrawGridBackground(true);
-        BarDataSet barDataSet = new BarDataSet(arrayList, "Class");
+        BarDataSet barDataSet = new BarDataSet(arrayList, "Emotions");
         barDataSet.setColors(new int[]{Color.parseColor("#03A9F4"), Color.parseColor("#FF9800"),
                 Color.parseColor("#76FF03"), Color.parseColor("#000000"), Color.parseColor("#E91E63"), Color.parseColor("#2962FF")});
         //barDataSet.setColors(new int[]{Color.parseColor("#03A9F4"), Color.parseColor("#FF9800"), Color.parseColor("#76FF03"), Color.parseColor("#E91E63")});
@@ -187,78 +197,6 @@ public class MoodTab extends Fragment {
 
         barChart.setData(barData);
 
-    }
-
-    private void showResult(final String inputText, final List<Result> results) {
-        getActivity().runOnUiThread(
-                () -> {
-                    ArrayList<String> labels = new ArrayList<>();
-                    ArrayList<String> BarLabel = new ArrayList<>();
-                    ArrayList<Float> probability = new ArrayList<>();
-                    ArrayList<BarEntry> barEntries = new ArrayList<>();
-
-                    for (int i = 0; i < results.size(); i++) {
-                        Result result = results.get(i);
-                        labels.add(result.getTitle());   // Extract labels
-                        probability.add(result.getConfidence());  // Extract confidence
-                    }
-
-                    float tempProb;
-                    String tempLable;
-                    for (int i = 0; i < probability.size(); i++) {
-                        for (int j = i + 1; j < probability.size(); j++) {
-                            if (probability.get(i) > probability.get(j)) {
-                                tempProb = probability.get(i);
-                                probability.set(i, probability.get(j));
-                                probability.set(j, tempProb);
-
-                                tempLable = labels.get(i);
-                                labels.set(i, labels.get(j));
-                                labels.set(j, tempLable);
-                            }
-                        }
-                    }
-
-                    String HighValueLable = "";
-                    Float HighValue = 0.0f;
-
-                    mBarChart.setDrawBarShadow(false);
-                    mBarChart.setDrawValueAboveBar(true);
-                    mBarChart.getDescription().setEnabled(false);
-                    mBarChart.setPinchZoom(false);
-                    mBarChart.setDrawGridBackground(false);
-
-
-                    XAxis xl = mBarChart.getXAxis();
-                    xl.setPosition(XAxis.XAxisPosition.BOTTOM);
-                    xl.setDrawAxisLine(true);
-                    xl.setDrawGridLines(false);
-                    xl.setGranularity(1);
-
-                    YAxis yl = mBarChart.getAxisLeft();
-                    yl.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-                    yl.setDrawGridLines(false);
-                    yl.setEnabled(false);
-                    yl.setAxisMinimum(0f);
-
-                    YAxis yr = mBarChart.getAxisRight();
-                    yr.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-                    yr.setDrawGridLines(false);
-                    yr.setAxisMinimum(0f);
-
-                    // PREPARING THE ARRAY LIST OF BAR ENTRIES
-
-                    HighValueLable = labels.get(probability.size() - 1);
-                    HighValue = probability.get(probability.size() - 1);
-
-                    barEntries.add(new BarEntry(0, HighValue));
-                    BarLabel.add(Math.round(HighValue * 1000) / 10.0 + "% " + HighValueLable);
-                    barchart(mBarChart, barEntries, BarLabel);
-
-                    HashMap<String, Object> Update = new HashMap<>();
-                    Update.put("classifiedAs", HighValueLable + " " + HighValue * 1000 / 10.0 + "%");
-                    referenceToMoodCheckin.child(checkInDate + " " + checkInTime).updateChildren(Update);
-                });
     }
 
     private boolean isConnected(MoodTab CheckInternet) {

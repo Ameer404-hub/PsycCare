@@ -25,11 +25,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.tensorflow.lite.examples.textclassification.client.Result;
+import org.tensorflow.lite.examples.textclassification.client.TextClassificationClient;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ThoughtCheckin extends AppCompatActivity {
 
+    private static final String TAG = "TextClassificationDemo";
+    private TextClassificationClient client;
     ImageView submitThought;
     LinearLayout Snackbar_layout;
     Handler handler;
@@ -44,6 +51,9 @@ public class ThoughtCheckin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thought_checkin);
+
+        client = new TextClassificationClient(getApplicationContext());
+        handler = new Handler();
 
         submitThought = findViewById(R.id.sendThoughtNote);
         Snackbar_layout = findViewById(R.id.snackBarAction);
@@ -72,8 +82,7 @@ public class ThoughtCheckin extends AppCompatActivity {
                     messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     Desc = thoughtMessageBox.getEditText().getText().toString();
-                    classifiedAs = "";
-                    insertCheckin();
+                    classify(Desc);
                     handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -101,6 +110,73 @@ public class ThoughtCheckin extends AppCompatActivity {
             return true;
         else
             return false;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        handler.post(
+                () -> {
+                    client.load();
+                }
+        );
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        handler.post(
+                () -> {
+                    client.load();
+                }
+        );
+    }
+
+    private void classify(final String text) {
+        handler.post(
+                () -> {
+                    // Run text classification with TF Lite.
+                    List<Result> results = client.classify(text);
+                    // Show classification result on screen
+                    showResult(results);
+                });
+    }
+
+    private void showResult(final List<Result> results) {
+        runOnUiThread(
+                () -> {
+                    ArrayList<String> labels = new ArrayList<>();
+                    ArrayList<Float> probability = new ArrayList<>();
+
+                    for (int i = 0; i < results.size(); i++) {
+                        Result result = results.get(i);
+                        labels.add(result.getTitle());   // Extract labels
+                        probability.add(result.getConfidence());  // Extract confidence
+                    }
+
+                    float tempProb;
+                    String tempLable;
+                    for (int i = 0; i < probability.size(); i++) {
+                        for (int j = i + 1; j < probability.size(); j++) {
+                            if (probability.get(i) > probability.get(j)) {
+                                tempProb = probability.get(i);
+                                probability.set(i, probability.get(j));
+                                probability.set(j, tempProb);
+
+                                tempLable = labels.get(i);
+                                labels.set(i, labels.get(j));
+                                labels.set(j, tempLable);
+                            }
+                        }
+                    }
+
+                    String HighValueLable;
+                    Float HighValue;
+                    HighValueLable = labels.get(probability.size() - 1);
+                    HighValue = probability.get(probability.size() - 1);
+                    classifiedAs = HighValueLable + " " + Math.round(HighValue * 1000) / 10.0 + "%";
+                    insertCheckin();
+                });
     }
 
     public void Positive(View view) {

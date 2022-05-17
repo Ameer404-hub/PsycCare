@@ -23,18 +23,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.example.psyccare.DataModels.checkInModel;
 
+import org.tensorflow.lite.examples.textclassification.client.Result;
+import org.tensorflow.lite.examples.textclassification.client.TextClassificationClient;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 public class MoodCheckin extends AppCompatActivity {
 
+    private static final String TAG = "TextClassificationDemo";
+    private TextClassificationClient client;
     ImageView submitMood;
     LinearLayout Snackbar_layout;
     Handler handler;
     ProgressDialog messageBox;
     TextInputLayout moodMessageBox;
-    String Type = "", Desc = "", classifiedAs = "", Date, Time;
-    DatabaseReference referenceToCheckin;
+    String Type = "", Desc = "", classifiedAs = "", Date = "", Time = "";
+    DatabaseReference referenceToMoodCheckin;
     SimpleDateFormat dateFormat, timeFormat;
     Calendar calendar;
 
@@ -43,11 +51,14 @@ public class MoodCheckin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mood_checkin);
 
+        client = new TextClassificationClient(getApplicationContext());
+        handler = new Handler();
+
         submitMood = findViewById(R.id.sendMoodNote);
         Snackbar_layout = findViewById(R.id.moodIconsLayout);
         moodMessageBox = findViewById(R.id.mood_TextArea);
 
-        referenceToCheckin = FirebaseDatabase.getInstance().getReference("User")
+        referenceToMoodCheckin = FirebaseDatabase.getInstance().getReference("User")
                 .child(FirebaseAuth.getInstance().getUid()).child("MoodCheckIns");
 
         messageBox = new ProgressDialog(MoodCheckin.this);
@@ -70,8 +81,7 @@ public class MoodCheckin extends AppCompatActivity {
                     messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     Desc = moodMessageBox.getEditText().getText().toString();
-                    classifiedAs = "";
-                    insertCheckin();
+                    classify(Desc);
                     handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -98,6 +108,73 @@ public class MoodCheckin extends AppCompatActivity {
             return true;
         else
             return false;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        handler.post(
+                () -> {
+                    client.load();
+                }
+        );
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        handler.post(
+                () -> {
+                    client.load();
+                }
+        );
+    }
+
+    private void classify(final String text) {
+        handler.post(
+                () -> {
+                    // Run text classification with TF Lite.
+                    List<Result> results = client.classify(text);
+                    // Show classification result on screen
+                    showResult(results);
+                });
+    }
+
+    private void showResult(final List<Result> results) {
+        runOnUiThread(
+                () -> {
+                    ArrayList<String> labels = new ArrayList<>();
+                    ArrayList<Float> probability = new ArrayList<>();
+
+                    for (int i = 0; i < results.size(); i++) {
+                        Result result = results.get(i);
+                        labels.add(result.getTitle());   // Extract labels
+                        probability.add(result.getConfidence());  // Extract confidence
+                    }
+
+                    float tempProb;
+                    String tempLable;
+                    for (int i = 0; i < probability.size(); i++) {
+                        for (int j = i + 1; j < probability.size(); j++) {
+                            if (probability.get(i) > probability.get(j)) {
+                                tempProb = probability.get(i);
+                                probability.set(i, probability.get(j));
+                                probability.set(j, tempProb);
+
+                                tempLable = labels.get(i);
+                                labels.set(i, labels.get(j));
+                                labels.set(j, tempLable);
+                            }
+                        }
+                    }
+
+                    String HighValueLable;
+                    Float HighValue;
+                    HighValueLable = labels.get(probability.size() - 1);
+                    HighValue = probability.get(probability.size() - 1);
+                    classifiedAs = HighValueLable + " " + Math.round(HighValue * 1000) / 10.0 + "%";
+                    insertCheckin();
+                });
     }
 
     public void Happy(View view) {
@@ -274,7 +351,7 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodFrustated.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Frustated,";
+            Type = Type + "Frustrated,";
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodFrustated.setBackground(getDrawable(R.drawable.bg_for_untapped));
@@ -297,7 +374,7 @@ public class MoodCheckin extends AppCompatActivity {
 
     public void insertCheckin() {
         checkInModel moodCheckIn = new checkInModel(Date, Time, Type, Desc, classifiedAs);
-        referenceToCheckin.child(Date + " " + Time).setValue(moodCheckIn);
+        referenceToMoodCheckin.child(Date + " " + Time).setValue(moodCheckIn);
     }
 
     public void onBackPressed() {

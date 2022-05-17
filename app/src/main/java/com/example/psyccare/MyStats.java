@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.psyccare.DataAdapters.StatsTabAdapter;
 import com.example.psyccare.Fragments.MoodStats;
+import com.example.psyccare.Fragments.More;
 import com.example.psyccare.Fragments.ThoughtStats;
 import com.google.android.material.tabs.TabLayout;
 

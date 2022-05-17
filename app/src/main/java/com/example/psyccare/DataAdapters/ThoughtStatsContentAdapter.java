@@ -2,7 +2,7 @@ package com.example.psyccare.DataAdapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Handler;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.psyccare.DataModels.checkInModel;
@@ -28,12 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.tensorflow.lite.examples.textclassification.client.Result;
-import org.tensorflow.lite.examples.textclassification.client.TextClassificationClient;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStatsContentAdapter.checkInsThoughtViewHolder> {
 
@@ -55,13 +49,14 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
 
     @Override
     public void onBindViewHolder(@NonNull checkInsThoughtViewHolder holder, int position) {
-        checkInModel items = checkInsThought.get(position);
-        holder.checkInTitleThought.setText(items.getType());
-        holder.checkInDateThought.setText(items.getCheckInDate() + " " + items.getCheckInTime());
-        holder.checkInDescThought.setText(items.getDescription());
-        holder.classify(items.getDescription(), items.getCheckInDate() + " " + items.getCheckInTime());
-        boolean isVisible = items.visibility;
+        checkInModel itemsThought = checkInsThought.get(position);
+        holder.checkInTitleThought.setText(itemsThought.getType());
+        holder.checkInDateThought.setText(itemsThought.getCheckInDate() + " " + itemsThought.getCheckInTime());
+        holder.checkInDescThought.setText(itemsThought.getDescription());
+        holder.drawChart(itemsThought.getClassifiedAs());
+        boolean isVisible = itemsThought.visibility;
         holder.moreLayoutThought.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+        holder.setThoughtImage(itemsThought.getType());
     }
 
     @Override
@@ -74,12 +69,9 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
         RelativeLayout tapLayoutThought, moreLayoutThought;
         TextView checkInDateThought, checkInTitleThought, checkInDescThought;
         HorizontalBarChart mBarChartThought;
-        TextClassificationClient client;
         DatabaseReference referenceToThoughtCheckin;
         ImageView DownArrowThought, ThoughtImage;
-        Handler handler;
-        String LableThought, ThoughtImageID;
-        Float ValueThought;
+        String ThoughtImageID;
 
         public checkInsThoughtViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,19 +88,15 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
             referenceToThoughtCheckin = FirebaseDatabase.getInstance().getReference("User")
                     .child(FirebaseAuth.getInstance().getUid()).child("ThoughtCheckIns");
 
-            handler = new Handler();
-            client = new TextClassificationClient(context.getApplicationContext());
-            client.load();
-
             tapLayoutThought.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     checkInModel modelThought = checkInsThought.get(getAdapterPosition());
                     modelThought.setVisibility(!modelThought.isVisibility());
                     if (modelThought.visibility == true)
-                        DownArrowThought.setImageResource(R.drawable.ic_baseline_up_24);
-                    else if (modelThought.visibility == false)
                         DownArrowThought.setImageResource(R.drawable.ic_baseline_down_24);
+                    else if (modelThought.visibility == false)
+                        DownArrowThought.setImageResource(R.drawable.ic_baseline_up_24);
 
                     notifyItemChanged(getAdapterPosition());
                 }
@@ -116,17 +104,65 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
 
         }
 
-        private void classify(final String userText, String ID) {
-            handler.post(
-                    () -> {
-                        // Run text classification with TF Lite.
-                        List<Result> results = client.classify(userText);
-                        // Show classification result on screen
-                        showResult(userText, results);
-                        HashMap<String, Object> Update = new HashMap<>();
-                        Update.put("classifiedAs", LableThought + " " + ValueThought * 1000 / 10.0 + "%");
-                        referenceToThoughtCheckin.child(ID).updateChildren(Update);
-                    });
+        private void setThoughtImage(String Title){
+            ThoughtImageID = Title;
+            if(!ThoughtImageID.equals("")){
+                ThoughtImageID = ThoughtImageID.toLowerCase();
+                ThoughtImageID = ThoughtImageID.replaceAll(" ", "");
+                ThoughtImageID = "thoughts_"+ThoughtImageID;
+                int index = ThoughtImageID.indexOf(",");
+                ThoughtImageID = ThoughtImageID.substring(0, index);
+                ThoughtImageID = "@drawable/"+ThoughtImageID;
+
+                String uri = ThoughtImageID;  // where myresource (without the extension) is the file
+                int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
+                Drawable res = context.getResources().getDrawable(imageResource);
+                ThoughtImage.setImageDrawable(res);
+            } else{
+
+            }
+        }
+
+        private void drawChart(String mood) {
+            String HighValueLable, HighValue;
+            HighValue = mood.replaceAll(" ", "");
+            HighValue = HighValue.replaceAll("[^\\d.]", "");
+
+            HighValueLable = mood.replaceAll(" ", "");
+            HighValueLable = HighValueLable.replaceAll("%", "");
+            HighValueLable = HighValueLable.replaceAll("\\.", "");
+            HighValueLable = HighValueLable.replaceAll("\\d","");
+
+            ArrayList<String> BarLabel = new ArrayList<>();
+            ArrayList<BarEntry> barEntries = new ArrayList<>();
+
+            mBarChartThought.setDrawBarShadow(false);
+            mBarChartThought.setDrawValueAboveBar(true);
+            mBarChartThought.getDescription().setEnabled(false);
+            mBarChartThought.setPinchZoom(false);
+            mBarChartThought.setDrawGridBackground(false);
+
+            XAxis xl = mBarChartThought.getXAxis();
+            xl.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xl.setDrawAxisLine(true);
+            xl.setDrawGridLines(false);
+            xl.setGranularity(1);
+
+            YAxis yl = mBarChartThought.getAxisLeft();
+            yl.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+            yl.setDrawGridLines(false);
+            yl.setEnabled(false);
+            yl.setAxisMinimum(0f);
+
+            YAxis yr = mBarChartThought.getAxisRight();
+            yr.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+            yr.setDrawGridLines(false);
+            yr.setAxisMinimum(0f);
+
+            // PREPARING THE ARRAY LIST OF BAR ENTRIES
+            barEntries.add(new BarEntry(0, Float.parseFloat(HighValue)));
+            BarLabel.add(HighValue + "% " + HighValueLable);
+            barchart(mBarChartThought, barEntries, BarLabel);
         }
 
         private void barchart(BarChart barChart, ArrayList<BarEntry> arrayList, final ArrayList<String> xAxisValues) {
@@ -170,79 +206,8 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
         yLeft.setEnabled(false);*/
 
             barChart.setData(barData);
-
         }
 
-        private void showResult(final String inputText, final List<Result> results) {
-            ((AppCompatActivity) context).runOnUiThread(
-                    () -> {
-                        ArrayList<String> labels = new ArrayList<>();
-                        ArrayList<String> BarLabel = new ArrayList<>();
-                        ArrayList<Float> probability = new ArrayList<>();
-                        ArrayList<BarEntry> barEntries = new ArrayList<>();
-
-                        for (int i = 0; i < results.size(); i++) {
-                            Result result = results.get(i);
-                            labels.add(result.getTitle());   // Extract labels
-                            probability.add(result.getConfidence());  // Extract confidence
-                        }
-
-                        float tempProb;
-                        String tempLable;
-                        for (int i = 0; i < probability.size(); i++) {
-                            for (int j = i + 1; j < probability.size(); j++) {
-                                if (probability.get(i) > probability.get(j)) {
-                                    tempProb = probability.get(i);
-                                    probability.set(i, probability.get(j));
-                                    probability.set(j, tempProb);
-
-                                    tempLable = labels.get(i);
-                                    labels.set(i, labels.get(j));
-                                    labels.set(j, tempLable);
-                                }
-                            }
-                        }
-
-                        String HighValueLable = "";
-                        Float HighValue = 0.0f;
-
-                        mBarChartThought.setDrawBarShadow(false);
-                        mBarChartThought.setDrawValueAboveBar(true);
-                        mBarChartThought.getDescription().setEnabled(false);
-                        mBarChartThought.setPinchZoom(false);
-                        mBarChartThought.setDrawGridBackground(false);
-
-
-                        XAxis xl = mBarChartThought.getXAxis();
-                        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
-                        xl.setDrawAxisLine(true);
-                        xl.setDrawGridLines(false);
-                        xl.setGranularity(1);
-
-                        YAxis yl = mBarChartThought.getAxisLeft();
-                        yl.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-                        yl.setDrawGridLines(false);
-                        yl.setEnabled(false);
-                        yl.setAxisMinimum(0f);
-
-                        YAxis yr = mBarChartThought.getAxisRight();
-                        yr.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-                        yr.setDrawGridLines(false);
-                        yr.setAxisMinimum(0f);
-
-                        // PREPARING THE ARRAY LIST OF BAR ENTRIES
-
-                        HighValueLable = labels.get(probability.size() - 1);
-                        HighValue = probability.get(probability.size() - 1);
-
-                        barEntries.add(new BarEntry(0, HighValue));
-                        BarLabel.add(Math.round(HighValue * 1000) / 10.0 + "% " + HighValueLable);
-                        barchart(mBarChartThought, barEntries, BarLabel);
-
-                        ValueThought = HighValue;
-                        LableThought = HighValueLable;
-                    });
-        }
     }
 
 }

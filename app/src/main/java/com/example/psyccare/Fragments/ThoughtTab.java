@@ -10,7 +10,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,20 +33,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.tensorflow.lite.examples.textclassification.client.Result;
-import org.tensorflow.lite.examples.textclassification.client.TextClassificationClient;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ThoughtTab extends Fragment {
 
-    private static final String TAG = "TextClassificationDemo";
-    private TextClassificationClient client;
-    private Handler handler;
     private HorizontalBarChart mBarChart;
     private TextView T_DateView, T_ThoughtView, T_DescriptionView;
-    String checkInDate, checkInTime, Type, Desc;
+    String checkInDate, checkInTime, Type, Desc, classifiedAs;
     DatabaseReference referenceToThoughtCheckin;
     ProgressDialog messageBox;
 
@@ -70,9 +62,6 @@ public class ThoughtTab extends Fragment {
         referenceToThoughtCheckin = FirebaseDatabase.getInstance().getReference("User")
                 .child(FirebaseAuth.getInstance().getUid()).child("ThoughtCheckIns");
 
-        client = new TextClassificationClient(getActivity());
-        handler = new Handler();
-
         if (isConnected(this)) {
             messageBox.show();
             messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -86,12 +75,12 @@ public class ThoughtTab extends Fragment {
                             checkInTime = ds.child("checkInTime").getValue().toString().trim();
                             Type = ds.child("type").getValue().toString().trim();
                             Desc = ds.child("description").getValue().toString().trim();
-
+                            classifiedAs = ds.child("classifiedAs").getValue().toString().trim();
                             T_DateView.setText(checkInDate + " " + checkInTime);
                             T_ThoughtView.setText(Type);
                             T_DescriptionView.setText(Desc);
                         }
-                        classify(Desc);
+                        drawChart(classifiedAs);
                         messageBox.dismiss();
                         messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     } else {
@@ -116,102 +105,46 @@ public class ThoughtTab extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        handler.post(
-                () -> {
-                    client.load();
-                }
-        );
-    }
+    private void drawChart(String mood) {
+        String HighValueLable, HighValue;
+        HighValue = mood.replaceAll(" ", "");
+        HighValue = HighValue.replaceAll("[^\\d.]", "");
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        handler.post(
-                () -> {
-                    client.load();
-                }
-        );
-    }
+        HighValueLable = mood.replaceAll(" ", "");
+        HighValueLable = HighValueLable.replaceAll("%", "");
+        HighValueLable = HighValueLable.replaceAll("\\.", "");
+        HighValueLable = HighValueLable.replaceAll("\\d.","");
 
-    private void classify(final String text) {
-        handler.post(
-                () -> {
-                    // Run text classification with TF Lite.
-                    List<Result> results = client.classify(text);
-                    // Show classification result on screen
-                    showResult(text, results);
-                });
-    }
+        ArrayList<String> BarLabel = new ArrayList<>();
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
 
-    private void showResult(final String inputText, final List<Result> results) {
-        getActivity().runOnUiThread(
-                () -> {
-                    ArrayList<String> labels = new ArrayList<>();
-                    ArrayList<String> BarLabel = new ArrayList<>();
-                    ArrayList<Float> probability = new ArrayList<>();
-                    ArrayList<BarEntry> barEntries = new ArrayList<>();
+        mBarChart.setDrawBarShadow(false);
+        mBarChart.setDrawValueAboveBar(true);
+        mBarChart.getDescription().setEnabled(false);
+        mBarChart.setPinchZoom(false);
+        mBarChart.setDrawGridBackground(false);
 
-                    for (int i = 0; i < results.size(); i++) {
-                        Result result = results.get(i);
-                        labels.add(result.getTitle());   // Extract labels
-                        probability.add(result.getConfidence());  // Extract confidence
-                    }
+        XAxis xl = mBarChart.getXAxis();
+        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xl.setDrawAxisLine(true);
+        xl.setDrawGridLines(false);
+        xl.setGranularity(1);
 
-                    float tempProb;
-                    String tempLable;
-                    for (int i = 0; i < probability.size(); i++) {
-                        for (int j = i + 1; j < probability.size(); j++) {
-                            if (probability.get(i) > probability.get(j)) {
-                                tempProb = probability.get(i);
-                                probability.set(i, probability.get(j));
-                                probability.set(j, tempProb);
+        YAxis yl = mBarChart.getAxisLeft();
+        yl.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        yl.setDrawGridLines(false);
+        yl.setEnabled(false);
+        yl.setAxisMinimum(0f);
 
-                                tempLable = labels.get(i);
-                                labels.set(i, labels.get(j));
-                                labels.set(j, tempLable);
-                            }
-                        }
-                    }
+        YAxis yr = mBarChart.getAxisRight();
+        yr.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        yr.setDrawGridLines(false);
+        yr.setAxisMinimum(0f);
 
-                    String HighValueLable = "";
-                    Float HighValue = 0.0f;
-
-                    mBarChart.setDrawBarShadow(false);
-                    mBarChart.setDrawValueAboveBar(true);
-                    mBarChart.getDescription().setEnabled(false);
-                    mBarChart.setPinchZoom(false);
-                    mBarChart.setDrawGridBackground(false);
-
-
-                    XAxis xl = mBarChart.getXAxis();
-                    xl.setPosition(XAxis.XAxisPosition.BOTTOM);
-                    xl.setDrawAxisLine(true);
-                    xl.setDrawGridLines(false);
-                    xl.setGranularity(1);
-
-                    YAxis yl = mBarChart.getAxisLeft();
-                    yl.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-                    yl.setDrawGridLines(false);
-                    yl.setEnabled(false);
-                    yl.setAxisMinimum(0f);
-
-                    YAxis yr = mBarChart.getAxisRight();
-                    yr.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-                    yr.setDrawGridLines(false);
-                    yr.setAxisMinimum(0f);
-
-                    // PREPARING THE ARRAY LIST OF BAR ENTRIES
-
-                    HighValueLable = labels.get(probability.size() - 1);
-                    HighValue = probability.get(probability.size() - 1);
-
-                    barEntries.add(new BarEntry(0, HighValue));
-                    BarLabel.add(Math.round(HighValue * 1000) / 10.0 + "% " + HighValueLable);
-                    barchart(mBarChart, barEntries, BarLabel);
-                });
+        // PREPARING THE ARRAY LIST OF BAR ENTRIES
+        barEntries.add(new BarEntry(0, Float.parseFloat(HighValue)));
+        BarLabel.add(HighValue + "% " + HighValueLable);
+        barchart(mBarChart, barEntries, BarLabel);
     }
 
     public static void barchart(BarChart barChart, ArrayList<BarEntry> arrayList, final ArrayList<String> xAxisValues) {
