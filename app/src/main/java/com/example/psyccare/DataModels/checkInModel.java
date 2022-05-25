@@ -1,34 +1,29 @@
 package com.example.psyccare.DataModels;
 
 public class checkInModel {
-    String checkInDate, checkInTime, Type, Description, ClassifiedAs;
+    String checkInDate, checkInTime, Type, Description, ClassifiedAs, perCent = "";
     public boolean visibility;
 
     public checkInModel() {
     }
 
-    public checkInModel(String checkInDate, String checkInTime, String type, String description, String classifiedAs, boolean visibility) {
+    public checkInModel(String checkInDate, String checkInTime, String type, String description, String classifiedAs, String perCent, boolean visibility) {
         this.checkInDate = checkInDate;
         this.checkInTime = checkInTime;
         Type = type;
         Description = description;
         ClassifiedAs = classifiedAs;
+        this.perCent = perCent;
         this.visibility = visibility;
     }
 
-    public checkInModel(String checkInDate, String checkInTime, String type, String description, String classifiedAs) {
+    public checkInModel(String checkInDate, String checkInTime, String type, String description, String classifiedAs, String perCent) {
         this.checkInDate = checkInDate;
         this.checkInTime = checkInTime;
         Type = type;
         Description = description;
         ClassifiedAs = classifiedAs;
-    }
-
-    public checkInModel(String checkInDate, String checkInTime, String type, String description) {
-        this.checkInDate = checkInDate;
-        this.checkInTime = checkInTime;
-        Type = type;
-        Description = description;
+        this.perCent = perCent;
     }
 
     public String getCheckInDate() {
@@ -69,6 +64,14 @@ public class checkInModel {
 
     public void setClassifiedAs(String classifiedAs) {
         ClassifiedAs = classifiedAs;
+    }
+
+    public String getPerCent() {
+        return perCent;
+    }
+
+    public void setPerCent(String perCent) {
+        this.perCent = perCent;
     }
 
     public void setVisibility(boolean visibility) {

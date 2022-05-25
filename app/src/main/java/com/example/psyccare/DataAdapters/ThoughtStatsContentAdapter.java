@@ -53,7 +53,7 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
         holder.checkInTitleThought.setText(itemsThought.getType());
         holder.checkInDateThought.setText(itemsThought.getCheckInDate() + " " + itemsThought.getCheckInTime());
         holder.checkInDescThought.setText(itemsThought.getDescription());
-        holder.drawChart(itemsThought.getClassifiedAs());
+        holder.drawChart(itemsThought.getClassifiedAs(), itemsThought.getPerCent());
         boolean isVisible = itemsThought.visibility;
         holder.moreLayoutThought.setVisibility(isVisible ? View.VISIBLE : View.GONE);
         holder.setThoughtImage(itemsThought.getType());
@@ -108,11 +108,7 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
             ThoughtImageID = Title;
             if(!ThoughtImageID.equals("")){
                 ThoughtImageID = ThoughtImageID.toLowerCase();
-                ThoughtImageID = ThoughtImageID.replaceAll(" ", "");
-                ThoughtImageID = "thoughts_"+ThoughtImageID;
-                int index = ThoughtImageID.indexOf(",");
-                ThoughtImageID = ThoughtImageID.substring(0, index);
-                ThoughtImageID = "@drawable/"+ThoughtImageID;
+                ThoughtImageID = "@drawable/thoughts_"+ThoughtImageID;
 
                 String uri = ThoughtImageID;  // where myresource (without the extension) is the file
                 int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
@@ -123,15 +119,10 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
             }
         }
 
-        private void drawChart(String mood) {
+        private void drawChart(String thoughtType, String thoughtPercent) {
             String HighValueLable, HighValue;
-            HighValue = mood.replaceAll(" ", "");
-            HighValue = HighValue.replaceAll("[^\\d.]", "");
-
-            HighValueLable = mood.replaceAll(" ", "");
-            HighValueLable = HighValueLable.replaceAll("%", "");
-            HighValueLable = HighValueLable.replaceAll("\\.", "");
-            HighValueLable = HighValueLable.replaceAll("\\d","");
+            HighValue = thoughtPercent.replaceAll("[^\\d.]", "");
+            HighValueLable = thoughtType;
 
             ArrayList<String> BarLabel = new ArrayList<>();
             ArrayList<BarEntry> barEntries = new ArrayList<>();

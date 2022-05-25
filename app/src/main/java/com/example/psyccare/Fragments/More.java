@@ -2,6 +2,7 @@ package com.example.psyccare.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -46,6 +47,7 @@ public class More extends Fragment {
         messageBox = new ProgressDialog(getActivity());
         messageBox.setTitle("");
         messageBox.setMessage("logging out...");
+        messageBox.setCanceledOnTouchOutside(false);
 
         Stats = rootView.findViewById(R.id.myStats);
         crisisSupport = rootView.findViewById(R.id.support);
@@ -75,7 +77,7 @@ public class More extends Fragment {
             public void onClick(View view) {
                 if (isConnected(More.this)) {
                     messageBox.show();
-                    messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     userLogOut();
                 } else {
@@ -93,7 +95,12 @@ public class More extends Fragment {
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
-
+        messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
         return rootView;
     }
 
@@ -109,7 +116,7 @@ public class More extends Fragment {
                         @Override
                         public void run() {
                             messageBox.dismiss();
-                            messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             startActivity(intent);
                             getActivity().finish();
                         }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -35,82 +36,17 @@ import java.util.List;
 
 public class ThoughtCheckin extends AppCompatActivity {
 
-    private static final String TAG = "TextClassificationDemo";
     private TextClassificationClient client;
     ImageView submitThought;
     LinearLayout Snackbar_layout;
     Handler handler;
     TextInputLayout thoughtMessageBox;
     ProgressDialog messageBox;
-    String Type = "", Desc = "", classifiedAs = "", Date, Time;
+    String Type = "", Desc = "", classifiedAs = "", perCent = "", Date = "", Time = "";
     DatabaseReference referenceToCheckin;
     SimpleDateFormat dateFormat, timeFormat;
     Calendar calendar;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thought_checkin);
-
-        client = new TextClassificationClient(getApplicationContext());
-        handler = new Handler();
-
-        submitThought = findViewById(R.id.sendThoughtNote);
-        Snackbar_layout = findViewById(R.id.snackBarAction);
-        thoughtMessageBox = findViewById(R.id.thought_TextArea);
-
-        referenceToCheckin = FirebaseDatabase.getInstance().getReference("User")
-                .child(FirebaseAuth.getInstance().getUid()).child("ThoughtCheckIns");
-
-        messageBox = new ProgressDialog(ThoughtCheckin.this);
-        messageBox.setTitle("");
-        messageBox.setMessage("Loading...");
-
-        calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
-        timeFormat = new SimpleDateFormat("hh:mm aaa");
-        Date = dateFormat.format(calendar.getTime());
-        Time = timeFormat.format(calendar.getTime());
-
-        submitThought.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isConnected(ThoughtCheckin.this))
-                    Toast.makeText(ThoughtCheckin.this, "You're device is not connected to internet", Toast.LENGTH_LONG).show();
-                else {
-                    messageBox.show();
-                    messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Desc = thoughtMessageBox.getEditText().getText().toString();
-                    classify(Desc);
-                    handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            messageBox.dismiss();
-                            messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            Intent moveTo = new Intent(getApplicationContext(), HomeContainer.class);
-                            startActivity(moveTo);
-                            finish();
-                            Toast.makeText(getApplicationContext(), "Check-in completed. You can check your stats in 'Progress Tab'", Toast.LENGTH_LONG).show();
-                        }
-                    }, 750);
-                }
-
-            }
-        });
-    }
-
-    private boolean isConnected(ThoughtCheckin CheckInternet) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) CheckInternet.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo wifiCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        NetworkInfo mobileCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
-        if ((wifiCon != null && wifiCon.isConnected()) || (mobileCon != null && mobileCon.isConnected()))
-            return true;
-        else
-            return false;
-    }
+    int selectCount = 0;
 
     @Override
     public void onStart() {
@@ -132,51 +68,49 @@ public class ThoughtCheckin extends AppCompatActivity {
         );
     }
 
-    private void classify(final String text) {
-        handler.post(
-                () -> {
-                    // Run text classification with TF Lite.
-                    List<Result> results = client.classify(text);
-                    // Show classification result on screen
-                    showResult(results);
-                });
-    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_thought_checkin);
 
-    private void showResult(final List<Result> results) {
-        runOnUiThread(
-                () -> {
-                    ArrayList<String> labels = new ArrayList<>();
-                    ArrayList<Float> probability = new ArrayList<>();
+        client = new TextClassificationClient(getApplicationContext());
+        handler = new Handler();
 
-                    for (int i = 0; i < results.size(); i++) {
-                        Result result = results.get(i);
-                        labels.add(result.getTitle());   // Extract labels
-                        probability.add(result.getConfidence());  // Extract confidence
-                    }
+        submitThought = findViewById(R.id.sendThoughtNote);
+        Snackbar_layout = findViewById(R.id.snackBarAction);
+        thoughtMessageBox = findViewById(R.id.thought_TextArea);
 
-                    float tempProb;
-                    String tempLable;
-                    for (int i = 0; i < probability.size(); i++) {
-                        for (int j = i + 1; j < probability.size(); j++) {
-                            if (probability.get(i) > probability.get(j)) {
-                                tempProb = probability.get(i);
-                                probability.set(i, probability.get(j));
-                                probability.set(j, tempProb);
+        referenceToCheckin = FirebaseDatabase.getInstance().getReference("User")
+                .child(FirebaseAuth.getInstance().getUid()).child("ThoughtCheckIns");
 
-                                tempLable = labels.get(i);
-                                labels.set(i, labels.get(j));
-                                labels.set(j, tempLable);
-                            }
-                        }
-                    }
+        messageBox = new ProgressDialog(ThoughtCheckin.this);
+        messageBox.setTitle("");
+        messageBox.setMessage("Loading...");
+        messageBox.setCanceledOnTouchOutside(false);
 
-                    String HighValueLable;
-                    Float HighValue;
-                    HighValueLable = labels.get(probability.size() - 1);
-                    HighValue = probability.get(probability.size() - 1);
-                    classifiedAs = HighValueLable + " " + Math.round(HighValue * 1000) / 10.0 + "%";
-                    insertCheckin();
-                });
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
+        timeFormat = new SimpleDateFormat("hh:mm aaa");
+        Date = dateFormat.format(calendar.getTime());
+        Time = timeFormat.format(calendar.getTime());
+
+        submitThought.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isConnected(ThoughtCheckin.this))
+                    Toast.makeText(ThoughtCheckin.this, "You're device is not connected to internet", Toast.LENGTH_LONG).show();
+                else {
+                    Desc = thoughtMessageBox.getEditText().getText().toString();
+                    classify(Desc);
+                }
+            }
+        });
+        messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
     }
 
     public void Positive(View view) {
@@ -186,12 +120,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtPositive.setBackgroundColor(getColor(R.color.teal_700));
             thoughtPositive.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtPositive.setStrokeWidth(2);
-            Type = Type + "Positive,";
+            Type = Type + "Positive";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtPositive.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtPositive.setStrokeWidth(0);
-            Type = Type.replace("Positive,", "");
+            Type = Type.replace("Positive", "");
+            selectCount--;
         }
     }
 
@@ -202,12 +138,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtNegative.setBackgroundColor(getColor(R.color.teal_700));
             thoughtNegative.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtNegative.setStrokeWidth(2);
-            Type = Type + "Negative,";
+            Type = Type + "Negative";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtNegative.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtNegative.setStrokeWidth(0);
-            Type = Type.replace("Negative,", "");
+            Type = Type.replace("Negative", "");
+            selectCount--;
         }
     }
 
@@ -218,12 +156,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtEmotional.setBackgroundColor(getColor(R.color.teal_700));
             thoughtEmotional.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtEmotional.setStrokeWidth(2);
-            Type = Type + "Emotional,";
+            Type = Type + "Emotional";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtEmotional.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtEmotional.setStrokeWidth(0);
-            Type = Type.replace("Emotional,", "");
+            Type = Type.replace("Emotional", "");
+            selectCount--;
         }
     }
 
@@ -234,12 +174,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtBlaming.setBackgroundColor(getColor(R.color.teal_700));
             thoughtBlaming.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtBlaming.setStrokeWidth(2);
-            Type = Type + "Blaming,";
+            Type = Type + "Blaming";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtBlaming.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtBlaming.setStrokeWidth(0);
-            Type = Type.replace("Blaming,", "");
+            Type = Type.replace("Blaming", "");
+            selectCount--;
         }
     }
 
@@ -250,12 +192,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtFear.setBackgroundColor(getColor(R.color.teal_700));
             thoughtFear.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtFear.setStrokeWidth(2);
-            Type = Type + "Fear,";
+            Type = Type + "Fear";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtFear.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtFear.setStrokeWidth(0);
-            Type = Type.replace("Fear,", "");
+            Type = Type.replace("Fear", "");
+            selectCount--;
         }
     }
 
@@ -266,12 +210,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtCatastrophic.setBackgroundColor(getColor(R.color.teal_700));
             thoughtCatastrophic.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtCatastrophic.setStrokeWidth(2);
-            Type = Type + "Catastrophic,";
+            Type = Type + "Catastrophic";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtCatastrophic.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtCatastrophic.setStrokeWidth(0);
-            Type = Type.replace("Catastrophic,", "");
+            Type = Type.replace("Catastrophic", "");
+            selectCount--;
         }
     }
 
@@ -282,12 +228,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtCalamitous.setBackgroundColor(getColor(R.color.teal_700));
             thoughtCalamitous.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtCalamitous.setStrokeWidth(2);
-            Type = Type + "Calamitous,";
+            Type = Type + "Calamitous";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtCalamitous.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtCalamitous.setStrokeWidth(0);
-            Type = Type.replace("Calamitous,", "");
+            Type = Type.replace("Calamitous", "");
+            selectCount--;
         }
     }
 
@@ -298,12 +246,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtAssertive.setBackgroundColor(getColor(R.color.teal_700));
             thoughtAssertive.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtAssertive.setStrokeWidth(2);
-            Type = Type + "Assertive,";
+            Type = Type + "Assertive";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtAssertive.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtAssertive.setStrokeWidth(0);
-            Type = Type.replace("Assertive,", "");
+            Type = Type.replace("Assertive", "");
+            selectCount--;
         }
     }
 
@@ -314,12 +264,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtAffirmative.setBackgroundColor(getColor(R.color.teal_700));
             thoughtAffirmative.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtAffirmative.setStrokeWidth(2);
-            Type = Type + "Affirmative,";
+            Type = Type + "Affirmative";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtAffirmative.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtAffirmative.setStrokeWidth(0);
-            Type = Type.replace("Affirmative,", "");
+            Type = Type.replace("Affirmative", "");
+            selectCount--;
         }
     }
 
@@ -330,12 +282,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtOptimistic.setBackgroundColor(getColor(R.color.teal_700));
             thoughtOptimistic.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtOptimistic.setStrokeWidth(2);
-            Type = Type + "Optimistic,";
+            Type = Type + "Optimistic";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtOptimistic.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtOptimistic.setStrokeWidth(0);
-            Type = Type.replace("Optimistic,", "");
+            Type = Type.replace("Optimistic", "");
+            selectCount--;
         }
     }
 
@@ -346,12 +300,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtPessimistic.setBackgroundColor(getColor(R.color.teal_700));
             thoughtPessimistic.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtPessimistic.setStrokeWidth(2);
-            Type = Type + "Pessimistic,";
+            Type = Type + "Pessimistic";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtPessimistic.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtPessimistic.setStrokeWidth(0);
-            Type = Type.replace("Pessimistic,", "");
+            Type = Type.replace("Pessimistic", "");
+            selectCount--;
         }
     }
 
@@ -362,12 +318,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtInferring.setBackgroundColor(getColor(R.color.teal_700));
             thoughtInferring.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtInferring.setStrokeWidth(2);
-            Type = Type + "Inferring,";
+            Type = Type + "Inferring";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtInferring.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtInferring.setStrokeWidth(0);
-            Type = Type.replace("Inferring,", "");
+            Type = Type.replace("Inferring", "");
+            selectCount--;
         }
     }
 
@@ -378,12 +336,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtDisgust.setBackgroundColor(getColor(R.color.teal_700));
             thoughtDisgust.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtDisgust.setStrokeWidth(2);
-            Type = Type + "Disgust,";
+            Type = Type + "Disgust";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtDisgust.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtDisgust.setStrokeWidth(0);
-            Type = Type.replace("Disgust,", "");
+            Type = Type.replace("Disgust", "");
+            selectCount--;
         }
     }
 
@@ -394,12 +354,14 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtOther.setBackgroundColor(getColor(R.color.teal_700));
             thoughtOther.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtOther.setStrokeWidth(2);
-            Type = Type + "Other,";
+            Type = Type + "Other";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtOther.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtOther.setStrokeWidth(0);
-            Type = Type.replace("Other,", "");
+            Type = Type.replace("Other", "");
+            selectCount--;
         }
     }
 
@@ -410,18 +372,91 @@ public class ThoughtCheckin extends AppCompatActivity {
             thoughtNotSure.setBackgroundColor(getColor(R.color.teal_700));
             thoughtNotSure.setStrokeColor(ColorStateList.valueOf(Color.BLACK));
             thoughtNotSure.setStrokeWidth(2);
-            Type = Type + "Not Sure,";
+            Type = Type + "Not Sure";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             thoughtNotSure.setBackgroundColor(getColor(R.color.ButtonColorThird));
             thoughtNotSure.setStrokeWidth(0);
-            Type = Type.replace("Not Sure,", "");
+            Type = Type.replace("Not Sure", "");
+            selectCount--;
         }
     }
 
+    private boolean isConnected(ThoughtCheckin CheckInternet) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) CheckInternet.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        if ((wifiCon != null && wifiCon.isConnected()) || (mobileCon != null && mobileCon.isConnected()))
+            return true;
+        else
+            return false;
+    }
+
+    private void classify(final String text) {
+        if (selectCount == 0) {
+            Toast.makeText(this, "Please select at least one thought type", Toast.LENGTH_SHORT).show();
+        } else if (selectCount == 2) {
+            Toast.makeText(this, "Please select only one thought type", Toast.LENGTH_SHORT).show();
+        } else if (Desc.equals("") || Desc.equals(null)) {
+            Toast.makeText(this, "Please add thought description before submitting", Toast.LENGTH_SHORT).show();
+        } else {
+            messageBox.show();
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            // Run text classification with TF Lite.
+            List<Result> results = client.classify(text);
+            // Show classification result on screen
+            showResult(results);
+        }
+    }
+
+    private void showResult(final List<Result> results) {
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<Float> probability = new ArrayList<>();
+
+        for (int i = 0; i < results.size(); i++) {
+            Result result = results.get(i);
+            labels.add(result.getTitle());   // Extract labels
+            probability.add(result.getConfidence());  // Extract confidence
+        }
+        float tempProb;
+        String tempLable;
+        for (int i = 0; i < probability.size(); i++) {
+            for (int j = i + 1; j < probability.size(); j++) {
+                if (probability.get(i) > probability.get(j)) {
+                    tempProb = probability.get(i);
+                    probability.set(i, probability.get(j));
+                    probability.set(j, tempProb);
+
+                    tempLable = labels.get(i);
+                    labels.set(i, labels.get(j));
+                    labels.set(j, tempLable);
+                }
+            }
+        }
+        String HighValueLable;
+        Float HighValue;
+        HighValueLable = labels.get(probability.size() - 1);
+        HighValue = probability.get(probability.size() - 1);
+        perCent = Math.round(HighValue * 1000) / 10.0 + "%";
+        classifiedAs = HighValueLable;
+        insertCheckin();
+    }
+
     public void insertCheckin() {
-        checkInModel thoughtCheckIn = new checkInModel(Date, Time, Type, Desc, classifiedAs);
+        checkInModel thoughtCheckIn = new checkInModel(Date, Time, Type, Desc, classifiedAs, perCent);
         referenceToCheckin.child(Date + " " + Time).setValue(thoughtCheckIn);
+        handler = new Handler();
+        handler.postDelayed(() -> {
+            messageBox.dismiss();
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            Intent moveTo = new Intent(getApplicationContext(), HomeContainer.class);
+            startActivity(moveTo);
+            finish();
+            Toast.makeText(getApplicationContext(), "Check-in completed. You can check your stats in 'Progress Tab'", Toast.LENGTH_LONG).show();
+        }, 750);
     }
 
     public void onBackPressed() {

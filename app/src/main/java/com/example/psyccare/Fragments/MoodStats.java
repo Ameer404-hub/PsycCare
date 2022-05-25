@@ -2,6 +2,7 @@ package com.example.psyccare.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -56,6 +57,7 @@ public class MoodStats extends Fragment {
         messageBox = new ProgressDialog(getActivity());
         messageBox.setTitle("");
         messageBox.setMessage("Loading...");
+        messageBox.setCanceledOnTouchOutside(false);
 
         mCheckIn = new ArrayList<>();
         adapterMoodStats = new MoodStatsContentAdapter(getActivity(), mCheckIn);
@@ -65,13 +67,18 @@ public class MoodStats extends Fragment {
 
         if (isConnected(this)) {
             messageBox.show();
-            messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             getMoodCheckIns();
         } else {
             Toast.makeText(getActivity(), "You're device is not connected to internet", Toast.LENGTH_LONG).show();
         }
-
+        messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
         return rootView;
     }
 
@@ -88,10 +95,10 @@ public class MoodStats extends Fragment {
                         mSatsLayout.setLayoutAnimation(layoutAnimationController);
                     }
                     messageBox.dismiss();
-                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 } else {
                     messageBox.dismiss();
-                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     Toast.makeText(getActivity(), "You don't have any Mood Check Ins yet!", Toast.LENGTH_SHORT).show();
                 }
                 adapterMoodStats.notifyDataSetChanged();
@@ -100,7 +107,7 @@ public class MoodStats extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 messageBox.dismiss();
-                messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 Toast.makeText(getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

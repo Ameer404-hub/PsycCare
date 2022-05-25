@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -34,81 +35,17 @@ import java.util.List;
 
 public class MoodCheckin extends AppCompatActivity {
 
-    private static final String TAG = "TextClassificationDemo";
     private TextClassificationClient client;
     ImageView submitMood;
     LinearLayout Snackbar_layout;
     Handler handler;
     ProgressDialog messageBox;
     TextInputLayout moodMessageBox;
-    String Type = "", Desc = "", classifiedAs = "", Date = "", Time = "";
+    String Type = "", Desc = "", classifiedAs = "", perCent = "", Date = "", Time = "";
     DatabaseReference referenceToMoodCheckin;
     SimpleDateFormat dateFormat, timeFormat;
     Calendar calendar;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mood_checkin);
-
-        client = new TextClassificationClient(getApplicationContext());
-        handler = new Handler();
-
-        submitMood = findViewById(R.id.sendMoodNote);
-        Snackbar_layout = findViewById(R.id.moodIconsLayout);
-        moodMessageBox = findViewById(R.id.mood_TextArea);
-
-        referenceToMoodCheckin = FirebaseDatabase.getInstance().getReference("User")
-                .child(FirebaseAuth.getInstance().getUid()).child("MoodCheckIns");
-
-        messageBox = new ProgressDialog(MoodCheckin.this);
-        messageBox.setTitle("");
-        messageBox.setMessage("Loading...");
-
-        calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
-        timeFormat = new SimpleDateFormat("hh:mm aaa");
-        Date = dateFormat.format(calendar.getTime());
-        Time = timeFormat.format(calendar.getTime());
-
-        submitMood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isConnected(MoodCheckin.this))
-                    Toast.makeText(MoodCheckin.this, "You're device is not connected to internet", Toast.LENGTH_LONG).show();
-                else {
-                    messageBox.show();
-                    messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Desc = moodMessageBox.getEditText().getText().toString();
-                    classify(Desc);
-                    handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            messageBox.dismiss();
-                            messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                            Intent moveTo = new Intent(getApplicationContext(), ThoughtCheckin.class);
-                            startActivity(moveTo);
-                            finish();
-                        }
-                    }, 750);
-                }
-
-            }
-        });
-    }
-
-    private boolean isConnected(MoodCheckin CheckInternet) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) CheckInternet.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo wifiCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        NetworkInfo mobileCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
-        if ((wifiCon != null && wifiCon.isConnected()) || (mobileCon != null && mobileCon.isConnected()))
-            return true;
-        else
-            return false;
-    }
+    int selectCount = 0;
 
     @Override
     public void onStart() {
@@ -130,51 +67,49 @@ public class MoodCheckin extends AppCompatActivity {
         );
     }
 
-    private void classify(final String text) {
-        handler.post(
-                () -> {
-                    // Run text classification with TF Lite.
-                    List<Result> results = client.classify(text);
-                    // Show classification result on screen
-                    showResult(results);
-                });
-    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mood_checkin);
 
-    private void showResult(final List<Result> results) {
-        runOnUiThread(
-                () -> {
-                    ArrayList<String> labels = new ArrayList<>();
-                    ArrayList<Float> probability = new ArrayList<>();
+        client = new TextClassificationClient(getApplicationContext());
+        handler = new Handler();
 
-                    for (int i = 0; i < results.size(); i++) {
-                        Result result = results.get(i);
-                        labels.add(result.getTitle());   // Extract labels
-                        probability.add(result.getConfidence());  // Extract confidence
-                    }
+        submitMood = findViewById(R.id.sendMoodNote);
+        Snackbar_layout = findViewById(R.id.moodIconsLayout);
+        moodMessageBox = findViewById(R.id.mood_TextArea);
 
-                    float tempProb;
-                    String tempLable;
-                    for (int i = 0; i < probability.size(); i++) {
-                        for (int j = i + 1; j < probability.size(); j++) {
-                            if (probability.get(i) > probability.get(j)) {
-                                tempProb = probability.get(i);
-                                probability.set(i, probability.get(j));
-                                probability.set(j, tempProb);
+        referenceToMoodCheckin = FirebaseDatabase.getInstance().getReference("User")
+                .child(FirebaseAuth.getInstance().getUid()).child("MoodCheckIns");
 
-                                tempLable = labels.get(i);
-                                labels.set(i, labels.get(j));
-                                labels.set(j, tempLable);
-                            }
-                        }
-                    }
+        messageBox = new ProgressDialog(MoodCheckin.this);
+        messageBox.setTitle("");
+        messageBox.setMessage("Loading...");
+        messageBox.setCanceledOnTouchOutside(false);
 
-                    String HighValueLable;
-                    Float HighValue;
-                    HighValueLable = labels.get(probability.size() - 1);
-                    HighValue = probability.get(probability.size() - 1);
-                    classifiedAs = HighValueLable + " " + Math.round(HighValue * 1000) / 10.0 + "%";
-                    insertCheckin();
-                });
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
+        timeFormat = new SimpleDateFormat("hh:mm aaa");
+        Date = dateFormat.format(calendar.getTime());
+        Time = timeFormat.format(calendar.getTime());
+
+        submitMood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isConnected(MoodCheckin.this))
+                    Toast.makeText(MoodCheckin.this, "You're device is not connected to internet", Toast.LENGTH_LONG).show();
+                else {
+                    Desc = moodMessageBox.getEditText().getText().toString();
+                    classify(Desc);
+                }
+            }
+        });
+        messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
     }
 
     public void Happy(View view) {
@@ -182,11 +117,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodHappy.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Happy,";
+            Type = Type + "Happy";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodHappy.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Happy,", "");
+            Type = Type.replace("Happy", "");
+            selectCount--;
         }
     }
 
@@ -195,11 +132,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodSad.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Sad,";
+            Type = Type + "Sad";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodSad.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Sad,", "");
+            Type = Type.replace("Sad", "");
+            selectCount--;
         }
     }
 
@@ -208,11 +147,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodAngry.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Angry,";
+            Type = Type + "Angry";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodAngry.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Angry,", "");
+            Type = Type.replace("Angry", "");
+            selectCount--;
         }
     }
 
@@ -221,11 +162,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodAnxious.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Anxious,";
+            Type = Type + "Anxious";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodAnxious.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Anxious,", "");
+            Type = Type.replace("Anxious", "");
+            selectCount--;
         }
     }
 
@@ -234,11 +177,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodExcited.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Excited,";
+            Type = Type + "Excited";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodExcited.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Excited,", "");
+            Type = Type.replace("Excited", "");
+            selectCount--;
         }
     }
 
@@ -247,11 +192,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodStressed.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Stressed,";
+            Type = Type + "Stressed";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodStressed.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Stressed,", "");
+            Type = Type.replace("Stressed", "");
+            selectCount--;
         }
     }
 
@@ -260,11 +207,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodAwesome.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Awesome,";
+            Type = Type + "Awesome";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodAwesome.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Awesome,", "");
+            Type = Type.replace("Awesome", "");
+            selectCount--;
         }
     }
 
@@ -273,11 +222,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodTerrible.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Terrible,";
+            Type = Type + "Terrible";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodTerrible.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Terrible,", "");
+            Type = Type.replace("Terrible", "");
+            selectCount--;
         }
     }
 
@@ -286,11 +237,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodTired.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Tired,";
+            Type = Type + "Tired";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodTired.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Tired,", "");
+            Type = Type.replace("Tired", "");
+            selectCount--;
         }
     }
 
@@ -299,11 +252,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodHopeful.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Hopeful,";
+            Type = Type + "Hopeful";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodHopeful.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Hopeful,", "");
+            Type = Type.replace("Hopeful", "");
+            selectCount--;
         }
     }
 
@@ -312,11 +267,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodOkay.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Okay,";
+            Type = Type + "Okay";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodOkay.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Okay,", "");
+            Type = Type.replace("Okay", "");
+            selectCount--;
         }
     }
 
@@ -325,11 +282,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodCalm.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Calm,";
+            Type = Type + "Calm";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodCalm.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Calm,", "");
+            Type = Type.replace("Calm", "");
+            selectCount--;
         }
     }
 
@@ -338,11 +297,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodSatisfied.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Satisfied,";
+            Type = Type + "Satisfied";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodSatisfied.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Satisfied,", "");
+            Type = Type.replace("Satisfied", "");
+            selectCount--;
         }
     }
 
@@ -351,11 +312,13 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodFrustated.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Frustrated,";
+            Type = Type + "Frustrated";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodFrustated.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Frustrated,", "");
+            Type = Type.replace("Frustrated", "");
+            selectCount--;
         }
     }
 
@@ -364,17 +327,89 @@ public class MoodCheckin extends AppCompatActivity {
         if (view.getTag() == null || view.getTag().toString().equals("untapped")) {
             view.setTag("tapped");
             moodnotSure.setBackground(getDrawable(R.drawable.bg_for_tapped));
-            Type = Type + "Not Sure,";
+            Type = Type + "Not Sure";
+            selectCount++;
         } else if (view.getTag().toString().equals("tapped")) {
             view.setTag("untapped");
             moodnotSure.setBackground(getDrawable(R.drawable.bg_for_untapped));
-            Type = Type.replace("Not Sure,", "");
+            Type = Type.replace("Not Sure", "");
+            selectCount--;
         }
     }
 
+    private boolean isConnected(MoodCheckin CheckInternet) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) CheckInternet.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileCon = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        if ((wifiCon != null && wifiCon.isConnected()) || (mobileCon != null && mobileCon.isConnected()))
+            return true;
+        else
+            return false;
+    }
+
+    private void classify(final String text) {
+        if (selectCount == 0) {
+            Toast.makeText(this, "Please select at least one mood type", Toast.LENGTH_SHORT).show();
+        } else if (selectCount == 2) {
+            Toast.makeText(this, "Please select only one mood type", Toast.LENGTH_SHORT).show();
+        } else if (Desc.equals("") || Desc.equals(null)) {
+            Toast.makeText(this, "Please add mood description before submitting", Toast.LENGTH_SHORT).show();
+        } else{
+            messageBox.show();
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            // Run text classification with TF Lite.
+            List<Result> results = client.classify(text);
+            // Show classification result on screen
+            showResult(results);
+        }
+    }
+
+    private void showResult(final List<Result> results) {
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<Float> probability = new ArrayList<>();
+
+        for (int i = 0; i < results.size(); i++) {
+            Result result = results.get(i);
+            labels.add(result.getTitle());   // Extract labels
+            probability.add(result.getConfidence());  // Extract confidence
+        }
+        float tempProb;
+        String tempLable;
+        for (int i = 0; i < probability.size(); i++) {
+            for (int j = i + 1; j < probability.size(); j++) {
+                if (probability.get(i) > probability.get(j)) {
+                    tempProb = probability.get(i);
+                    probability.set(i, probability.get(j));
+                    probability.set(j, tempProb);
+
+                    tempLable = labels.get(i);
+                    labels.set(i, labels.get(j));
+                    labels.set(j, tempLable);
+                }
+            }
+        }
+        String HighValueLable;
+        Float HighValue;
+        HighValueLable = labels.get(probability.size() - 1);
+        HighValue = probability.get(probability.size() - 1);
+        perCent = Math.round(HighValue * 1000) / 10.0 + "%";
+        classifiedAs = HighValueLable;
+        insertCheckin();
+    }
+
     public void insertCheckin() {
-        checkInModel moodCheckIn = new checkInModel(Date, Time, Type, Desc, classifiedAs);
+        checkInModel moodCheckIn = new checkInModel(Date, Time, Type, Desc, classifiedAs, perCent);
         referenceToMoodCheckin.child(Date + " " + Time).setValue(moodCheckIn);
+        handler = new Handler();
+        handler.postDelayed(() -> {
+            messageBox.dismiss();
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            Intent moveTo = new Intent(getApplicationContext(), ThoughtCheckin.class);
+            startActivity(moveTo);
+            finish();
+        }, 750);
     }
 
     public void onBackPressed() {

@@ -2,6 +2,7 @@ package com.example.psyccare.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -39,7 +40,7 @@ public class ThoughtTab extends Fragment {
 
     private HorizontalBarChart mBarChart;
     private TextView T_DateView, T_ThoughtView, T_DescriptionView;
-    String checkInDate, checkInTime, Type, Desc, classifiedAs;
+    String checkInDate, checkInTime, Type, Desc, classifiedAs, perCent;
     DatabaseReference referenceToThoughtCheckin;
     ProgressDialog messageBox;
 
@@ -58,13 +59,14 @@ public class ThoughtTab extends Fragment {
         messageBox = new ProgressDialog(getActivity());
         messageBox.setTitle("");
         messageBox.setMessage("Loading...");
+        messageBox.setCanceledOnTouchOutside(false);
 
         referenceToThoughtCheckin = FirebaseDatabase.getInstance().getReference("User")
                 .child(FirebaseAuth.getInstance().getUid()).child("ThoughtCheckIns");
 
         if (isConnected(this)) {
             messageBox.show();
-            messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             referenceToThoughtCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -76,16 +78,17 @@ public class ThoughtTab extends Fragment {
                             Type = ds.child("type").getValue().toString().trim();
                             Desc = ds.child("description").getValue().toString().trim();
                             classifiedAs = ds.child("classifiedAs").getValue().toString().trim();
+                            perCent = ds.child("perCent").getValue().toString().trim();
                             T_DateView.setText(checkInDate + " " + checkInTime);
                             T_ThoughtView.setText(Type);
                             T_DescriptionView.setText(Desc);
                         }
-                        drawChart(classifiedAs);
+                        drawChart(classifiedAs, perCent);
                         messageBox.dismiss();
-                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     } else {
                         messageBox.dismiss();
-                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         Toast.makeText(getActivity(), "Error while fetching Data!", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -93,27 +96,26 @@ public class ThoughtTab extends Fragment {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     messageBox.dismiss();
-                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
             Toast.makeText(getActivity(), "You're device is not connected to internet", Toast.LENGTH_LONG).show();
         }
-
-
+        messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
         return rootView;
     }
 
-    private void drawChart(String mood) {
+    private void drawChart(String moodType, String moodPercent) {
         String HighValueLable, HighValue;
-        HighValue = mood.replaceAll(" ", "");
-        HighValue = HighValue.replaceAll("[^\\d.]", "");
-
-        HighValueLable = mood.replaceAll(" ", "");
-        HighValueLable = HighValueLable.replaceAll("%", "");
-        HighValueLable = HighValueLable.replaceAll("\\.", "");
-        HighValueLable = HighValueLable.replaceAll("\\d.","");
+        HighValue = moodPercent.replaceAll("[^\\d.]", "");
+        HighValueLable = moodType;
 
         ArrayList<String> BarLabel = new ArrayList<>();
         ArrayList<BarEntry> barEntries = new ArrayList<>();

@@ -53,7 +53,7 @@ public class MoodStatsContentAdapter extends RecyclerView.Adapter<MoodStatsConte
         holder.checkInTitleMood.setText(itemsMood.getType());
         holder.checkInDateMood.setText(itemsMood.getCheckInDate() + " " + itemsMood.getCheckInTime());
         holder.checkInDescMood.setText(itemsMood.getDescription());
-        holder.drawChart(itemsMood.getClassifiedAs());
+        holder.drawChart(itemsMood.getClassifiedAs(), itemsMood.getPerCent());
         boolean isVisible = itemsMood.visibility;
         holder.moreLayoutMood.setVisibility(isVisible ? View.VISIBLE : View.GONE);
         holder.setMoodImage(itemsMood.getType());
@@ -108,11 +108,7 @@ public class MoodStatsContentAdapter extends RecyclerView.Adapter<MoodStatsConte
             moodImageID = Title;
             if (!moodImageID.equals("")) {
                 moodImageID = moodImageID.toLowerCase();
-                moodImageID = moodImageID.replaceAll(" ", "");
-                moodImageID = "moods_" + moodImageID;
-                int index = moodImageID.indexOf(",");
-                moodImageID = moodImageID.substring(0, index);
-                moodImageID = "@drawable/" + moodImageID;
+                moodImageID = "@drawable/moods_" + moodImageID;
 
                 String uri = moodImageID;  // where myresource (without the extension) is the file
                 int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
@@ -123,15 +119,10 @@ public class MoodStatsContentAdapter extends RecyclerView.Adapter<MoodStatsConte
             }
         }
 
-        private void drawChart(String mood) {
+        private void drawChart(String moodType, String moodPercent) {
             String HighValueLable, HighValue;
-            HighValue = mood.replaceAll(" ", "");
-            HighValue = HighValue.replaceAll("[^\\d.]", "");
-
-            HighValueLable = mood.replaceAll(" ", "");
-            HighValueLable = HighValueLable.replaceAll("%", "");
-            HighValueLable = HighValueLable.replaceAll("\\.", "");
-            HighValueLable = HighValueLable.replaceAll("\\d","");
+            HighValue = moodPercent.replaceAll("[^\\d.]", "");
+            HighValueLable = moodType;
 
             ArrayList<String> BarLabel = new ArrayList<>();
             ArrayList<BarEntry> barEntries = new ArrayList<>();

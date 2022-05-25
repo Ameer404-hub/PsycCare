@@ -26,101 +26,36 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:id="@+id/moodCheckInLayout"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:orientation="horizontal">
+                    android:elevation="5dp"
+                    android:background="@drawable/bg_for_cardview">
 
-                    <TextView
-                        android:id="@+id/dateView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:gravity="start"
-                        android:text=""
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizeButton"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/moodHeading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/dateView"
-                        android:layout_marginBottom="2.5dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:gravity="start"
-                        android:text="Mood Check In:"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/moodTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/moodHeading"
-                        android:layout_marginBottom="15dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:text=""
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary" />
-
-                    <TextView
-                        android:id="@+id/descHeading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/moodTitle"
-                        android:layout_marginBottom="2.5dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="Description:"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/moodDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/descHeading"
-                        android:layout_marginBottom="15dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:text=""
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary" />
-
-                    <TextView
-                        android:id="@+id/moodAnalysis"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/moodDescription"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="Analysis:"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"
-                        android:textStyle="bold" />
-
-                    <com.github.mikephil.charting.charts.HorizontalBarChart
-                        android:id="@+id/chart"
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_below="@id/moodAnalysis"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp" />
+                        android:layout_height="250dp"
+                        android:id="@+id/lineChart"
+                        android:layout_margin="10dp"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
-                <View
-                    android:id="@+id/line"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="10sp"
-                    android:background="@color/black" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:elevation="5dp"
+                    android:background="@drawable/bg_for_cardview">
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:id="@+id/pieChart"
+                        android:layout_margin="10dp"/>
+
+                </LinearLayout>
+
 
             </LinearLayout>
 

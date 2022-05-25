@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -42,10 +43,18 @@ public class OngoingPsycProb extends AppCompatActivity {
         messageBox = new ProgressDialog(this);
         messageBox.setTitle("");
         messageBox.setMessage("Setting up your preferences...");
+        messageBox.setCanceledOnTouchOutside(false);
 
         LayoutAnimationController layoutAnimationController =
                 AnimationUtils.loadLayoutAnimation(this, R.anim.layout_falldown);
         psycProbLayout.setLayoutAnimation(layoutAnimationController);
+
+        messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
     }
 
     public void Depression(View view) {
@@ -187,14 +196,14 @@ public class OngoingPsycProb extends AppCompatActivity {
         if (isConnected(this)) {
             handler = new Handler();
             messageBox.show();
-            messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     referenceUser.child("ReportedProblems").child("PsycProblems").setValue("NA");
                     messageBox.dismiss();
-                    messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     startActivity(new Intent(getApplicationContext(), HomeContainer.class));
                     finish();
                 }
@@ -210,14 +219,14 @@ public class OngoingPsycProb extends AppCompatActivity {
             if (isConnected(this)) {
                 handler = new Handler();
                 messageBox.show();
-                messageBox.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         referenceUser.child("ReportedProblems").child("PsycProblems").setValue(psycProbs);
                         messageBox.dismiss();
-                        messageBox.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         startActivity(new Intent(getApplicationContext(), HomeContainer.class));
                         finish();
                     }
