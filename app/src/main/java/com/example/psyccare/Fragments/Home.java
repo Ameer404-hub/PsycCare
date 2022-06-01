@@ -4,40 +4,59 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.psyccare.MoodCheckin;
 import com.example.psyccare.MyStats;
 import com.example.psyccare.OngoingPsycProb;
 import com.example.psyccare.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
 
 public class Home extends Fragment {
 
     Calendar calendar;
-    SimpleDateFormat dateFormat, Time;
+    Date dbDate, currDate;
+    SimpleDateFormat dateFormat, timeFormat;
     TextView dateTimeDisplay, checkInHeading, checkInStat;
-    String date;
+    String todayDate, todayTime, checkInDate, checkInTime;
+    int Hour;
+    boolean checkInExist;
     MaterialButton checkInBtn;
     ImageView homeView;
     LinearLayout Symptoms, Explore, Support, Recommended;
     LinearLayout Happy, Sad, Angry, Stressed, Excited;
+    DatabaseReference referenceToMoodCheckin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        referenceToMoodCheckin = FirebaseDatabase.getInstance().getReference("User")
+                .child(FirebaseAuth.getInstance().getUid()).child("MoodCheckIns");
 
         checkInBtn = rootView.findViewById(R.id.checkInBtn);
         dateTimeDisplay = rootView.findViewById(R.id.dateTime);
@@ -56,10 +75,12 @@ public class Home extends Fragment {
         Excited = rootView.findViewById(R.id.Excited);
 
         calendar = Calendar.getInstance();
+
         dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
-        Time = new SimpleDateFormat("hh:mm aaa");
-        date = dateFormat.format(calendar.getTime());
-        dateTimeDisplay.setText(date);
+        timeFormat = new SimpleDateFormat("hh:mm aaa");
+        todayDate = dateFormat.format(calendar.getTime());
+        todayTime = timeFormat.format(calendar.getTime());
+        dateTimeDisplay.setText(todayDate);
         Greet();
         setPicture();
 
@@ -121,9 +142,7 @@ public class Home extends Fragment {
         checkInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveTo = new Intent(getActivity(), MoodCheckin.class);
-                startActivity(moveTo);
-                getActivity().finish();
+                checkInLimit();
             }
         });
 
