@@ -196,4 +196,69 @@ public class Home extends Fragment {
             homeView.setImageResource(R.drawable.night_checkin1);
         }
     }
+
+    public void checkInLimit() {
+        referenceToMoodCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        checkInDate = ds.child("checkInDate").getValue().toString().trim();
+                        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy");
+                        try {
+                            dbDate = sdf.parse(checkInDate);
+                            currDate = sdf.parse(todayDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        checkInTime = ds.child("checkInTime").getValue().toString().trim();
+                        Hour = Integer.parseInt(checkInTime.substring(0, 2));
+                        String period = checkInTime.substring(6, 8);
+                        if (period.equals("PM"))
+                            Hour = Hour + 12;
+
+                        if (dbDate.equals(currDate)) {
+                            if (Hour >= 0 && Hour < 5) {
+                                Toast.makeText(getActivity(), "Night check in already done", Toast.LENGTH_SHORT).show();
+                                checkInExist = true;
+                                break;
+                            } else if (Hour >= 5 && Hour < 12) {
+                                Toast.makeText(getActivity(), "Morning check in already done", Toast.LENGTH_SHORT).show();
+                                checkInExist = true;
+                                break;
+                            } else if (Hour >= 12 && Hour < 16) {
+                                Toast.makeText(getActivity(), "Afternoon check in already done.", Toast.LENGTH_SHORT).show();
+                                checkInExist = true;
+                                break;
+                            } else if (Hour >= 16 && Hour < 21) {
+                                Toast.makeText(getActivity(), "Evening check in already done", Toast.LENGTH_SHORT).show();
+                                checkInExist = true;
+                                break;
+                            } else if (Hour >= 21 && Hour <= 24) {
+                                Toast.makeText(getActivity(), "Night check in already done", Toast.LENGTH_SHORT).show();
+                                checkInExist = true;
+                                break;
+                            } else {
+                                checkInExist = true;
+                                break;
+                            }
+                        } else {
+                            checkInExist = false;
+                        }
+                    }
+                    if (checkInExist == false) {
+                        Intent moveTo = new Intent(getActivity(), MoodCheckin.class);
+                        startActivity(moveTo);
+                        getActivity().finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
