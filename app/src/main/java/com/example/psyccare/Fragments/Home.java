@@ -37,11 +37,11 @@ import java.util.Timer;
 public class Home extends Fragment {
 
     Calendar calendar;
-    Date dbDate, currDate;
+    ;
     SimpleDateFormat dateFormat, timeFormat;
     TextView dateTimeDisplay, checkInHeading, checkInStat;
-    String todayDate, todayTime, checkInDate, checkInTime;
-    int Hour;
+    String currDate, currTime, checkInDate, checkInTime;
+    int isCheckInTime, timeOfDay;
     boolean checkInExist;
     MaterialButton checkInBtn;
     ImageView homeView;
@@ -78,11 +78,10 @@ public class Home extends Fragment {
 
         dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
         timeFormat = new SimpleDateFormat("hh:mm aaa");
-        todayDate = dateFormat.format(calendar.getTime());
-        todayTime = timeFormat.format(calendar.getTime());
-        dateTimeDisplay.setText(todayDate);
+        currDate = dateFormat.format(calendar.getTime());
+        currTime = timeFormat.format(calendar.getTime());
+        dateTimeDisplay.setText(currDate);
         Greet();
-        setPicture();
 
         Symptoms.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,41 +101,31 @@ public class Home extends Fragment {
         Happy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveTo = new Intent(getActivity(), MoodCheckin.class);
-                startActivity(moveTo);
-                getActivity().finish();
+                checkInLimit();
             }
         });
         Sad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveTo = new Intent(getActivity(), MoodCheckin.class);
-                startActivity(moveTo);
-                getActivity().finish();
+                checkInLimit();
             }
         });
         Angry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveTo = new Intent(getActivity(), MoodCheckin.class);
-                startActivity(moveTo);
-                getActivity().finish();
+                checkInLimit();
             }
         });
         Stressed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveTo = new Intent(getActivity(), MoodCheckin.class);
-                startActivity(moveTo);
-                getActivity().finish();
+                checkInLimit();
             }
         });
         Excited.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveTo = new Intent(getActivity(), MoodCheckin.class);
-                startActivity(moveTo);
-                getActivity().finish();
+                checkInLimit();
             }
         });
         checkInBtn.setOnClickListener(new View.OnClickListener() {
@@ -158,42 +147,38 @@ public class Home extends Fragment {
     }
 
     public void Greet() {
-        int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-        if (timeOfDay >= 0 && timeOfDay < 5) {
-            checkInHeading.setText("Mid Night Check In");
+        timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        if (timeOfDay >= 0 && timeOfDay < 3) {
+            homeView.setImageResource(R.drawable.night_checkin2);
+            checkInHeading.setText("Mid-night Check In");
+            checkInStat.setText("Trying to sleep?");
+        } else if (timeOfDay >= 3 && timeOfDay < 6) {
+            homeView.setImageResource(R.drawable.night_checkin2);
+            checkInHeading.setText("Early Morning Check In");
             checkInStat.setText("Had a good rest?");
-        } else if (timeOfDay >= 5 && timeOfDay < 12) {
-            checkInHeading.setText("Morning Check In");
-        } else if (timeOfDay >= 12 && timeOfDay < 16) {
-            checkInHeading.setText("Afternoon Check In");
-        } else if (timeOfDay >= 16 && timeOfDay < 21) {
-            checkInHeading.setText("Evening Check In");
-        } else if (timeOfDay >= 21 && timeOfDay <= 24) {
-            checkInHeading.setText("Night Check In");
-            checkInStat.setText("How was your day?");
-        }
-    }
-
-    public void setPicture() {
-        int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-        if (timeOfDay >= 24 && timeOfDay < 2) {
-            homeView.setImageResource(R.drawable.night_checkin2);
-        } else if (timeOfDay >= 2 && timeOfDay < 5) {
-            homeView.setImageResource(R.drawable.night_checkin2);
-        } else if (timeOfDay >= 5 && timeOfDay < 9) {
+        } else if (timeOfDay >= 6 && timeOfDay < 9) {
             homeView.setImageResource(R.drawable.morning_checkin1);
+            checkInHeading.setText("Morning Check In");
+            checkInStat.setText("Had a good rest?");
         } else if (timeOfDay >= 9 && timeOfDay < 12) {
             homeView.setImageResource(R.drawable.morning_checkin2);
+            checkInHeading.setText("Morning Check In");
         } else if (timeOfDay >= 12 && timeOfDay < 14) {
             homeView.setImageResource(R.drawable.afternoon_checkin1);
+            checkInHeading.setText("Afternoon Check In");
         } else if (timeOfDay >= 14 && timeOfDay < 16) {
             homeView.setImageResource(R.drawable.afternoon_checkin2);
+            checkInHeading.setText("Afternoon Check In");
         } else if (timeOfDay >= 16 && timeOfDay < 19) {
             homeView.setImageResource(R.drawable.evening_checkin2);
+            checkInHeading.setText("Evening Check In");
         } else if (timeOfDay >= 19 && timeOfDay < 21) {
             homeView.setImageResource(R.drawable.evening_checkin1);
+            checkInHeading.setText("Evening Check In");
         } else if (timeOfDay >= 21 && timeOfDay <= 24) {
             homeView.setImageResource(R.drawable.night_checkin1);
+            checkInHeading.setText("Night Check In");
+            checkInStat.setText("How was your day?");
         }
     }
 
@@ -204,45 +189,43 @@ public class Home extends Fragment {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         checkInDate = ds.child("checkInDate").getValue().toString().trim();
-                        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy");
-                        try {
-                            dbDate = sdf.parse(checkInDate);
-                            currDate = sdf.parse(todayDate);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
                         checkInTime = ds.child("checkInTime").getValue().toString().trim();
-                        Hour = Integer.parseInt(checkInTime.substring(0, 2));
-                        String period = checkInTime.substring(6, 8);
-                        if (period.equals("PM"))
-                            Hour = Hour + 12;
+                        isCheckInTime = Integer.parseInt(checkInTime.substring(0, 2));
+                        timeOfDay = Integer.parseInt(currTime.substring(0, 2));
+                        String periodHour = checkInTime.substring(6, 8);
+                        String periodCurTime = checkInTime.substring(6, 8);
+                        if (periodHour.equals("PM"))
+                            isCheckInTime = isCheckInTime + 12;
+                        if (periodCurTime.equals("PM"))
+                            timeOfDay = timeOfDay + 12;
 
-                        if (dbDate.equals(currDate)) {
-                            if (Hour >= 0 && Hour < 5) {
-                                Toast.makeText(getActivity(), "Night check in already done", Toast.LENGTH_SHORT).show();
+                        if (checkInDate.equals(currDate)) {
+                            if (timeOfDay >= 0 && timeOfDay < 3 && isCheckInTime >= 0 && isCheckInTime < 3) {
+                                Toast.makeText(getActivity(), "Mid-Night check in already done", Toast.LENGTH_SHORT).show();
                                 checkInExist = true;
                                 break;
-                            } else if (Hour >= 5 && Hour < 12) {
+                            } else if (timeOfDay >= 3 && timeOfDay < 6 && isCheckInTime >= 3 && isCheckInTime < 6) {
+                                Toast.makeText(getActivity(), "Early Morning check in already done", Toast.LENGTH_SHORT).show();
+                                checkInExist = true;
+                                break;
+                            } else if (timeOfDay >= 6 && timeOfDay < 12 && isCheckInTime >= 6 && isCheckInTime < 12) {
                                 Toast.makeText(getActivity(), "Morning check in already done", Toast.LENGTH_SHORT).show();
                                 checkInExist = true;
                                 break;
-                            } else if (Hour >= 12 && Hour < 16) {
+                            } else if (timeOfDay >= 12 && timeOfDay < 16 && isCheckInTime >= 12 && isCheckInTime < 16) {
                                 Toast.makeText(getActivity(), "Afternoon check in already done.", Toast.LENGTH_SHORT).show();
                                 checkInExist = true;
                                 break;
-                            } else if (Hour >= 16 && Hour < 21) {
+                            } else if (timeOfDay >= 16 && timeOfDay < 21 && isCheckInTime >= 16 && isCheckInTime < 21) {
                                 Toast.makeText(getActivity(), "Evening check in already done", Toast.LENGTH_SHORT).show();
                                 checkInExist = true;
                                 break;
-                            } else if (Hour >= 21 && Hour <= 24) {
+                            } else if (timeOfDay >= 21 && timeOfDay < 24 && isCheckInTime >= 21 && isCheckInTime < 24) {
                                 Toast.makeText(getActivity(), "Night check in already done", Toast.LENGTH_SHORT).show();
                                 checkInExist = true;
                                 break;
-                            } else {
-                                checkInExist = true;
-                                break;
-                            }
+                            } else
+                                checkInExist = false;
                         } else {
                             checkInExist = false;
                         }
