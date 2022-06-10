@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ScrollView
-            android:id="@+id/checkinsScroll"
+            android:id="@+id/tCheckinsScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,101 +26,80 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:id="@+id/thoughtCheckInLayout"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:letterSpacing="0.05"
+                    android:text="Daily Check Ins Line Chart"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizePrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/metrophobic"
+                    android:gravity="start"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Your Daily Check Ins Line Chart gives you an insight of most experienced emotions in daily life"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:orientation="horizontal">
+                    android:elevation="5dp"
+                    android:background="@drawable/bg_for_cardview">
 
-                    <TextView
-                        android:id="@+id/dateView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:gravity="start"
-                        android:text=""
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizeButton"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/thoughtHeading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/dateView"
-                        android:layout_marginBottom="2.5dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:gravity="start"
-                        android:text="Thought Check In:"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/thoughtTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/thoughtHeading"
-                        android:layout_marginBottom="15dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:text=""
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary" />
-
-                    <TextView
-                        android:id="@+id/descHeading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/thoughtTitle"
-                        android:layout_marginBottom="2.5dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="Description:"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/thoughtDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/descHeading"
-                        android:layout_marginBottom="15dp"
-                        android:fontFamily="@font/metrophobic"
-                        android:text=""
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary" />
-
-                    <TextView
-                        android:id="@+id/thoughtAnalysis"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/thoughtDescription"
-                        android:fontFamily="@font/metrophobic"
-                        android:text="Analysis:"
-                        android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary"
-                        android:textStyle="bold" />
-
-                    <com.github.mikephil.charting.charts.HorizontalBarChart
-                        android:id="@+id/chart_thoughts"
+                    <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_below="@id/thoughtAnalysis"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp" />
+                        android:layout_height="250dp"
+                        android:id="@+id/tLineChart"
+                        android:layout_margin="10dp"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
-                <View
-                    android:id="@+id/line"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:letterSpacing="0.05"
+                    android:text="Weekly Health Pie Chart"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizePrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/metrophobic"
+                    android:gravity="start"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Weekly Health Pie Chart shows your weekly progress and most developed symptoms in a week"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="10sp"
-                    android:background="@color/black" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:elevation="5dp"
+                    android:background="@drawable/bg_for_cardview">
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:id="@+id/tPieChart"
+                        android:layout_margin="10dp"/>
+
+                </LinearLayout>
+
 
             </LinearLayout>
 

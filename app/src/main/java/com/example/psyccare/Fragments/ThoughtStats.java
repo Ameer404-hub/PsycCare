@@ -31,16 +31,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ThoughtStats extends Fragment {
 
     RecyclerView recyclerViewForThoughtstats;
-    DatabaseReference referenceToThoughtCheckin;
+    DatabaseReference referenceToThoughtCheckin, referenceToMonthCheckin, referenceToDailyCheckin;
     ThoughtStatsContentAdapter adapterThoughtStats;
     ArrayList<checkInModel> tCheckIn;
     ProgressDialog messageBox;
     LinearLayout tStatsLayout;
+    String monthNode, dateNode, allCheckIns;
+    Calendar calendar;
+    SimpleDateFormat dateFormat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +63,10 @@ public class ThoughtStats extends Fragment {
         messageBox.setTitle("");
         messageBox.setMessage("Loading...");
         messageBox.setCanceledOnTouchOutside(false);
+
+        Calendar calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
+        dateNode = dateFormat.format(calendar.getTime());
 
         tCheckIn = new ArrayList<>();
         adapterThoughtStats = new ThoughtStatsContentAdapter(getActivity(), tCheckIn);
@@ -88,20 +97,68 @@ public class ThoughtStats extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        checkInModel thoughtModel = ds.getValue(checkInModel.class);
-                        tCheckIn.add(thoughtModel);
-                        LayoutAnimationController layoutAnimationController =
-                                AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_falldown);
-                        tStatsLayout.setLayoutAnimation(layoutAnimationController);
+                        monthNode = ds.getKey();
+                        referenceToMonthCheckin = referenceToThoughtCheckin.child(monthNode);
+                        referenceToMonthCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    for (DataSnapshot dsMonthNode : dataSnapshot.getChildren()) {
+                                        dateNode = dsMonthNode.getKey();
+                                        referenceToDailyCheckin = referenceToMonthCheckin.child(dateNode);
+                                        referenceToDailyCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                                if (dataSnapshot1.exists()) {
+                                                    for (DataSnapshot dsDaily : dataSnapshot1.getChildren()) {
+                                                        if (dsDaily.child("description").exists()) {
+                                                            checkInModel thoughtModel = dsDaily.getValue(checkInModel.class);
+                                                            tCheckIn.add(thoughtModel);
+                                                            LayoutAnimationController layoutAnimationController =
+                                                                    AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_upwards);
+                                                            tStatsLayout.setLayoutAnimation(layoutAnimationController);
+                                                        }
+                                                    }
+                                                    messageBox.dismiss();
+                                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                                                } else {
+                                                    messageBox.dismiss();
+                                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                    Toast.makeText(getActivity(), "getThoughtCheckins() error: Date Node does not exist!!!\nYou don't have any Mood Check Ins yet!", Toast.LENGTH_SHORT).show();
+                                                }
+                                                adapterThoughtStats.notifyDataSetChanged();
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError1) {
+                                                messageBox.dismiss();
+                                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                Toast.makeText(getActivity(), "Error: " + databaseError1.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+
+                                } else {
+                                    messageBox.dismiss();
+                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    Toast.makeText(getActivity(), "getThoughtCheckins() error: Date Node does not exist!!!\nYou don't have any Mood Check Ins yet!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                messageBox.dismiss();
+                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                Toast.makeText(getActivity(), "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
-                    messageBox.dismiss();
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 } else {
                     messageBox.dismiss();
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Toast.makeText(getActivity(), "You don't have any Thought Check Ins yet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "getThoughtCheckins() error: DataSnapShot does not exist!!!\nYou don't have any Thought Check Ins yet", Toast.LENGTH_SHORT).show();
                 }
-                adapterThoughtStats.notifyDataSetChanged();
             }
 
             @Override

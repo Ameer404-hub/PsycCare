@@ -42,9 +42,9 @@ public class ThoughtCheckin extends AppCompatActivity {
     Handler handler;
     TextInputLayout thoughtMessageBox;
     ProgressDialog messageBox;
-    String Type = "", Desc = "", classifiedAs = "", perCent = "", Date = "", Time = "";
+    String Type = "", Desc = "", classifiedAs = "", perCent = "", Month = "", Date = "", Time = "", dbHeading;
     DatabaseReference referenceToCheckin;
-    SimpleDateFormat dateFormat, timeFormat;
+    SimpleDateFormat dateFormat, timeFormat, monthFormat;
     Calendar calendar;
     int selectCount = 0;
 
@@ -89,10 +89,12 @@ public class ThoughtCheckin extends AppCompatActivity {
         messageBox.setCanceledOnTouchOutside(false);
 
         calendar = Calendar.getInstance();
+        monthFormat = new SimpleDateFormat("MMM, yyyy");
         dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
         timeFormat = new SimpleDateFormat("hh:mm aaa");
         Date = dateFormat.format(calendar.getTime());
         Time = timeFormat.format(calendar.getTime());
+        Month = monthFormat.format(calendar.getTime());
 
         submitThought.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -446,8 +448,9 @@ public class ThoughtCheckin extends AppCompatActivity {
     }
 
     public void insertCheckin() {
+        dbHeading = getIntent().getStringExtra("checkInHeading");
         checkInModel thoughtCheckIn = new checkInModel(Date, Time, Type, Desc, classifiedAs, perCent);
-        referenceToCheckin.child(Date + " " + Time).setValue(thoughtCheckIn);
+        referenceToCheckin.child(Month).child(Date).child(dbHeading).setValue(thoughtCheckIn);
         handler = new Handler();
         handler.postDelayed(() -> {
             messageBox.dismiss();

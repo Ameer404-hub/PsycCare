@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ScrollView
-            android:id="@+id/checkinsScroll"
+            android:id="@+id/mCheckinsScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +26,28 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:letterSpacing="0.05"
+                    android:text="Daily Check Ins Line Chart"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizePrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/metrophobic"
+                    android:gravity="start"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Your Daily Check Ins Line Chart gives you an insight of most experienced emotions in daily life"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -36,10 +58,32 @@
                     <com.github.mikephil.charting.charts.LineChart
                         android:layout_width="match_parent"
                         android:layout_height="250dp"
-                        android:id="@+id/lineChart"
+                        android:id="@+id/mLineChart"
                         android:layout_margin="10dp"/>
 
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:letterSpacing="0.05"
+                    android:text="Weekly Health Pie Chart"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizePrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/metrophobic"
+                    android:gravity="start"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Weekly Health Pie Chart shows your weekly progress and most developed symptoms in a week"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizeSmall" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -51,7 +95,7 @@
                     <com.github.mikephil.charting.charts.PieChart
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:id="@+id/pieChart"
+                        android:id="@+id/mPieChart"
                         android:layout_margin="10dp"/>
 
                 </LinearLayout>

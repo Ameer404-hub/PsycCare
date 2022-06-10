@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -19,14 +20,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.psyccare.R;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,11 +57,13 @@ import java.util.ArrayList;
 
 public class ThoughtTab extends Fragment {
 
-    private HorizontalBarChart mBarChart;
-    private TextView T_DateView, T_ThoughtView, T_DescriptionView;
-    String checkInDate, checkInTime, Type, Desc, classifiedAs, perCent;
-    DatabaseReference referenceToThoughtCheckin;
+    String classifiedAs, perCent;
+    DatabaseReference referenceToThoughtCheckin, referenceToMonthCheckin, referenceToDailyCheckin;
     ProgressDialog messageBox;
+    LineChart lineChart;
+    PieChart pieChart;
+    String monthNode, dateNode, HighValueLable, HighValue, val, finalVal;
+    int count = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,11 +71,16 @@ public class ThoughtTab extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_thought_tab, container, false);
 
-        T_DateView = rootView.findViewById(R.id.dateView);
-        T_ThoughtView = rootView.findViewById(R.id.thoughtTitle);
-        T_DescriptionView = rootView.findViewById(R.id.thoughtDescription);
+        pieChart = rootView.findViewById(R.id.tPieChart);
+        lineChart = rootView.findViewById(R.id.tLineChart);
 
-        mBarChart = rootView.findViewById(R.id.chart_thoughts);
+        messageBox = new ProgressDialog(getActivity());
+        messageBox.setTitle("");
+        messageBox.setMessage("Loading...");
+        messageBox.setCanceledOnTouchOutside(false);
+
+        referenceToThoughtCheckin = FirebaseDatabase.getInstance().getReference("User")
+                .child(FirebaseAuth.getInstance().getUid()).child("ThoughtCheckIns");
 
         messageBox = new ProgressDialog(getActivity());
         messageBox.setTitle("");
@@ -68,38 +94,8 @@ public class ThoughtTab extends Fragment {
             messageBox.show();
             getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            referenceToThoughtCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-                            checkInDate = ds.child("checkInDate").getValue().toString().trim();
-                            checkInTime = ds.child("checkInTime").getValue().toString().trim();
-                            Type = ds.child("type").getValue().toString().trim();
-                            Desc = ds.child("description").getValue().toString().trim();
-                            classifiedAs = ds.child("classifiedAs").getValue().toString().trim();
-                            perCent = ds.child("perCent").getValue().toString().trim();
-                            T_DateView.setText(checkInDate + " " + checkInTime);
-                            T_ThoughtView.setText(Type);
-                            T_DescriptionView.setText(Desc);
-                        }
-                        drawChart(classifiedAs, perCent);
-                        messageBox.dismiss();
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    } else {
-                        messageBox.dismiss();
-                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        Toast.makeText(getActivity(), "Error while fetching Data!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    messageBox.dismiss();
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            setupLineChart();
+            /*setupPieChart();*/
         } else {
             Toast.makeText(getActivity(), "You're device is not connected to internet", Toast.LENGTH_LONG).show();
         }
@@ -109,86 +105,319 @@ public class ThoughtTab extends Fragment {
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         });
+        messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
         return rootView;
     }
 
-    private void drawChart(String moodType, String moodPercent) {
-        String HighValueLable, HighValue;
-        HighValue = moodPercent.replaceAll("[^\\d.]", "");
-        HighValueLable = moodType;
+    private void setupLineChart() {
+        lineChart.setDragEnabled(true);
+        lineChart.setScaleEnabled(true);
+        lineChart.setTouchEnabled(true);
+        lineChart.setDrawGridBackground(false);
+        lineChart.setPinchZoom(true);
 
-        ArrayList<String> BarLabel = new ArrayList<>();
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        Description description = new Description();
+        description.setText("Daily Check ins");
+        description.setTextSize(10);
+        lineChart.setDescription(description);
 
-        mBarChart.setDrawBarShadow(false);
-        mBarChart.setDrawValueAboveBar(true);
-        mBarChart.getDescription().setEnabled(false);
-        mBarChart.setPinchZoom(false);
-        mBarChart.setDrawGridBackground(false);
+        Legend l = lineChart.getLegend();
+        l.setEnabled(false);
 
-        XAxis xl = mBarChart.getXAxis();
-        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xl.setDrawAxisLine(true);
-        xl.setDrawGridLines(false);
-        xl.setGranularity(1);
+        ArrayList<Entry> entries = new ArrayList<>();
+        String[] Days = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setDrawGridLines(false);
+        xAxis.setAvoidFirstLastClipping(true);
+        xAxis.setValueFormatter(new ThoughtTab.MyAxixValueFormatter(Days));
+        xAxis.setGranularity(1);
 
-        YAxis yl = mBarChart.getAxisLeft();
-        yl.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-        yl.setDrawGridLines(false);
-        yl.setEnabled(false);
-        yl.setAxisMinimum(0f);
+        YAxis yAxisLeft = lineChart.getAxisLeft();
+        YAxis yAxisRight = lineChart.getAxisRight();
+        yAxisRight.setEnabled(false);
+        /*yAxisLeft.setDrawGridLines(false);
+        yAxisRight.setDrawGridLines(false);*/
 
-        YAxis yr = mBarChart.getAxisRight();
-        yr.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-        yr.setDrawGridLines(false);
-        yr.setAxisMinimum(0f);
+        referenceToThoughtCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        monthNode = ds.getKey();
+                        referenceToMonthCheckin = referenceToThoughtCheckin.child(monthNode);
+                        referenceToMonthCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()) {
+                                    for(DataSnapshot dsMonthNode : dataSnapshot.getChildren()) {
+                                        dateNode = dsMonthNode.getKey();
+                                        referenceToDailyCheckin = referenceToMonthCheckin.child(dateNode);
+                                        referenceToDailyCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                                if (dataSnapshot1.exists()) {
+                                                    for (DataSnapshot dsDaily : dataSnapshot1.getChildren()) {
+                                                        if (dsDaily.child("description").exists()) {
+                                                            classifiedAs = dsDaily.child("classifiedAs").getValue().toString().trim();
+                                                            perCent = dsDaily.child("perCent").getValue().toString().trim();
+                                                            if (!classifiedAs.equals("") && !perCent.equals("")) {
+                                                                HighValue = perCent.replaceAll("[^\\d.]", "");
+                                                                HighValueLable = classifiedAs.replaceAll(" ", "");
+                                                                entries.add(new Entry(count++, Float.parseFloat(HighValue), HighValueLable));
+                                                            }
+                                                        }
+                                                    }
+                                                    messageBox.dismiss();
+                                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-        // PREPARING THE ARRAY LIST OF BAR ENTRIES
-        barEntries.add(new BarEntry(0, Float.parseFloat(HighValue)));
-        BarLabel.add(HighValue + "% " + HighValueLable);
-        barchart(mBarChart, barEntries, BarLabel);
+                                                    ArrayList<Integer> colors = new ArrayList<>();
+                                                    for (int color : ColorTemplate.MATERIAL_COLORS) {
+                                                        colors.add(color);
+                                                    }
+                                                    for (int color : ColorTemplate.VORDIPLOM_COLORS) {
+                                                        colors.add(color);
+                                                    }
+
+                                                    LineDataSet lineSet = new LineDataSet(entries, "");
+                                                    lineSet.setColors(ColorTemplate.getHoloBlue());
+                                                    lineSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+                                                    lineSet.setLineWidth(2f);
+                                                    lineSet.setDrawCircles(true);
+                                                    lineSet.setDrawCircleHole(true);
+                                                    lineSet.setCubicIntensity(0.2f);
+                                                    lineSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+                                                    lineSet.setCircleColor(ColorTemplate.getHoloBlue());
+                                                    lineSet.setCircleRadius(4f);
+                                                    lineSet.setFillAlpha(65);
+                                                    lineSet.setDrawValues(true);
+                                                    lineSet.setFillColor(ColorTemplate.getHoloBlue());
+                                                    lineSet.setCircleRadius(6);
+                                                    lineSet.setCircleHoleRadius(3);
+
+                                                    ArrayList<ILineDataSet> dataSet = new ArrayList<>();
+                                                    dataSet.add(lineSet);
+                                                    LineData data = new LineData(dataSet);
+                                                    lineChart.setData(data);
+                                                    lineChart.animateX(1400, Easing.EasingOption.EaseInOutQuad);
+                                                    lineChart.invalidate();
+
+                                                    lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+                                                        @Override
+                                                        public void onValueSelected(Entry e, Highlight h) {
+                                                            messageBox.show();
+                                                            val = e.toString();
+                                                            val = val.substring(17, 21);
+                                                            finalVal = val;
+                                                            referenceToDailyCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                                                                    if(dataSnapshot2.exists()) {
+                                                                        for(DataSnapshot dsTap : dataSnapshot2.getChildren()) {
+                                                                            if(dsTap.child("description").exists()){
+                                                                                classifiedAs = dsTap.child("classifiedAs").getValue().toString().trim();
+                                                                                perCent = dsTap.child("perCent").getValue().toString().trim();
+                                                                                if (!classifiedAs.equals("") && !perCent.equals("")) {
+                                                                                    HighValue = perCent.replaceAll("[^\\d.]", "");
+                                                                                    HighValueLable = classifiedAs;
+                                                                                    if (finalVal.equals(HighValue)) {
+                                                                                        HighValueLable = HighValueLable.toUpperCase();
+                                                                                        AlertDialog.Builder showMessage = new AlertDialog.Builder(getActivity());
+                                                                                        showMessage.setMessage("").setTitle("Check In Details");
+                                                                                        showMessage.setMessage("Mood: " + HighValueLable).setCancelable(false).
+                                                                                                setPositiveButton("Hide", new DialogInterface.OnClickListener() {
+                                                                                                    @Override
+                                                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                                                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                                                                    }
+                                                                                                });
+                                                                                        AlertDialog alert = showMessage.create();
+                                                                                        messageBox.dismiss();
+                                                                                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                                                        alert.show();
+                                                                                        break;
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    } else {
+                                                                        messageBox.dismiss();
+                                                                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                                        Toast.makeText(getActivity(), "setupLineChart() error: Date Node does not exist!!!", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError databaseError1) {
+                                                                    messageBox.dismiss();
+                                                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                                    Toast.makeText(getActivity(), "Error: " + databaseError1.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+                                                        }
+
+                                                        @Override
+                                                        public void onNothingSelected() {
+
+                                                        }
+                                                    });
+
+                                                } else {
+                                                    messageBox.dismiss();
+                                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                    Toast.makeText(getActivity(), "setupLineChart() error: Date Node does not exist!!!", Toast.LENGTH_SHORT).show();
+                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                messageBox.dismiss();
+                                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                Toast.makeText(getActivity(), "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    messageBox.dismiss();
+                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    Toast.makeText(getActivity(), "setupLineChart() error: Date Node does not exist!!!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                messageBox.dismiss();
+                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                Toast.makeText(getActivity(), "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                } else {
+                    messageBox.dismiss();
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Toast.makeText(getActivity(), "setupLineChart() error: MoodCheckin Node  does not exist!!!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    public static void barchart(BarChart barChart, ArrayList<BarEntry> arrayList, final ArrayList<String> xAxisValues) {
-        barChart.setDrawBarShadow(false);
-        barChart.setFitBars(true);
-        barChart.setDrawValueAboveBar(true);
-        barChart.setMaxVisibleValueCount(25);
-        barChart.setPinchZoom(true);
+    private void setupPieChart() {
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setUsePercentValues(true);
+        pieChart.setHoleRadius(7);
+        pieChart.setTransparentCircleRadius(10);
+        pieChart.setRotationEnabled(true);
+        pieChart.setRotationAngle(0);
+        pieChart.setEntryLabelTextSize(10);
+        pieChart.setEntryLabelColor(Color.BLACK);
+        pieChart.setCenterText("");
+        pieChart.setCenterTextSize(12);
 
-        barChart.setDrawGridBackground(true);
-        BarDataSet barDataSet = new BarDataSet(arrayList, "Class");
-        barDataSet.setColors(new int[]{Color.parseColor("#03A9F4"), Color.parseColor("#FF9800"),
-                Color.parseColor("#76FF03"), Color.parseColor("#000000"), Color.parseColor("#E91E63"), Color.parseColor("#2962FF")});
-        //barDataSet.setColors(new int[]{Color.parseColor("#03A9F4"), Color.parseColor("#FF9800"), Color.parseColor("#76FF03"), Color.parseColor("#E91E63")});
-        //barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        BarData barData = new BarData(barDataSet);
-        barData.setBarWidth(1f);
-        barData.setValueTextSize(0.5f);
+        Description description = new Description();
+        description.setText("Weekly Progress");
+        description.setTextSize(10);
+        pieChart.setDescription(description);
 
-        barChart.setBackgroundColor(Color.TRANSPARENT); //set whatever color you prefer
-        barChart.setDrawGridBackground(false);
-        barChart.animateY(2000);
+        Legend l = pieChart.getLegend();
+        l.setForm(Legend.LegendForm.CIRCLE);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setDrawInside(false);
+        l.setEnabled(false);
+        l.setTextSize(12);
 
-        //Legend l = barChart.getLegend(); // Customize the ledgends
-        //l.setTextSize(10f);
-        //l.setFormSize(10f);
-//To set components of x axis
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setTextSize(16f);
-        xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
-        xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(false);
-        xAxis.setEnabled(true);
+        ArrayList<PieEntry> entries = new ArrayList<>();
 
-        /*YAxis yLeft = barChart.getAxisLeft();
-        yLeft.setAxisMaximum(100f);
-        yLeft.setAxisMinimum(0f);
-        yLeft.setEnabled(false);*/
+        referenceToThoughtCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                     /*float[] ranker = new float[10];
+                int count = 0;*/
+                    String HighValueLable, HighValue;
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        classifiedAs = ds.child("classifiedAs").getValue().toString().trim();
+                        perCent = ds.child("perCent").getValue().toString().trim();
+                        if (!classifiedAs.equals("") && !perCent.equals("")) {
+                            HighValue = perCent.replaceAll("[^\\d.]", "");
+                            HighValueLable = classifiedAs.replaceAll(" ", "");
+                            entries.add(new PieEntry(Float.parseFloat(HighValue), HighValueLable));
+                        /*ranker[count] = Float.parseFloat(HighValue);
+                        count++;*/
+                        }
+                    }
 
-        barChart.setData(barData);
+               /* float first, second, third;
+                third = first = second = Integer.MIN_VALUE;
+                for (int i = 0; i < ranker.length; i++) {
 
+                    if (ranker[i] > first) {
+                        third = second;
+                        second = first;
+                        first = ranker[i];
+                    }
+                    else if (ranker[i] > second) {
+                        third = second;
+                        second = ranker[i];
+                    } else if (ranker[i] > third)
+                        third = ranker[i];
+                }*/
+
+                    ArrayList<Integer> colors = new ArrayList<>();
+                    for (int color : ColorTemplate.MATERIAL_COLORS) {
+                        colors.add(color);
+                    }
+                    for (int color : ColorTemplate.VORDIPLOM_COLORS) {
+                        colors.add(color);
+                    }
+
+                    PieDataSet dataSet = new PieDataSet(entries, "");
+                    dataSet.setColors(colors);
+                    dataSet.setSliceSpace(3);
+                    dataSet.setSelectionShift(5);
+
+                    PieData data = new PieData(dataSet);
+                    data.setValueFormatter(new PercentFormatter());
+                    data.setDrawValues(true);
+                    data.setValueTextSize(12f);
+                    data.setValueTextColor(Color.BLACK);
+                    pieChart.setData(data);
+                    pieChart.invalidate();
+                    pieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+                } else
+                    Toast.makeText(getActivity(), "setupPieChart() error: DataSnapShot does not exist!!!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public class MyAxixValueFormatter implements IAxisValueFormatter {
+        private String[] mValues;
+
+        public MyAxixValueFormatter(String[] Values) {
+            this.mValues = Values;
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            return mValues[(int) value];
+        }
     }
 
     private boolean isConnected(ThoughtTab CheckInternet) {

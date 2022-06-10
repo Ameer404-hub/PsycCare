@@ -1,5 +1,7 @@
 package com.example.psyccare.Fragments;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,6 +13,7 @@ import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,17 +40,17 @@ import java.util.Timer;
 public class Home extends Fragment {
 
     Calendar calendar;
-    ;
     SimpleDateFormat dateFormat, timeFormat;
     TextView dateTimeDisplay, checkInHeading, checkInStat;
-    String currDate, currTime, checkInDate, checkInTime;
+    String currDate, currTime, checkInDate, checkInTime, dbHeading, monthNode, dateNode;
     int isCheckInTime, timeOfDay;
     boolean checkInExist;
     MaterialButton checkInBtn;
     ImageView homeView;
     LinearLayout Symptoms, Explore, Support, Recommended;
     LinearLayout Happy, Sad, Angry, Stressed, Excited;
-    DatabaseReference referenceToMoodCheckin;
+    DatabaseReference referenceToMoodCheckin, referenceToDailyCheckin;
+    ProgressDialog messageBox;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,6 +71,11 @@ public class Home extends Fragment {
         Recommended = rootView.findViewById(R.id.recommendLayout);
         Support = rootView.findViewById(R.id.supportLayout);
 
+        messageBox = new ProgressDialog(getActivity());
+        messageBox.setTitle("");
+        messageBox.setMessage("Loading...");
+        messageBox.setCanceledOnTouchOutside(false);
+
         Happy = rootView.findViewById(R.id.Happy);
         Sad = rootView.findViewById(R.id.Sad);
         Angry = rootView.findViewById(R.id.Angry);
@@ -80,6 +88,7 @@ public class Home extends Fragment {
         timeFormat = new SimpleDateFormat("hh:mm aaa");
         currDate = dateFormat.format(calendar.getTime());
         currTime = timeFormat.format(calendar.getTime());
+        dateNode = dateFormat.format(calendar.getTime());
         dateTimeDisplay.setText(currDate);
         Greet();
 
@@ -143,6 +152,13 @@ public class Home extends Fragment {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
+        messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+        });
+
         return rootView;
     }
 
@@ -183,58 +199,104 @@ public class Home extends Fragment {
     }
 
     public void checkInLimit() {
+        messageBox.show();
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         referenceToMoodCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        checkInDate = ds.child("checkInDate").getValue().toString().trim();
-                        checkInTime = ds.child("checkInTime").getValue().toString().trim();
-                        isCheckInTime = Integer.parseInt(checkInTime.substring(0, 2));
-                        timeOfDay = Integer.parseInt(currTime.substring(0, 2));
-                        String periodHour = checkInTime.substring(6, 8);
-                        String periodCurTime = checkInTime.substring(6, 8);
-                        if (periodHour.equals("PM"))
-                            isCheckInTime = isCheckInTime + 12;
-                        if (periodCurTime.equals("PM"))
-                            timeOfDay = timeOfDay + 12;
+                        monthNode = ds.getKey();
+                        referenceToDailyCheckin = referenceToMoodCheckin.child(monthNode).child(dateNode);
+                        referenceToDailyCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot dsDaily : snapshot.getChildren()) {
+                                        if (dsDaily.child("description").exists()) {
+                                            checkInDate = dsDaily.child("checkInDate").getValue().toString().trim();
+                                            checkInTime = dsDaily.child("checkInTime").getValue().toString().trim();
+                                            isCheckInTime = Integer.parseInt(checkInTime.substring(0, 2));
+                                            timeOfDay = Integer.parseInt(currTime.substring(0, 2));
+                                            String periodcheckIn = checkInTime.substring(6, 8);
+                                            String periodCurTime = currTime.substring(6, 8);
+                                            if (periodcheckIn.equals("PM"))
+                                                isCheckInTime = isCheckInTime + 12;
+                                            if (periodCurTime.equals("PM"))
+                                                timeOfDay = timeOfDay + 12;
 
-                        if (checkInDate.equals(currDate)) {
-                            if (timeOfDay >= 0 && timeOfDay < 3 && isCheckInTime >= 0 && isCheckInTime < 3) {
-                                Toast.makeText(getActivity(), "Mid-Night check in already done", Toast.LENGTH_SHORT).show();
-                                checkInExist = true;
-                                break;
-                            } else if (timeOfDay >= 3 && timeOfDay < 6 && isCheckInTime >= 3 && isCheckInTime < 6) {
-                                Toast.makeText(getActivity(), "Early Morning check in already done", Toast.LENGTH_SHORT).show();
-                                checkInExist = true;
-                                break;
-                            } else if (timeOfDay >= 6 && timeOfDay < 12 && isCheckInTime >= 6 && isCheckInTime < 12) {
-                                Toast.makeText(getActivity(), "Morning check in already done", Toast.LENGTH_SHORT).show();
-                                checkInExist = true;
-                                break;
-                            } else if (timeOfDay >= 12 && timeOfDay < 16 && isCheckInTime >= 12 && isCheckInTime < 16) {
-                                Toast.makeText(getActivity(), "Afternoon check in already done.", Toast.LENGTH_SHORT).show();
-                                checkInExist = true;
-                                break;
-                            } else if (timeOfDay >= 16 && timeOfDay < 21 && isCheckInTime >= 16 && isCheckInTime < 21) {
-                                Toast.makeText(getActivity(), "Evening check in already done", Toast.LENGTH_SHORT).show();
-                                checkInExist = true;
-                                break;
-                            } else if (timeOfDay >= 21 && timeOfDay < 24 && isCheckInTime >= 21 && isCheckInTime < 24) {
-                                Toast.makeText(getActivity(), "Night check in already done", Toast.LENGTH_SHORT).show();
-                                checkInExist = true;
-                                break;
-                            } else
-                                checkInExist = false;
-                        } else {
-                            checkInExist = false;
-                        }
+                                            if (checkInDate.equals(currDate)) {
+                                                if (timeOfDay >= 0 && timeOfDay < 3 && isCheckInTime >= 0 && isCheckInTime < 3) {
+                                                    Toast.makeText(getActivity(), "Mid-Night check in already done", Toast.LENGTH_SHORT).show();
+                                                    checkInExist = true;
+                                                    break;
+                                                } else if (timeOfDay >= 3 && timeOfDay < 6 && isCheckInTime >= 3 && isCheckInTime < 6) {
+                                                    Toast.makeText(getActivity(), "Early Morning check in already done", Toast.LENGTH_SHORT).show();
+                                                    checkInExist = true;
+                                                    break;
+                                                } else if (timeOfDay >= 6 && timeOfDay < 12 && isCheckInTime >= 6 && isCheckInTime < 12) {
+                                                    Toast.makeText(getActivity(), "Morning check in already done", Toast.LENGTH_SHORT).show();
+                                                    checkInExist = true;
+                                                    break;
+                                                } else if (timeOfDay >= 12 && timeOfDay < 16 && isCheckInTime >= 12 && isCheckInTime < 16) {
+                                                    Toast.makeText(getActivity(), "Afternoon check in already done.", Toast.LENGTH_SHORT).show();
+                                                    checkInExist = true;
+                                                    break;
+                                                } else if (timeOfDay >= 16 && timeOfDay < 21 && isCheckInTime >= 16 && isCheckInTime < 21) {
+                                                    Toast.makeText(getActivity(), "Evening check in already done", Toast.LENGTH_SHORT).show();
+                                                    checkInExist = true;
+                                                    break;
+                                                } else if (timeOfDay >= 21 && timeOfDay < 24 && isCheckInTime >= 21 && isCheckInTime < 24) {
+                                                    Toast.makeText(getActivity(), "Night check in already done", Toast.LENGTH_SHORT).show();
+                                                    checkInExist = true;
+                                                    break;
+                                                } else
+                                                    checkInExist = false;
+                                            } else {
+                                                checkInExist = false;
+                                            }
+                                        }
+                                    }
+                                    if (checkInExist == true) {
+                                        messageBox.dismiss();
+                                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    } else if (checkInExist == false) {
+                                        dbHeading = checkInHeading.getText().toString();
+                                        Intent moveTo = new Intent(getActivity(), MoodCheckin.class);
+                                        moveTo.putExtra("checkInHeading", dbHeading);
+                                        startActivity(moveTo);
+                                        getActivity().finish();
+                                        messageBox.dismiss();
+                                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    }
+                                } else {
+                                    dbHeading = checkInHeading.getText().toString();
+                                    Intent moveTo = new Intent(getActivity(), MoodCheckin.class);
+                                    moveTo.putExtra("checkInHeading", dbHeading);
+                                    startActivity(moveTo);
+                                    getActivity().finish();
+                                    messageBox.dismiss();
+                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                messageBox.dismiss();
+                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                Toast.makeText(getActivity(), "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
-                    if (checkInExist == false) {
-                        Intent moveTo = new Intent(getActivity(), MoodCheckin.class);
-                        startActivity(moveTo);
-                        getActivity().finish();
-                    }
+                } else {
+                    dbHeading = checkInHeading.getText().toString();
+                    Intent moveTo = new Intent(getActivity(), MoodCheckin.class);
+                    moveTo.putExtra("checkInHeading", dbHeading);
+                    startActivity(moveTo);
+                    getActivity().finish();
+                    messageBox.dismiss();
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }
 

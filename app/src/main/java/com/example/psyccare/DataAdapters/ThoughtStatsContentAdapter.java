@@ -69,7 +69,6 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
         RelativeLayout tapLayoutThought, moreLayoutThought;
         TextView checkInDateThought, checkInTitleThought, checkInDescThought;
         HorizontalBarChart mBarChartThought;
-        DatabaseReference referenceToThoughtCheckin;
         ImageView DownArrowThought, ThoughtImage;
         String ThoughtImageID;
 
@@ -84,9 +83,6 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
             mBarChartThought = itemView.findViewById(R.id.chartStats);
             DownArrowThought = itemView.findViewById(R.id.downArrow);
             ThoughtImage = itemView.findViewById(R.id.moodImage);
-
-            referenceToThoughtCheckin = FirebaseDatabase.getInstance().getReference("User")
-                    .child(FirebaseAuth.getInstance().getUid()).child("ThoughtCheckIns");
 
             tapLayoutThought.setOnClickListener(new View.OnClickListener() {
                 @Override

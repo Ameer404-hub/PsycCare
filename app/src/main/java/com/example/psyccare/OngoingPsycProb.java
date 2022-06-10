@@ -46,7 +46,7 @@ public class OngoingPsycProb extends AppCompatActivity {
         messageBox.setCanceledOnTouchOutside(false);
 
         LayoutAnimationController layoutAnimationController =
-                AnimationUtils.loadLayoutAnimation(this, R.anim.layout_falldown);
+                AnimationUtils.loadLayoutAnimation(this, R.anim.layout_right_to_left);
         psycProbLayout.setLayoutAnimation(layoutAnimationController);
 
         messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {

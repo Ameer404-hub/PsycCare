@@ -49,16 +49,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MoodTab extends Fragment {
 
     String classifiedAs, perCent;
-    DatabaseReference referenceToMoodCheckin;
+    DatabaseReference referenceToMoodCheckin, referenceToMonthCheckin, referenceToDailyCheckin;
     ProgressDialog messageBox;
     LineChart lineChart;
     PieChart pieChart;
+    String monthNode, dateNode, HighValueLable, HighValue, val, finalVal;
+    int count = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,8 +70,8 @@ public class MoodTab extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_mood_tab, container, false);
 
-        pieChart = rootView.findViewById(R.id.pieChart);
-        lineChart = rootView.findViewById(R.id.lineChart);
+        pieChart = rootView.findViewById(R.id.mPieChart);
+        lineChart = rootView.findViewById(R.id.mLineChart);
 
         messageBox = new ProgressDialog(getActivity());
         messageBox.setTitle("");
@@ -82,12 +86,8 @@ public class MoodTab extends Fragment {
             getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             setupLineChart();
-            setupPieChart();
-            messageBox.dismiss();
-            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            /*setupPieChart();*/
         } else {
-            messageBox.dismiss();
-            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             Toast.makeText(getActivity(), "You're device is not connected to internet", Toast.LENGTH_LONG).show();
         }
         messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -126,7 +126,7 @@ public class MoodTab extends Fragment {
         l.setEnabled(false);
 
         ArrayList<Entry> entries = new ArrayList<>();
-        String[] Days = new String[] {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        String[] Days = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setAvoidFirstLastClipping(true);
@@ -142,96 +142,163 @@ public class MoodTab extends Fragment {
         referenceToMoodCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String HighValueLable = "", HighValue;
-                int count = 0;
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    classifiedAs = ds.child("classifiedAs").getValue().toString().trim();
-                    perCent = ds.child("perCent").getValue().toString().trim();
-                    if (!classifiedAs.equals("") && !perCent.equals("")) {
-                        HighValue = perCent.replaceAll("[^\\d.]", "");
-                        HighValueLable = classifiedAs.replaceAll(" ", "");
-                        entries.add(new Entry(count++, Float.parseFloat(HighValue), HighValueLable));
-                    }
-                }
-
-                ArrayList<Integer> colors = new ArrayList<>();
-                for (int color : ColorTemplate.MATERIAL_COLORS) {
-                    colors.add(color);
-                }
-                for (int color : ColorTemplate.VORDIPLOM_COLORS) {
-                    colors.add(color);
-                }
-
-                LineDataSet lineSet = new LineDataSet(entries, "");
-                lineSet.setColors(ColorTemplate.getHoloBlue());
-                lineSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-                lineSet.setLineWidth(2f);
-                lineSet.setDrawCircles(true);
-                lineSet.setDrawCircleHole(true);
-                lineSet.setCubicIntensity(0.2f);
-                lineSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-                lineSet.setCircleColor(ColorTemplate.getHoloBlue());
-                lineSet.setCircleRadius(4f);
-                lineSet.setFillAlpha(65);
-                lineSet.setDrawValues(true);
-                lineSet.setFillColor(ColorTemplate.getHoloBlue());
-                lineSet.setCircleRadius(6);
-                lineSet.setCircleHoleRadius(3);
-
-                ArrayList<ILineDataSet> dataSet = new ArrayList<>();
-                dataSet.add(lineSet);
-                LineData data = new LineData(dataSet);
-                lineChart.setData(data);
-                lineChart.animateX(1400, Easing.EasingOption.EaseInOutQuad);
-                lineChart.invalidate();
-
-                lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-                    @Override
-                    public void onValueSelected(Entry e, Highlight h) {
-                        String val = e.toString();
-                        val = val.substring(17, 21);
-                        String finalVal = val;
-                        referenceToMoodCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        monthNode = ds.getKey();
+                        referenceToMonthCheckin = referenceToMoodCheckin.child(monthNode);
+                        referenceToMonthCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                String HighValueLable, HighValue;
-                                for (DataSnapshot ds : snapshot.getChildren()) {
-                                    classifiedAs = ds.child("classifiedAs").getValue().toString().trim();
-                                    perCent = ds.child("perCent").getValue().toString().trim();
-                                    if (!classifiedAs.equals("") && !perCent.equals("")) {
-                                        HighValue = perCent.replaceAll("[^\\d.]", "");
-                                        HighValueLable = classifiedAs;
-                                        if(finalVal.equals(HighValue)){
-                                            HighValueLable = HighValueLable.toUpperCase();
-                                            AlertDialog.Builder showMessage = new AlertDialog.Builder(getActivity());
-                                            showMessage.setMessage("").setTitle("Check In Details");
-                                            showMessage.setMessage("Mood: "+ HighValueLable).setCancelable(false).
-                                                    setPositiveButton("Hide", new DialogInterface.OnClickListener() {
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()) {
+                                    for(DataSnapshot dsMonthNode : dataSnapshot.getChildren()) {
+                                        dateNode = dsMonthNode.getKey();
+                                        referenceToDailyCheckin = referenceToMonthCheckin.child(dateNode);
+                                        referenceToDailyCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                                if (dataSnapshot1.exists()) {
+                                                    for (DataSnapshot dsDaily : dataSnapshot1.getChildren()) {
+                                                        if (dsDaily.child("description").exists()) {
+                                                            classifiedAs = dsDaily.child("classifiedAs").getValue().toString().trim();
+                                                            perCent = dsDaily.child("perCent").getValue().toString().trim();
+                                                            if (!classifiedAs.equals("") && !perCent.equals("")) {
+                                                                HighValue = perCent.replaceAll("[^\\d.]", "");
+                                                                HighValueLable = classifiedAs.replaceAll(" ", "");
+                                                                entries.add(new Entry(count++, Float.parseFloat(HighValue), HighValueLable));
+                                                            }
+                                                        }
+                                                    }
+                                                    messageBox.dismiss();
+                                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                                                    ArrayList<Integer> colors = new ArrayList<>();
+                                                    for (int color : ColorTemplate.MATERIAL_COLORS) {
+                                                        colors.add(color);
+                                                    }
+                                                    for (int color : ColorTemplate.VORDIPLOM_COLORS) {
+                                                        colors.add(color);
+                                                    }
+
+                                                    LineDataSet lineSet = new LineDataSet(entries, "");
+                                                    lineSet.setColors(ColorTemplate.getHoloBlue());
+                                                    lineSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+                                                    lineSet.setLineWidth(2f);
+                                                    lineSet.setDrawCircles(true);
+                                                    lineSet.setDrawCircleHole(true);
+                                                    lineSet.setCubicIntensity(0.2f);
+                                                    lineSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+                                                    lineSet.setCircleColor(ColorTemplate.getHoloBlue());
+                                                    lineSet.setCircleRadius(4f);
+                                                    lineSet.setFillAlpha(65);
+                                                    lineSet.setDrawValues(true);
+                                                    lineSet.setFillColor(ColorTemplate.getHoloBlue());
+                                                    lineSet.setCircleRadius(6);
+                                                    lineSet.setCircleHoleRadius(3);
+
+                                                    ArrayList<ILineDataSet> dataSet = new ArrayList<>();
+                                                    dataSet.add(lineSet);
+                                                    LineData data = new LineData(dataSet);
+                                                    lineChart.setData(data);
+                                                    lineChart.animateX(1400, Easing.EasingOption.EaseInOutQuad);
+                                                    lineChart.invalidate();
+
+                                                    lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
                                                         @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                        public void onValueSelected(Entry e, Highlight h) {
+                                                            messageBox.show();
+                                                            val = e.toString();
+                                                            val = val.substring(17, 21);
+                                                            finalVal = val;
+                                                            referenceToDailyCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                                                                    if(dataSnapshot2.exists()) {
+                                                                        for(DataSnapshot dsTap : dataSnapshot2.getChildren()) {
+                                                                            if(dsTap.child("description").exists()){
+                                                                                classifiedAs = dsTap.child("classifiedAs").getValue().toString().trim();
+                                                                                perCent = dsTap.child("perCent").getValue().toString().trim();
+                                                                                if (!classifiedAs.equals("") && !perCent.equals("")) {
+                                                                                    HighValue = perCent.replaceAll("[^\\d.]", "");
+                                                                                    HighValueLable = classifiedAs;
+                                                                                    if (finalVal.equals(HighValue)) {
+                                                                                        HighValueLable = HighValueLable.toUpperCase();
+                                                                                        AlertDialog.Builder showMessage = new AlertDialog.Builder(getActivity());
+                                                                                        showMessage.setMessage("").setTitle("Check In Details");
+                                                                                        showMessage.setMessage("Mood: " + HighValueLable).setCancelable(false).
+                                                                                                setPositiveButton("Hide", new DialogInterface.OnClickListener() {
+                                                                                                    @Override
+                                                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                                                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                                                                    }
+                                                                                                });
+                                                                                        AlertDialog alert = showMessage.create();
+                                                                                        messageBox.dismiss();
+                                                                                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                                                        alert.show();
+                                                                                        break;
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    } else {
+                                                                        messageBox.dismiss();
+                                                                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                                        Toast.makeText(getActivity(), "setupLineChart() error: Date Node does not exist!!!", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError databaseError1) {
+                                                                    messageBox.dismiss();
+                                                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                                    Toast.makeText(getActivity(), "Error: " + databaseError1.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+                                                        }
+
+                                                        @Override
+                                                        public void onNothingSelected() {
+
                                                         }
                                                     });
-                                            AlertDialog alert = showMessage.create();
-                                            alert.show();
-                                            break;
-                                        }
+
+                                                } else {
+                                                    messageBox.dismiss();
+                                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                    Toast.makeText(getActivity(), "setupLineChart() error: Date Node does not exist!!!", Toast.LENGTH_SHORT).show();
+                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                messageBox.dismiss();
+                                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                Toast.makeText(getActivity(), "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                                     }
+                                } else {
+                                    messageBox.dismiss();
+                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    Toast.makeText(getActivity(), "setupLineChart() error: Date Node does not exist!!!", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
                             @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                messageBox.dismiss();
+                                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                Toast.makeText(getActivity(), "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
                             }
                         });
                     }
-
-                    @Override
-                    public void onNothingSelected() {
-
-                    }
-                });
+                } else {
+                    messageBox.dismiss();
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Toast.makeText(getActivity(), "setupLineChart() error: MoodCheckin Node  does not exist!!!", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -272,20 +339,21 @@ public class MoodTab extends Fragment {
         referenceToMoodCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                /*float[] ranker = new float[10];
+                if (snapshot.exists()) {
+                     /*float[] ranker = new float[10];
                 int count = 0;*/
-                String HighValueLable, HighValue;
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    classifiedAs = ds.child("classifiedAs").getValue().toString().trim();
-                    perCent = ds.child("perCent").getValue().toString().trim();
-                    if (!classifiedAs.equals("") && !perCent.equals("")) {
-                        HighValue = perCent.replaceAll("[^\\d.]", "");
-                        HighValueLable = classifiedAs.replaceAll(" ", "");
-                        entries.add(new PieEntry(Float.parseFloat(HighValue), HighValueLable));
+                    String HighValueLable, HighValue;
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        classifiedAs = ds.child("classifiedAs").getValue().toString().trim();
+                        perCent = ds.child("perCent").getValue().toString().trim();
+                        if (!classifiedAs.equals("") && !perCent.equals("")) {
+                            HighValue = perCent.replaceAll("[^\\d.]", "");
+                            HighValueLable = classifiedAs.replaceAll(" ", "");
+                            entries.add(new PieEntry(Float.parseFloat(HighValue), HighValueLable));
                         /*ranker[count] = Float.parseFloat(HighValue);
                         count++;*/
+                        }
                     }
-                }
 
                /* float first, second, third;
                 third = first = second = Integer.MIN_VALUE;
@@ -303,27 +371,29 @@ public class MoodTab extends Fragment {
                         third = ranker[i];
                 }*/
 
-                ArrayList<Integer> colors = new ArrayList<>();
-                for (int color : ColorTemplate.MATERIAL_COLORS) {
-                    colors.add(color);
-                }
-                for (int color : ColorTemplate.VORDIPLOM_COLORS) {
-                    colors.add(color);
-                }
+                    ArrayList<Integer> colors = new ArrayList<>();
+                    for (int color : ColorTemplate.MATERIAL_COLORS) {
+                        colors.add(color);
+                    }
+                    for (int color : ColorTemplate.VORDIPLOM_COLORS) {
+                        colors.add(color);
+                    }
 
-                PieDataSet dataSet = new PieDataSet(entries, "");
-                dataSet.setColors(colors);
-                dataSet.setSliceSpace(3);
-                dataSet.setSelectionShift(5);
+                    PieDataSet dataSet = new PieDataSet(entries, "");
+                    dataSet.setColors(colors);
+                    dataSet.setSliceSpace(3);
+                    dataSet.setSelectionShift(5);
 
-                PieData data = new PieData(dataSet);
-                data.setValueFormatter(new PercentFormatter());
-                data.setDrawValues(true);
-                data.setValueTextSize(12f);
-                data.setValueTextColor(Color.BLACK);
-                pieChart.setData(data);
-                pieChart.invalidate();
-                pieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+                    PieData data = new PieData(dataSet);
+                    data.setValueFormatter(new PercentFormatter());
+                    data.setDrawValues(true);
+                    data.setValueTextSize(12f);
+                    data.setValueTextColor(Color.BLACK);
+                    pieChart.setData(data);
+                    pieChart.invalidate();
+                    pieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+                } else
+                    Toast.makeText(getActivity(), "setupPieChart() error: DataSnapShot does not exist!!!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -334,14 +404,15 @@ public class MoodTab extends Fragment {
     }
 
     public class MyAxixValueFormatter implements IAxisValueFormatter {
-        private  String[] mValues;
-        public MyAxixValueFormatter(String[] Values){
+        private String[] mValues;
+
+        public MyAxixValueFormatter(String[] Values) {
             this.mValues = Values;
         }
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            return mValues[(int)value];
+            return mValues[(int) value];
         }
     }
 }

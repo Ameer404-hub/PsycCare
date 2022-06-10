@@ -1,5 +1,6 @@
 package com.example.psyccare;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -13,6 +14,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -20,9 +23,12 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.example.psyccare.DataModels.checkInModel;
+import com.google.firebase.database.ValueEventListener;
 
 import org.tensorflow.lite.examples.textclassification.client.Result;
 import org.tensorflow.lite.examples.textclassification.client.TextClassificationClient;
@@ -41,9 +47,10 @@ public class MoodCheckin extends AppCompatActivity {
     Handler handler;
     ProgressDialog messageBox;
     TextInputLayout moodMessageBox;
-    String Type = "", Desc = "", classifiedAs = "", perCent = "", Date = "", Time = "";
-    DatabaseReference referenceToMoodCheckin;
-    SimpleDateFormat dateFormat, timeFormat;
+    String Type = "", Desc = "", classifiedAs = "", perCent = "", Month = "", Date = "", Time = "", dbHeading, monthNode, dateNode, allCheckIns = "";
+    DatabaseReference referenceToMoodCheckin, referenceToMonthCheckin, referenceToDailyCheckin;
+    ;
+    SimpleDateFormat dateFormat, timeFormat, monthFormat;
     Calendar calendar;
     int selectCount = 0;
 
@@ -88,10 +95,12 @@ public class MoodCheckin extends AppCompatActivity {
         messageBox.setCanceledOnTouchOutside(false);
 
         calendar = Calendar.getInstance();
+        monthFormat = new SimpleDateFormat("MMM, yyyy");
         dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
         timeFormat = new SimpleDateFormat("hh:mm aaa");
         Date = dateFormat.format(calendar.getTime());
         Time = timeFormat.format(calendar.getTime());
+        Month = monthFormat.format(calendar.getTime());
 
         submitMood.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -355,7 +364,7 @@ public class MoodCheckin extends AppCompatActivity {
             Toast.makeText(this, "Please select only one mood type", Toast.LENGTH_SHORT).show();
         } else if (Desc.equals("") || Desc.equals(null)) {
             Toast.makeText(this, "Please add mood description before submitting", Toast.LENGTH_SHORT).show();
-        } else{
+        } else {
             messageBox.show();
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -400,16 +409,91 @@ public class MoodCheckin extends AppCompatActivity {
     }
 
     public void insertCheckin() {
+        dbHeading = getIntent().getStringExtra("checkInHeading");
         checkInModel moodCheckIn = new checkInModel(Date, Time, Type, Desc, classifiedAs, perCent);
-        referenceToMoodCheckin.child(Date + " " + Time).setValue(moodCheckIn);
+        referenceToMoodCheckin.child(Month).child(Date).child(dbHeading).setValue(moodCheckIn);
         handler = new Handler();
         handler.postDelayed(() -> {
+            mergeAll();
             messageBox.dismiss();
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             Intent moveTo = new Intent(getApplicationContext(), ThoughtCheckin.class);
+            moveTo.putExtra("checkInHeading", dbHeading);
             startActivity(moveTo);
             finish();
         }, 750);
+    }
+
+    public void mergeAll() {
+        referenceToMoodCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        monthNode = ds.getKey();
+                        referenceToMonthCheckin = referenceToMoodCheckin.child(monthNode);
+                        referenceToMonthCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    referenceToDailyCheckin = referenceToMonthCheckin.child(Date);
+                                    referenceToDailyCheckin.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                            if (dataSnapshot1.exists()) {
+                                                for (DataSnapshot dsDaily : dataSnapshot1.getChildren()) {
+                                                    if (dsDaily.child("description").exists()) {
+                                                        allCheckIns = allCheckIns + "\n" + dsDaily.child("description").getValue().toString();
+                                                    }
+                                                }
+                                                referenceToDailyCheckin.child("allCheckIns").child("allMerged").setValue(allCheckIns);
+                                                messageBox.dismiss();
+                                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                            } else {
+                                                messageBox.dismiss();
+                                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                Toast.makeText(getApplicationContext(), "Error: MoodCheckIn Node does not exist!!!\nYou don't have any Mood Check Ins yet!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError1) {
+                                            messageBox.dismiss();
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                            Toast.makeText(getApplicationContext(), "Error: " + databaseError1.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } else {
+                                    messageBox.dismiss();
+                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    Toast.makeText(getApplicationContext(), "Error: MoodCheckIn Node does not exist!!!\nYou don't have any Mood Check Ins yet!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                messageBox.dismiss();
+                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                Toast.makeText(getApplicationContext(), "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    }
+                } else {
+                    messageBox.dismiss();
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    Toast.makeText(getApplicationContext(), "Error: MoodCheckIn Node does not exist!!!\nYou don't have any Mood Check Ins yet!", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                messageBox.dismiss();
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void onBackPressed() {

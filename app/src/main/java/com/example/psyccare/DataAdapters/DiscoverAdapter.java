@@ -36,7 +36,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
     public DiscoverViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.discover_card_design, parent, false);
         DiscoverViewHolder discoverViewHolder = new DiscoverViewHolder(view);
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fui_slide_in_right);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_anim);
         view.startAnimation(animation);
         return discoverViewHolder;
     }

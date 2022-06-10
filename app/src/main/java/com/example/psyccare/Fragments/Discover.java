@@ -137,22 +137,13 @@ public class Discover extends Fragment {
                         Layout3.setVisibility(View.VISIBLE);
                         Layout4.setVisibility(View.VISIBLE);
                         Layout5.setVisibility(View.VISIBLE);
-
-                        LayoutAnimationController layoutAnimationController =
-                                AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.layout_falldown);
-
-                        Layout1.setLayoutAnimation(layoutAnimationController);
-                        Layout2.setLayoutAnimation(layoutAnimationController);
-                        Layout3.setLayoutAnimation(layoutAnimationController);
-                        Layout4.setLayoutAnimation(layoutAnimationController);
-                        Layout5.setLayoutAnimation(layoutAnimationController);
                     }
                     messageBox.dismiss();
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 } else {
                     messageBox.dismiss();
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Toast.makeText(getActivity(), "Error while fetcing data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "getDiscoverData() error: DataSnapShot does not exist!!!", Toast.LENGTH_SHORT).show();
                 }
                 adapter1.notifyDataSetChanged();
             }
@@ -177,7 +168,7 @@ public class Discover extends Fragment {
                 } else {
                     messageBox.dismiss();
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Toast.makeText(getActivity(), "Error while fetcing data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "getDiscoverData() error: DataSnapShot does not exist!!!", Toast.LENGTH_SHORT).show();
                 }
                 adapter2.notifyDataSetChanged();
             }

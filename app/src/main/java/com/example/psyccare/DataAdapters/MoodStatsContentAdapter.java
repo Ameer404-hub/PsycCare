@@ -3,6 +3,7 @@ package com.example.psyccare.DataAdapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,6 @@ public class MoodStatsContentAdapter extends RecyclerView.Adapter<MoodStatsConte
         RelativeLayout tapLayoutMood, moreLayoutMood;
         TextView checkInDateMood, checkInTitleMood, checkInDescMood;
         HorizontalBarChart mBarChartMood;
-        DatabaseReference referenceToMoodCheckin;
         ImageView DownArrowMood, moodImage;
         String moodImageID;
 
@@ -84,9 +84,6 @@ public class MoodStatsContentAdapter extends RecyclerView.Adapter<MoodStatsConte
             mBarChartMood = itemView.findViewById(R.id.chartStats);
             DownArrowMood = itemView.findViewById(R.id.downArrow);
             moodImage = itemView.findViewById(R.id.moodImage);
-
-            referenceToMoodCheckin = FirebaseDatabase.getInstance().getReference("User")
-                    .child(FirebaseAuth.getInstance().getUid()).child("MoodCheckIns");
 
             tapLayoutMood.setOnClickListener(new View.OnClickListener() {
                 @Override
