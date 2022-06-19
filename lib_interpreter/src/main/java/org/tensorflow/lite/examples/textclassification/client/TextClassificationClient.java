@@ -45,7 +45,7 @@ public class TextClassificationClient {
   private static final int SENTENCE_LEN = 256; // The maximum length of an input sentence.
   // Simple delimiter to split words.
   private static final String SIMPLE_SPACE_OR_PUNCTUATION = " |\\,|\\.|\\!|\\?|\n";
-  private static final String MODEL_PATH = "Sentiment_Analysis_(7E).tflite";
+  private static final String MODEL_PATH = "Sentiment_Analysis(7E).tflite";
   /*
    * Reserved values in ImdbDataSet dic:
    * dic["<PAD>"] = 0      used for padding
@@ -57,7 +57,7 @@ public class TextClassificationClient {
   private static final String UNKNOWN = "<UNKNOWN>";
 
   /** Number of results to show in the UI. */
-  private static final int MAX_RESULTS = 3;
+  private static final int MAX_RESULTS = 1;
 
   private final Context context;
   private final Map<String, Integer> dic = new HashMap<>();
@@ -106,38 +106,11 @@ public class TextClassificationClient {
     labels.clear();
   }
 
-  /** Classify an input string and returns the classification results. */
-  public synchronized List<Result> classify(String text) {
-    // Pre-prosessing.
-    int[][] input = tokenizeInputText(text);
-
-    // Run inference.
-    Log.v(TAG, "Classifying text with TF Lite...");
-    float[][] output = new float[1][labels.size()];
-    tflite.run(input, output);
-
-    // Find the best classifications.
-    PriorityQueue<Result> pq =
-        new PriorityQueue<>(
-            MAX_RESULTS, (lhs, rhs) -> Float.compare(rhs.getConfidence(), lhs.getConfidence()));
-    for (int i = 0; i < labels.size(); i++) {
-      pq.add(new Result("" + i, labels.get(i), output[0][i]));
-    }
-    final ArrayList<Result> results = new ArrayList<>();
-    while (!pq.isEmpty()) {
-      results.add(pq.poll());
-    }
-
-    Collections.sort(results);
-    // Return the probability of each class.
-    return results;
-  }
-
   /** Load TF Lite model from assets. */
   private static MappedByteBuffer loadModelFile(AssetManager assetManager, String modelPath)
-      throws IOException {
+          throws IOException {
     try (AssetFileDescriptor fileDescriptor = assetManager.openFd(modelPath);
-        FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor())) {
+         FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor())) {
       FileChannel fileChannel = inputStream.getChannel();
       long startOffset = fileDescriptor.getStartOffset();
       long declaredLength = fileDescriptor.getDeclaredLength();
@@ -168,6 +141,49 @@ public class TextClassificationClient {
     }
   }
 
+  /** Classify an input string and returns the classification results. */
+  public synchronized List<Result> classify(String text) {
+    // Pre-prosessing.
+    int[][] input = tokenizeInputText(text);
+
+    // Run inference.
+    Log.v(TAG, "Classifying text with TF Lite...");
+    float[][] output = new float[1][labels.size()];
+    Log.v("Input Token: ", input.toString() + "\n" + "Output Token: " +output.toString());
+    for (int i = 0; i < labels.size(); i++) {
+      Log.v("Input[][]: ", String.valueOf(input[0][i]));
+    }
+    for (int i = 0; i < labels.size(); i++) {
+      Log.v("Output [][]: ", String.valueOf(output[0][i]));
+    }
+
+    tflite.run(input, output);
+
+
+    // Find the best classifications.
+    PriorityQueue<Result> pq =
+        new PriorityQueue<>(
+            MAX_RESULTS, (lhs, rhs) -> Float.compare(rhs.getConfidence(), lhs.getConfidence()));
+
+    Log.v("Queue before loop: ", pq.toString());
+
+    for (int i = 0; i < labels.size(); i++) {
+      pq.add(new Result("" + i, labels.get(i), output[0][i]));
+      Log.v("Queue in loop: ", i + labels.get(i) + output[0][i]);
+    }
+    Log.v("Queue after loop: ", pq.toString());
+
+    final ArrayList<Result> results = new ArrayList<>();
+    while (!pq.isEmpty()) {
+      results.add(pq.poll());
+      Log.v("from Queue to results", results.toString());
+    }
+    Collections.sort(results);
+    Log.v("Collections.sort", results.toString());
+    // Return the probability of each class.
+    return results;
+  }
+
   /** Pre-prosessing: tokenize and map the input words into a float array. */
   int[][] tokenizeInputText(String text) {
     int[] tmp = new int[SENTENCE_LEN];
@@ -184,10 +200,16 @@ public class TextClassificationClient {
         break;
       }
       tmp[index++] = dic.containsKey(word) ? dic.get(word) : (int) dic.get(UNKNOWN);
+      Log.v("temp array dic", word);
+      Log.v("temp array dic", String.valueOf(tmp[index++] = dic.containsKey(word) ? dic.get(word) : (int) dic.get(UNKNOWN)));
     }
     // Padding and wrapping.
     Arrays.fill(tmp, index, SENTENCE_LEN - 1, (int) dic.get(PAD));
     int[][] ans = {tmp};
+    Log.v("ans array dic", String.valueOf(ans));
+    for (int i = 0; i < SENTENCE_LEN - 1; i++) {
+      Log.v("ans[][]: ", String.valueOf(ans[0][i]));
+      }
     return ans;
   }
 

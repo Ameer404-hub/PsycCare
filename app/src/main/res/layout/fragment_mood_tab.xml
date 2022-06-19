@@ -53,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:elevation="5dp"
+                    android:orientation="vertical"
                     android:background="@drawable/bg_for_cardview">
 
                     <com.github.mikephil.charting.charts.LineChart
@@ -60,6 +61,18 @@
                         android:layout_height="250dp"
                         android:id="@+id/mLineChart"
                         android:layout_margin="10dp"/>
+
+                    <TextView
+                        android:id="@+id/openMStatsLC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="5dp"
+                        android:text="Open full stats >>"
+                        android:textColor="@color/ButtonColorThird"
+                        android:textSize="@dimen/TextsizeSmall" />
 
                 </LinearLayout>
 
@@ -90,13 +103,26 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:elevation="5dp"
+                    android:orientation="vertical"
                     android:background="@drawable/bg_for_cardview">
 
                     <com.github.mikephil.charting.charts.PieChart
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="330dp"
                         android:id="@+id/mPieChart"
                         android:layout_margin="10dp"/>
+
+                    <TextView
+                        android:id="@+id/openMStatsPC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/metrophobic"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="5dp"
+                        android:text="Open full stats >>"
+                        android:textColor="@color/ButtonColorThird"
+                        android:textSize="@dimen/TextsizeSmall" />
 
                 </LinearLayout>
 

@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
@@ -47,9 +48,8 @@ public class MoodCheckin extends AppCompatActivity {
     Handler handler;
     ProgressDialog messageBox;
     TextInputLayout moodMessageBox;
-    String Type = "", Desc = "", classifiedAs = "", perCent = "", Month = "", Date = "", Time = "", dbHeading, monthNode, dateNode, allCheckIns = "";
+    String Type = "", Desc = "", classifiedAs = "", perCent = "", Month = "", Date = "", Time = "", dbHeading, monthNode, allCheckIns = "";
     DatabaseReference referenceToMoodCheckin, referenceToMonthCheckin, referenceToDailyCheckin;
-    ;
     SimpleDateFormat dateFormat, timeFormat, monthFormat;
     Calendar calendar;
     int selectCount = 0;
@@ -96,7 +96,7 @@ public class MoodCheckin extends AppCompatActivity {
 
         calendar = Calendar.getInstance();
         monthFormat = new SimpleDateFormat("MMM, yyyy");
-        dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
+        dateFormat = new SimpleDateFormat("MMM d, yyyy, EEE");
         timeFormat = new SimpleDateFormat("hh:mm aaa");
         Date = dateFormat.format(calendar.getTime());
         Time = timeFormat.format(calendar.getTime());
@@ -383,6 +383,7 @@ public class MoodCheckin extends AppCompatActivity {
             Result result = results.get(i);
             labels.add(result.getTitle());   // Extract labels
             probability.add(result.getConfidence());  // Extract confidence
+            Log.v("probability", probability.toString());
         }
         float tempProb;
         String tempLable;
@@ -446,6 +447,8 @@ public class MoodCheckin extends AppCompatActivity {
                                                         allCheckIns = allCheckIns + "\n" + dsDaily.child("description").getValue().toString();
                                                     }
                                                 }
+                                                referenceToDailyCheckin.child("allCheckIns").child("checkInDate").setValue(Date);
+                                                referenceToDailyCheckin.child("allCheckIns").child("checkInTime").setValue(Time);
                                                 referenceToDailyCheckin.child("allCheckIns").child("allMerged").setValue(allCheckIns);
                                                 messageBox.dismiss();
                                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -483,7 +486,6 @@ public class MoodCheckin extends AppCompatActivity {
                     messageBox.dismiss();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     Toast.makeText(getApplicationContext(), "Error: MoodCheckIn Node does not exist!!!\nYou don't have any Mood Check Ins yet!", Toast.LENGTH_SHORT).show();
-
                 }
             }
 

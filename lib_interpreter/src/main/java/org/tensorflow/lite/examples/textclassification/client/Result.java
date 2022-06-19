@@ -16,6 +16,8 @@
 
 package org.tensorflow.lite.examples.textclassification.client;
 
+import android.util.Log;
+
 /** An immutable result returned by a TextClassifier describing what was classified. */
 public class Result implements Comparable<Result> {
   /**
@@ -37,14 +39,17 @@ public class Result implements Comparable<Result> {
   }
 
   public String getId() {
+    Log.v("getId: ", String.valueOf(id));
     return id;
   }
 
   public String getTitle() {
+    Log.v("getTitle: ", String.valueOf(title));
     return title;
   }
 
   public Float getConfidence() {
+    Log.v("getConfidence: ", String.valueOf(confidence));
     return confidence;
   }
 
@@ -53,14 +58,17 @@ public class Result implements Comparable<Result> {
     String resultString = "";
     if (id != null) {
       resultString += "[" + id + "] ";
+      Log.v("resultString ID: ", resultString);
     }
 
     if (title != null) {
       resultString += title + " ";
+      Log.v("resultString title: ", resultString);
     }
 
     if (confidence != null) {
       resultString += String.format("(%.1f%%) ", confidence * 100.0f);
+      Log.v("result confidence: ", resultString);
     }
 
     return resultString.trim();

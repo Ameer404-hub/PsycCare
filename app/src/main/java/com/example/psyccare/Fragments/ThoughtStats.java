@@ -43,9 +43,7 @@ public class ThoughtStats extends Fragment {
     ArrayList<checkInModel> tCheckIn;
     ProgressDialog messageBox;
     LinearLayout tStatsLayout;
-    String monthNode, dateNode, allCheckIns;
-    Calendar calendar;
-    SimpleDateFormat dateFormat;
+    String monthNode, dateNode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,10 +61,6 @@ public class ThoughtStats extends Fragment {
         messageBox.setTitle("");
         messageBox.setMessage("Loading...");
         messageBox.setCanceledOnTouchOutside(false);
-
-        Calendar calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy");
-        dateNode = dateFormat.format(calendar.getTime());
 
         tCheckIn = new ArrayList<>();
         adapterThoughtStats = new ThoughtStatsContentAdapter(getActivity(), tCheckIn);

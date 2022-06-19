@@ -654,8 +654,9 @@
             android:fontFamily="@font/metrophobic"
             android:gravity="start|top"
             android:inputType="textMultiLine"
+            android:textSize="14dp"
             android:maxLines="10"
-            android:minLines="3" />
+            android:minLines="5" />
 
         <ImageView
             android:id="@+id/sendMoodNote"

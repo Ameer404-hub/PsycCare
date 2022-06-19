@@ -54,37 +54,31 @@ public class Login extends AppCompatActivity {
         gotoSignUp = findViewById(R.id.signUp_str);
         Snackbar_layout = findViewById(R.id.login_layout);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Email = emailInput.getEditText().getText().toString().trim();
-                Pass = passInput.getEditText().getText().toString().trim();
-                if (!validateEmail() || !validatePass())
-                    return;
-                else if (!isConnected(Login.this)) {
-                    Snackbar snackbar = Snackbar.make(Snackbar_layout, "No internet connection!", Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                } else {
-                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    loginBtn.startAnimation();
-                    handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            performLogin();
-                        }
-                    }, 750);
-                }
+        loginBtn.setOnClickListener(v -> {
+            Email = emailInput.getEditText().getText().toString().trim();
+            Pass = passInput.getEditText().getText().toString().trim();
+            if (!validateEmail() || !validatePass())
+                return;
+            else if (!isConnected(Login.this)) {
+                Snackbar snackbar = Snackbar.make(Snackbar_layout, "No internet connection!", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            } else {
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                loginBtn.startAnimation();
+                handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        performLogin();
+                    }
+                }, 750);
             }
         });
 
-        gotoSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Move = new Intent(getApplicationContext(), Signup.class);
-                startActivity(Move);
-                finish();
-            }
+        gotoSignUp.setOnClickListener(v -> {
+            Intent Move = new Intent(getApplicationContext(), Signup.class);
+            startActivity(Move);
+            finish();
         });
 
     }

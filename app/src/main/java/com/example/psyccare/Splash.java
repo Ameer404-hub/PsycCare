@@ -9,7 +9,7 @@ import android.os.Bundle;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class    Splash extends AppCompatActivity {
+public class Splash extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser currentUser;

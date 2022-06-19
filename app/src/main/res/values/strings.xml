@@ -40,8 +40,8 @@
     <string name="desc4_str">Description 4</string>
 
 
-    <string name="facebook_app_id">965347674053686</string>
-    <string name="fb_login_protocol_scheme">fb965347674053686</string>
+    <string name="facebook_app_id">722707542287400</string>
+    <string name="facebook_client_token">a7e48da4d328272aa7e3553c15dafd46</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

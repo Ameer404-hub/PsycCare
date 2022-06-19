@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/metrophobic"
         android:gravity="center"
-        android:text="Track what thoughts are on you mind"
+        android:text="Track what thoughts are on your mind"
         android:textColor="@color/TextColorPrimary"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -408,9 +408,10 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/metrophobic"
             android:gravity="start|top"
+            android:textSize="14dp"
             android:inputType="textMultiLine"
             android:maxLines="10"
-            android:minLines="3" />
+            android:minLines="5" />
 
         <ImageView
             android:id="@+id/sendThoughtNote"
