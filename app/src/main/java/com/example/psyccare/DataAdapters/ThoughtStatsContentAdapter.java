@@ -90,9 +90,9 @@ public class ThoughtStatsContentAdapter extends RecyclerView.Adapter<ThoughtStat
                     checkInModel modelThought = checkInsThought.get(getAdapterPosition());
                     modelThought.setVisibility(!modelThought.isVisibility());
                     if (modelThought.visibility == true)
-                        DownArrowThought.setImageResource(R.drawable.ic_baseline_down_24);
+                        DownArrowThought.setImageResource(R.drawable.ic_baseline_down);
                     else if (modelThought.visibility == false)
-                        DownArrowThought.setImageResource(R.drawable.ic_baseline_up_24);
+                        DownArrowThought.setImageResource(R.drawable.ic_baseline_up);
 
                     notifyItemChanged(getAdapterPosition());
                 }

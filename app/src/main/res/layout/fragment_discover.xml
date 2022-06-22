@@ -46,7 +46,7 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/checkinsScroll"
             android:layout_width="match_parent"
             android:layout_height="610dp"
@@ -65,7 +65,7 @@
                     android:id="@+id/Layout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:layout_margin="10dp">
 
                     <TextView
                         android:id="@+id/heading1"
@@ -77,7 +77,8 @@
                         android:fontFamily="@font/metrophobic"
                         android:text="Today's Featured"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary" />
+                        android:textSize="@dimen/TextsizePrimary"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="335dp"
@@ -117,9 +118,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp">
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp">
 
                     <TextView
                         android:id="@+id/heading2"
@@ -130,7 +130,8 @@
                         android:fontFamily="@font/metrophobic"
                         android:text="Introduction"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary" />
+                        android:textSize="@dimen/TextsizePrimary"
+                        android:textStyle="bold"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/discoverView1"
@@ -146,7 +147,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="10dp"
-                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
                     android:paddingBottom="10dp">
 
                     <TextView
@@ -156,9 +157,10 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Thoughts &amp; Feelings"
+                        android:text="Popular"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary" />
+                        android:textSize="@dimen/TextsizePrimary"
+                        android:textStyle="bold"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/discoverView2"
@@ -170,11 +172,40 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/Layout11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/heading11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Mental Health Guidelines"
+                        android:textStyle="bold"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/discoverView10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/heading11"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/Layout4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="10dp"
-                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
                     android:paddingBottom="10dp">
 
                     <TextView
@@ -184,9 +215,10 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Mental Health Guides"
+                        android:text="Thoughts &amp; Feelings"
                         android:textColor="@color/TextColorPrimary"
-                        android:textSize="@dimen/TextsizePrimary" />
+                        android:textSize="@dimen/TextsizePrimary"
+                        android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/discoverView3"
@@ -202,7 +234,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="10dp"
-                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
                     android:paddingBottom="10dp">
 
                     <TextView
@@ -212,7 +244,8 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/metrophobic"
-                        android:text="Growth Mindset"
+                        android:text="Relationships"
+                        android:textStyle="bold"
                         android:textColor="@color/TextColorPrimary"
                         android:textSize="@dimen/TextsizePrimary" />
 
@@ -225,9 +258,154 @@
 
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:id="@+id/Layout6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/heading6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Tackling Unhelpful Thoughts"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/discoverView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/heading6"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/Layout7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/heading7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Growth Mindset"
+                        android:textStyle="bold"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/discoverView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/heading7"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/Layout8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/heading8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Mindfulness"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/discoverView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/heading8"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/Layout9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/heading9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Gratitude"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/discoverView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/heading9"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/Layout10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/heading10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/metrophobic"
+                        android:text="Habits Assessments"
+                        android:textStyle="bold"
+                        android:textColor="@color/TextColorPrimary"
+                        android:textSize="@dimen/TextsizePrimary" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/discoverView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/heading10"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
+
             </LinearLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

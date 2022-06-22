@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,6 +69,7 @@ public class MoodStatsContentAdapter extends RecyclerView.Adapter<MoodStatsConte
 
     public class checkInsMoodViewHolder extends RecyclerView.ViewHolder {
 
+        LinearLayout fullLayout;
         RelativeLayout tapLayoutMood, moreLayoutMood;
         TextView checkInDateMood, checkInTitleMood, checkInDescMood;
         HorizontalBarChart mBarChartMood;
@@ -77,6 +79,7 @@ public class MoodStatsContentAdapter extends RecyclerView.Adapter<MoodStatsConte
         public checkInsMoodViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            fullLayout = itemView.findViewById(R.id.moodStatsLayout);
             tapLayoutMood = itemView.findViewById(R.id.tapToShow);
             moreLayoutMood = itemView.findViewById(R.id.moodStatsCheckIn);
             checkInDateMood = itemView.findViewById(R.id.dateViewStats);
@@ -85,16 +88,15 @@ public class MoodStatsContentAdapter extends RecyclerView.Adapter<MoodStatsConte
             mBarChartMood = itemView.findViewById(R.id.chartStats);
             DownArrowMood = itemView.findViewById(R.id.downArrow);
             moodImage = itemView.findViewById(R.id.moodImage);
-
             tapLayoutMood.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     checkInModel modelMood = checkInsMood.get(getAdapterPosition());
                     modelMood.setVisibility(!modelMood.isVisibility());
                     if (modelMood.visibility == true)
-                        DownArrowMood.setImageResource(R.drawable.ic_baseline_down_24);
+                        DownArrowMood.setImageResource(R.drawable.ic_baseline_down);
                     else if (modelMood.visibility == false)
-                        DownArrowMood.setImageResource(R.drawable.ic_baseline_up_24);
+                        DownArrowMood.setImageResource(R.drawable.ic_baseline_up);
 
                     notifyItemChanged(getAdapterPosition());
                 }

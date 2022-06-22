@@ -9,8 +9,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.text.format.Time;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +22,8 @@ import com.example.psyccare.MoodCheckin;
 import com.example.psyccare.MyStats;
 import com.example.psyccare.OngoingPsycProb;
 import com.example.psyccare.R;
+import com.example.psyccare.Recommendations;
+import com.example.psyccare.SupportServices;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,11 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
 
 public class Home extends Fragment {
 
@@ -93,57 +90,29 @@ public class Home extends Fragment {
         dateTimeDisplay.setText(currDate);
         Greet();
 
-        Symptoms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveTo = new Intent(getActivity(), OngoingPsycProb.class);
-                startActivity(moveTo);
-            }
+        Symptoms.setOnClickListener(v -> {
+            Intent moveTo = new Intent(getActivity(), OngoingPsycProb.class);
+            startActivity(moveTo);
         });
-        Explore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveTo = new Intent(getActivity(), MyStats.class);
-                startActivity(moveTo);
-            }
+        Explore.setOnClickListener(v -> {
+            Intent moveTo = new Intent(getActivity(), MyStats.class);
+            startActivity(moveTo);
+        });
+        Support.setOnClickListener(v -> {
+            Intent moveTo = new Intent(getActivity(), SupportServices.class);
+            startActivity(moveTo);
+        });
+        Recommended.setOnClickListener(v -> {
+            Intent moveTo = new Intent(getActivity(), Recommendations.class);
+            startActivity(moveTo);
         });
 
-        Happy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkInLimit();
-            }
-        });
-        Sad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkInLimit();
-            }
-        });
-        Angry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkInLimit();
-            }
-        });
-        Stressed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkInLimit();
-            }
-        });
-        Excited.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkInLimit();
-            }
-        });
-        checkInBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkInLimit();
-            }
-        });
+        Happy.setOnClickListener(v -> checkInLimit());
+        Sad.setOnClickListener(v -> checkInLimit());
+        Angry.setOnClickListener(v -> checkInLimit());
+        Stressed.setOnClickListener(v -> checkInLimit());
+        Excited.setOnClickListener(v -> checkInLimit());
+        checkInBtn.setOnClickListener(v -> checkInLimit());
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -153,12 +122,7 @@ public class Home extends Fragment {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
-        messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            }
-        });
+        messageBox.setOnCancelListener(dialog -> getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE));
 
         return rootView;
     }

@@ -36,7 +36,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:srcCompat="@drawable/ic_baseline_down_24" />
+                app:srcCompat="@drawable/ic_baseline_down" />
 
             <TextView
                 android:id="@+id/dateViewStats"

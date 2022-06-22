@@ -28,16 +28,16 @@
     <string name="login_here_str">Log In</string>
 
     <!--  on_boarding_titles_strings  -->
-    <string name="title1_str">Screen 1</string>
-    <string name="title2_str">Screen 2</string>
-    <string name="title3_str">Screen 3</string>
-    <string name="title4_str">Screen 4</string>
+    <string name="title1_str">Insights With Intelligent Analysis</string>
+    <string name="title2_str">Education cope and accept everyday</string>
+    <string name="title3_str">Moods and Thoughts Tracking</string>
+    <string name="title4_str">Progress Based Recommendations</string>
 
     <!--  on_boarding_description_strings  -->
-    <string name="desc1_str">Description 1</string>
-    <string name="desc2_str">Description 2</string>
-    <string name="desc3_str">Description 3</string>
-    <string name="desc4_str">Description 4</string>
+    <string name="desc1_str">Gain insights of your mental health with intelligent analysis</string>
+    <string name="desc2_str">Learn powerful techniques to help you relax in overwhelming situations</string>
+    <string name="desc3_str">Track your Moods &amp; Thoughts and get progressive stats through trends</string>
+    <string name="desc4_str">Get recommendations based on your progressive stats, tailored to your specific needs</string>
 
 
     <string name="facebook_app_id">722707542287400</string>

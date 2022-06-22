@@ -16,12 +16,15 @@
 
     <TextView
         android:id="@+id/sliderTitle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/alfa_slab_one"
         android:gravity="center"
+        android:letterSpacing="0.1"
         android:text="title"
+        android:layout_marginBottom="20dp"
         android:textColor="@color/TextColorPrimary"
-        android:textSize="@dimen/TextsizeToolbar"
+        android:textSize="@dimen/TextsizeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sliderImage" />

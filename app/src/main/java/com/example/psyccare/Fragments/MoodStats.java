@@ -74,12 +74,7 @@ public class MoodStats extends Fragment {
         } else {
             Toast.makeText(getActivity(), "You're device is not connected to internet", Toast.LENGTH_LONG).show();
         }
-        messageBox.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            }
-        });
+        messageBox.setOnCancelListener(dialog -> getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE));
         return rootView;
     }
 

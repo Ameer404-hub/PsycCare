@@ -66,14 +66,15 @@ public class ThoughtTab extends Fragment {
 
     private TextClassificationClient client;
     Handler handler;
-    DatabaseReference referenceToThoughtCheckin, referenceToMonthCheckin, referenceToDailyCheckin;
+    DatabaseReference referenceToThoughtCheckin, referenceToMonthCheckin, referenceToDailyCheckin, referenceToRecommendations;
     ProgressDialog messageBox;
     LineChart lineChart;
     PieChart pieChart;
     TextView openTFullStatsLC, openTFullStatsPC;
     String monthNode, dateNode, HighValueLable, HighValue, tapVal, tapDBVal, tapDBDate, lineChartDay, lineChartDate, allCheckInStat, classifiedAs, perCent;
     String[] lineChartDays, lineChartDates, lineChartvals, pieChartLables;
-    int entryCount = 0, lineChartCount = 0, pieChartCount = 0, alertBoxCount1 = 0, alertBoxCount2 = 0, dailyCheckCount = 0, valExistCount = 0, loopCount = 1;
+    int entryCount = 0, lineChartCount = 0, pieChartCount = 0, alertBoxCount1 = 0, alertBoxCount2 = 0, dailyCheckCount = 0,
+            valExistCount = 0, loopCount = 1, sPositive, sConfident, sDistrust, sNegative;
     Float Postive = 0f, Negative = 0f, Emotional = 0f, Blaming = 0f, Fear = 0f, Catastrophic = 0f, Calamitous = 0f, Assertive = 0f, Affirmative = 0f,
             Optimistic = 0f, Pessemistic = 0f, Inferring = 0f, Disgust = 0f, Other = 0f, NotSure = 0f;
 
@@ -108,6 +109,8 @@ public class ThoughtTab extends Fragment {
 
         referenceToThoughtCheckin = FirebaseDatabase.getInstance().getReference("User")
                 .child(FirebaseAuth.getInstance().getUid()).child("ThoughtCheckIns");
+        referenceToRecommendations = FirebaseDatabase.getInstance().getReference("User")
+                .child(FirebaseAuth.getInstance().getUid()).child("RecommendationsData");
 
         pieChart = rootView.findViewById(R.id.tPieChart);
         lineChart = rootView.findViewById(R.id.tLineChart);
@@ -436,13 +439,23 @@ public class ThoughtTab extends Fragment {
                                                         Log.v("valExistCount", String.valueOf(valExistCount));
                                                         if (valExistCount >= 7) {
                                                             if (Postive > 0 || Calamitous > 0 || Optimistic > 0)
-                                                                entries.add(new PieEntry(Math.round(((Postive + Calamitous + Optimistic ) / dailyCheckCount) * 100), "Postive"));
+                                                                entries.add(new PieEntry(Math.round(((Postive + Calamitous + Optimistic ) / dailyCheckCount) * 100), "Positive"));
                                                             if (Affirmative > 0 || Assertive > 0 || Inferring > 0)
                                                                 entries.add(new PieEntry(Math.round(((Affirmative + Assertive + Inferring) / dailyCheckCount) * 100), "Confident"));
                                                             if (Emotional > 0 || Fear > 0 || Blaming > 0)
                                                                 entries.add(new PieEntry(Math.round(((Emotional + Fear + Blaming) / dailyCheckCount) * 100), "Distrust"));
                                                             if (Disgust > 0 || Pessemistic > 0 || Catastrophic > 0)
                                                                 entries.add(new PieEntry(Math.round(((Disgust + Pessemistic + Catastrophic) / dailyCheckCount) * 100), "Negative"));
+
+                                                            sPositive = Math.round(((Postive + Calamitous + Optimistic ) / dailyCheckCount) * 100);
+                                                            sConfident = Math.round(((Affirmative + Assertive + Inferring) / dailyCheckCount) * 100);
+                                                            sDistrust = Math.round(((Emotional + Fear + Blaming) / dailyCheckCount) * 100);
+                                                            sNegative = Math.round(((Disgust + Pessemistic + Catastrophic) / dailyCheckCount) * 100);
+
+                                                            referenceToRecommendations.child("ThoughtsData").child("Positive").setValue(sPositive);
+                                                            referenceToRecommendations.child("ThoughtsData").child("Confident").setValue(sConfident);
+                                                            referenceToRecommendations.child("ThoughtsData").child("Distrust").setValue(sDistrust);
+                                                            referenceToRecommendations.child("ThoughtsData").child("Negative").setValue(sNegative);
 
                                                             ArrayList<Integer> colors = new ArrayList<>();
                                                             for (int color : ColorTemplate.MATERIAL_COLORS) {

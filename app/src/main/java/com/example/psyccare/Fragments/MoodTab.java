@@ -63,14 +63,15 @@ public class MoodTab extends Fragment {
 
     private TextClassificationClient client;
     Handler handler;
-    DatabaseReference referenceToMoodCheckin, referenceToMonthCheckin, referenceToDailyCheckin;
+    DatabaseReference referenceToMoodCheckin, referenceToMonthCheckin, referenceToDailyCheckin, referenceToRecommendations;
     ProgressDialog messageBox;
     LineChart lineChart;
     PieChart pieChart;
     TextView openMFullStatsLC, openMFullStatsPC;
     String monthNode, dateNode, HighValueLable, HighValue, tapVal, tapDBVal, tapDBDate, lineChartDay, lineChartDate, allCheckInStat, classifiedAs, perCent;
     String[] lineChartDays, lineChartDates, lineChartvals, pieChartLables;
-    int entryCount = 0, lineChartCount = 0, pieChartCount = 0, alertBoxCount1 = 0, alertBoxCount2 = 0, dailyCheckCount = 0, valExistCount = 0, loopCount = 1;
+    int entryCount = 0, lineChartCount = 0, pieChartCount = 0, alertBoxCount1 = 0, alertBoxCount2 = 0, dailyCheckCount = 0,
+            valExistCount = 0, loopCount = 1, sCheerful, sDepression, sAnxiety, sStress, sPeaceful;
     Float Happy = 0f, Sad = 0f, Angry = 0f, Anxious = 0f, Excited = 0f, Stressed = 0f, Awesome = 0f, Terrible = 0f, Tired = 0f,
             Hopeful = 0f, Okay = 0f, Calm = 0f, Satisfied = 0f, Frustrated = 0f, NotSure = 0f;
 
@@ -129,6 +130,8 @@ public class MoodTab extends Fragment {
 
         referenceToMoodCheckin = FirebaseDatabase.getInstance().getReference("User")
                 .child(FirebaseAuth.getInstance().getUid()).child("MoodCheckIns");
+        referenceToRecommendations = FirebaseDatabase.getInstance().getReference("User")
+                .child(FirebaseAuth.getInstance().getUid()).child("RecommendationsData");
 
         if (isConnected()) {
             messageBox.show();
@@ -453,6 +456,18 @@ public class MoodTab extends Fragment {
                                                                 entries.add(new PieEntry(Math.round(((Stressed + Terrible + Tired + Frustrated) / dailyCheckCount) * 100), "Stress"));
                                                             if (Okay > 0 || Calm > 0 || Satisfied > 0)
                                                                 entries.add(new PieEntry(Math.round(((Okay + Calm + Satisfied) / dailyCheckCount) * 100), "Peaceful"));
+
+                                                            sCheerful = Math.round(((Happy + Awesome + Hopeful + Excited) / dailyCheckCount) * 100);
+                                                            sDepression = Math.round(((Sad + Tired) / dailyCheckCount) * 100);
+                                                            sAnxiety = Math.round(((Angry + Anxious) / dailyCheckCount) * 100);
+                                                            sStress = Math.round(((Stressed + Terrible + Tired + Frustrated) / dailyCheckCount) * 100);
+                                                            sPeaceful = Math.round(((Okay + Calm + Satisfied) / dailyCheckCount) * 100);
+
+                                                            referenceToRecommendations.child("MoodsData").child("Cheerful").setValue(sCheerful);
+                                                            referenceToRecommendations.child("MoodsData").child("Depression").setValue(sDepression);
+                                                            referenceToRecommendations.child("MoodsData").child("Anxiety").setValue(sAnxiety);
+                                                            referenceToRecommendations.child("MoodsData").child("Stress").setValue(sStress);
+                                                            referenceToRecommendations.child("MoodsData").child("Peaceful").setValue(sPeaceful);
 
                                                             ArrayList<Integer> colors = new ArrayList<>();
                                                             for (int color : ColorTemplate.MATERIAL_COLORS) {

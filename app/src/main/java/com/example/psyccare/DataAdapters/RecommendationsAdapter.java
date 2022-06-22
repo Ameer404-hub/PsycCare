@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,31 +32,32 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.DiscoverViewHolder> {
+public class RecommendationsAdapter extends RecyclerView.Adapter<RecommendationsAdapter.RecommendationsViewHolder> {
 
     Context context;
     ArrayList<DiscoverDataModel> discoverData;
     String firstNode, discoverTitle, dbTitle, dbContent, imageLink;
 
-    public DiscoverAdapter(Context context, ArrayList<DiscoverDataModel> discoverData) {
+    public RecommendationsAdapter(Context context, ArrayList<DiscoverDataModel> discoverData) {
         this.context = context;
         this.discoverData = discoverData;
     }
 
     @NonNull
     @Override
-    public DiscoverViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.discover_card_design, parent, false);
-        DiscoverViewHolder discoverViewHolder = new DiscoverViewHolder(view);
+    public RecommendationsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.recommend_card_design, parent, false);
+        RecommendationsViewHolder recommendationsViewHolder = new RecommendationsViewHolder(view);
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_anim);
         view.startAnimation(animation);
-        return discoverViewHolder;
+        return recommendationsViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DiscoverViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecommendationsViewHolder holder, int position) {
         DiscoverDataModel items = discoverData.get(position);
         holder.title.setText(items.getTitle());
+        holder.Summary.setText("A confidence boosting journal, great for beginners!");
         Glide.with(context).load(discoverData.get(position).getImageUri()).into(holder.image);
     }
 
@@ -64,20 +66,20 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
         return discoverData.size();
     }
 
-    public class DiscoverViewHolder extends RecyclerView.ViewHolder {
+    public class RecommendationsViewHolder extends RecyclerView.ViewHolder {
 
-        LinearLayout tapCard;
+        RelativeLayout tapLayout;
         ImageView image;
-        TextView title;
+        TextView title, Summary;
         DatabaseReference referenceToDiscover, referenceToFirstNode;
         ProgressDialog messageBox;
 
-        public DiscoverViewHolder(@NonNull View itemView) {
+        public RecommendationsViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            tapCard = itemView.findViewById(R.id.tapCardToShow);
+            tapLayout = itemView.findViewById(R.id.tapToShow);
             image = itemView.findViewById(R.id.cardImage);
-            title = itemView.findViewById(R.id.cardText);
+            title = itemView.findViewById(R.id.cardHeading);
+            Summary = itemView.findViewById(R.id.cardSummary);
             referenceToDiscover = FirebaseDatabase.getInstance().getReference("DiscoverData");
 
             messageBox = new ProgressDialog(context);
@@ -87,7 +89,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
 
             messageBox.setOnCancelListener(dialog -> ((Activity) context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE));
 
-            tapCard.setOnClickListener(v -> {
+            tapLayout.setOnClickListener(v -> {
                 messageBox.show();
                 ((Activity) context).getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);

@@ -23,7 +23,10 @@ import android.widget.Toast;
 import com.example.psyccare.HomeContainer;
 import com.example.psyccare.Login;
 import com.example.psyccare.MyStats;
+import com.example.psyccare.OngoingPsycProb;
 import com.example.psyccare.R;
+import com.example.psyccare.Recommendations;
+import com.example.psyccare.SupportServices;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -64,25 +67,30 @@ public class More extends Fragment {
 
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), GoogleSignInOptions.DEFAULT_SIGN_IN);
 
-        Stats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveTo = new Intent(getActivity(), MyStats.class);
-                startActivity(moveTo);
-            }
+        Stats.setOnClickListener(v -> {
+            Intent moveTo = new Intent(getActivity(), MyStats.class);
+            startActivity(moveTo);
         });
-        logOut.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                if (isConnected(More.this)) {
-                    messageBox.show();
-                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    userLogOut();
-                } else {
-                    Toast.makeText(getActivity(), "You're device is not connected to internet", Toast.LENGTH_LONG).show();
-                }
+        crisisSupport.setOnClickListener(v -> {
+            Intent moveTo = new Intent(getActivity(), SupportServices.class);
+            startActivity(moveTo);
+        });
+        psycProbs.setOnClickListener(v -> {
+            Intent moveTo = new Intent(getActivity(), OngoingPsycProb.class);
+            startActivity(moveTo);
+        });
+        recommend.setOnClickListener(v -> {
+            Intent moveTo = new Intent(getActivity(), Recommendations.class);
+            startActivity(moveTo);
+        });
+        logOut.setOnClickListener(view -> {
+            if (isConnected(More.this)) {
+                messageBox.show();
+                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                userLogOut();
+            } else {
+                Toast.makeText(getActivity(), "You're device is not connected to internet", Toast.LENGTH_LONG).show();
             }
         });
 

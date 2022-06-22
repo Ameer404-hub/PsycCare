@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ScreenBGcolorPrimary"
+    tools:context=".Recommendations">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ToolbarColorSecondary"
+        android:elevation="2dp"
+        android:theme="@style/Theme.PsycCare"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#FFFFFF">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fontFamily="@font/corben_bold"
+            android:text="Recommendations"
+            android:textColor="@color/ToolbarTextColorPrimary"
+            android:textSize="@dimen/TextsizeToolbar" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_baseline_notification_24" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/recommendScroll"
+        android:layout_width="match_parent"
+        android:layout_height="670dp"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:padding="0dp">
+
+            <RelativeLayout
+                android:id="@+id/recommendSec1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp">
+
+                <TextView
+                    android:id="@+id/headingSec1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:gravity="center"
+                    android:letterSpacing="0.1"
+                    android:text="Section 1"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizePrimary"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recommendSec1View"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/headingSec1"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/recommendSec2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp">
+
+                <TextView
+                    android:id="@+id/headingSec2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:gravity="center"
+                    android:letterSpacing="0.1"
+                    android:text="Section 2"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizePrimary" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recommendSec2View"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/headingSec2"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/recommendSec3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/headingSec3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:gravity="center"
+                    android:letterSpacing="0.1"
+                    android:text="Section 3"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizePrimary" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recommendSec3View"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/headingSec3"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/recommendSec4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/headingSec4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:gravity="center"
+                    android:letterSpacing="0.1"
+                    android:text="Section 4"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizePrimary" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recommendSec4View"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/headingSec4"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/recommendSec5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/headingSec5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:gravity="center"
+                    android:letterSpacing="0.1"
+                    android:text="Section 5"
+                    android:textColor="@color/TextColorPrimary"
+                    android:textSize="@dimen/TextsizePrimary" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recommendSec5View"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/headingSec5"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

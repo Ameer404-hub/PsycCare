@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ScreenBGcolorPrimary"
+    tools:context=".SupportServices">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ToolbarColorSecondary"
+        android:elevation="2dp"
+        android:theme="@style/Theme.PsycCare"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#FFFFFF">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fontFamily="@font/corben_bold"
+            android:text="Crisis &amp; Support Services"
+            android:textColor="@color/ToolbarTextColorPrimary"
+            android:textSize="@dimen/TextsizeToolbar" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/psycProbLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_support" />
+
+        <RelativeLayout
+            android:id="@+id/nearbyPsyc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_for_cardview"
+            android:clickable="true"
+            android:elevation="5dp"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/clinicImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/icon_consult" />
+
+            <TextView
+                android:id="@+id/serviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/clinicImage"
+                android:text="Nearby Psychiatric Clinics"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="@dimen/TextsizeToolbar" />
+
+            <TextView
+                android:id="@+id/serviceDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/serviceName"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/clinicImage"
+                android:text="Find nearby psychiatrics to consult and discuss you progress"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="@dimen/TextsizeSmall" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnClinics"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/serviceDesc"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="@color/ButtonColorPrimary"
+                android:fontFamily="@font/metrophobic"
+                android:gravity="center"
+                android:letterSpacing="0"
+                android:onClick="searchNearbyClinics"
+                android:text="Find Near by Psychiatric Clinics"
+                android:textAllCaps="false"
+                android:textColor="@color/ButtonTextColorPrimary"
+                android:textSize="@dimen/TextsizePrimary"
+                app:cornerRadius="20dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/emergencyService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_for_cardview"
+            android:elevation="5dp"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/rescueImage"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/icon_rescue" />
+
+            <TextView
+                android:id="@+id/serviceName1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/rescueImage"
+                android:text="Emergency &amp; Rescue Services"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="@dimen/TextsizeToolbar" />
+
+            <TextView
+                android:id="@+id/serviceDesc1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/serviceName1"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/rescueImage"
+                android:text="Get emergency and rescue service in threating circumstances"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="@dimen/TextsizeSmall" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAmbulance"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/serviceDesc1"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="@color/ButtonColorPrimary"
+                android:fontFamily="@font/metrophobic"
+                android:gravity="center"
+                android:letterSpacing="0"
+                android:onClick="callAmbulance"
+                android:text="Ambulance Service"
+                android:textAllCaps="false"
+                android:textColor="@color/ButtonTextColorPrimary"
+                android:textSize="@dimen/TextsizePrimary"
+                app:cornerRadius="20dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFire"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnAmbulance"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="@color/ButtonColorPrimary"
+                android:fontFamily="@font/metrophobic"
+                android:gravity="center"
+                android:letterSpacing="0"
+                android:onClick="callFireBrigade"
+                android:text="Fire Brigade Service"
+                android:textAllCaps="false"
+                android:textColor="@color/ButtonTextColorPrimary"
+                android:textSize="@dimen/TextsizePrimary"
+                app:cornerRadius="20dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPolice"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnFire"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="@color/ButtonColorPrimary"
+                android:fontFamily="@font/metrophobic"
+                android:gravity="center"
+                android:letterSpacing="0"
+                android:onClick="callPolice"
+                android:text="Police Service"
+                android:textAllCaps="false"
+                android:textColor="@color/ButtonTextColorPrimary"
+                android:textSize="@dimen/TextsizePrimary"
+                app:cornerRadius="20dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
